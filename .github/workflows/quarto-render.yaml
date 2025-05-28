@@ -27,6 +27,10 @@ jobs:
           use-public-rspm: true
 
       - uses: r-lib/actions/setup-renv@v2
+
+      - name: Install tinytex
+        run: |
+          quarto install tinytex      
       
       - name: Publish to GitHub Pages (and render)
         uses: quarto-dev/quarto-actions/publish@v2
