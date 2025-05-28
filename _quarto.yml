@@ -14,10 +14,21 @@ language:
 book:
   title: "Análise de dados para o Planejamento Territorial"
   subtitle: "ESHT011-21 - 2025"
-  date: "5/28/2025"
+  site-url: "https://beatrizmilz.github.io/ESHT011-21-analise-dados-planejamento-territorial/"
+  repo-url: "https://github.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial"  
+  date: "6/2/2025"
+  repo-branch: main
+  repo-actions: [edit, issue]  
   chapters:
     - index.qmd
     - praticas/01_intro_r_rstudio.qmd
+    - praticas/02_conceitos-basicos-r.qmd    
+    # - praticas/02_analise-exploratoria_i.qmd
+    # - praticas/03_analise-exploratoria_ii.qmd    
+    # - praticas/04_correlacao.qmd
+    # - praticas/06_regressao-linear.qmd    
+    # - praticas/07_regressao-espacial.qmd        
+    # 
 
 bibliography: references.bib
 
@@ -26,6 +37,7 @@ format:
     theme:
       - cosmo
       - brand
+    code-link: true
   # pdf:
   #   documentclass: scrreprt
 

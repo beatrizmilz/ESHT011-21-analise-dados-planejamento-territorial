@@ -24,13 +24,11 @@ Porém o `R Console` não é muito amigável para escrever códigos complexos ou
 
 ## O que é o RStudio?
 
-<img src="images/00_RStudio_logo.png" align="right" width="120px" class = "img-rstudio">
+<img src="images/00_RStudio_logo.png" class="img-rstudio" align="right" width="120px"/>
 
 O RStudio é um IDE focada em programação em R, e é desenvolvido pela [Posit](https://posit.co/). Ele facilita a escrita de códigos, execução de scripts, e visualização dos resultados.
 
 Existem algumas versões do RStudio. Neste curso, utilizaremos o [RStudio Desktop](https://posit.co/download/rstudio-desktop/), pois é a versão de código aberto (portanto é gratuita). Daqui em diante, sempre que mencionarmos "RStudio", estaremos nos referindo ao RStudio Desktop.
-
-
 
 ## Instalando o R e o RStudio
 
@@ -58,13 +56,15 @@ Caso o seu computador tenha limitações para instalação de programas, você p
 O vídeo abaixo apresenta um tutorial sobre como utilizar o Posit Cloud:
 
 <center>
+
 <iframe width="560" height="315" src="https://www.youtube.com/embed/N-GJowa-V0o?si=Ohy9cbx9GSUrnIn_" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+
 </iframe>
+
 </center>
 :::
 
 ## Conhecendo o RStudio
-
 
 Ao abrir o RStudio, veremos a seguinte tela:
 
@@ -170,7 +170,6 @@ Para instalar um pacote, utilizamos a função `install.packages()` e informando
 install.packages("tidyverse") 
 ```
 
-
 Apenas precisamos instalar um pacote uma vez.
 
 Depois de instalado, podemos carregá-lo com a função `library()`, para que as funções do pacote fiquem disponíveis para uso:
@@ -179,7 +178,6 @@ Depois de instalado, podemos carregá-lo com a função `library()`, para que as
 # Carregar o pacote tidyverse
 library(tidyverse) 
 ```
-
 
 Precisamos carregar o pacote sempre que abrirmos um novo script, ou quando reiniciamos o RStudio. Uma pratica frequente é carregar os principais pacotes necessários no início do script.
 
@@ -210,7 +208,6 @@ help(mean)
 ?mean  
 ```
 
-
 -   Para fazer uma por funções presentes em todos os pacotes instalados no computador, podemos utilizar o operador `??`, seguido pelo termo que queremos buscar (ex: `??mean`). Essa é uma busca mais ampla, que procura pelo termo no nome e na descrição das funções.
 
 ```{r}
@@ -218,7 +215,6 @@ help(mean)
 # Buscar por funções que contenham o termo "mean"
 ??mean 
 ```
-
 
 -   Podemos utilizar o painel Help para buscar informações sobre funções e pacotes:
 
