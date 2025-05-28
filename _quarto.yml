@@ -16,7 +16,7 @@ book:
   subtitle: "ESHT011-21 - 2025"
   site-url: "https://beatrizmilz.github.io/ESHT011-21-analise-dados-planejamento-territorial/"
   repo-url: "https://github.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial"  
-  date: "6/2/2025"
+  date: last-modified
   repo-branch: main
   repo-actions: [edit, issue]  
   chapters:
