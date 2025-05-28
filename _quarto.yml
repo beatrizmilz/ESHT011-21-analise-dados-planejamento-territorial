@@ -38,8 +38,8 @@ format:
       - cosmo
       - brand
     code-link: true
-  # pdf:
-  #   documentclass: scrreprt
+  pdf:
+    documentclass: scrreprt
 
 editor: visual
 
