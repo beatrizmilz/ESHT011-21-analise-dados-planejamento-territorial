@@ -1,0 +1,40 @@
+project:
+  type: book
+  output-dir: docs
+
+execute:
+  freeze: auto
+  
+lang: pt 
+language:
+  title-block-author-single: "Docente"
+  title-block-author-plural: "Docentes" 
+  title-block-published: "Atualizado em"
+
+book:
+  title: "Análise de dados para o Planejamento Territorial"
+  subtitle: "ESHT011-21 - 2025"
+  date: "5/28/2025"
+  chapters:
+    - index.qmd
+    - praticas/01_intro_r_rstudio.qmd
+
+bibliography: references.bib
+
+format:
+  html:
+    theme:
+      - cosmo
+      - brand
+  # pdf:
+  #   documentclass: scrreprt
+
+editor: visual
+
+author:
+  - name: "Flávia da Fonseca Feitosa"
+    url: "https://sig.ufabc.edu.br/sigaa/public/docente/portal.jsf?siape=2064223"
+    email: "flavia.feitosa@ufabc.edu.br"
+  - name: "Beatriz Milz"
+    url: "https://www.beamilz.com/"
+    email: "milz.bea@gmail.com"

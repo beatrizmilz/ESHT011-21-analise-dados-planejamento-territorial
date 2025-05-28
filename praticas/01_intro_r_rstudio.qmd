@@ -1,0 +1,281 @@
+---
+title: "Introdução ao R e RStudio"
+---
+
+## Introdução
+
+Ao longo deste curso, os softwares R e RStudio serão usados como uma **ferramenta** para auxiliar na aplicação de **métodos e técnicas de análise da informação no planejamento**, uma etapa fundamental em pesquisas que buscam o aumento da compreensão de questões no nosso campo de interesse.
+
+É importante ressaltar o uso do R e do RStudio não pode ser dissociado do **processo de pesquisa**, que envolve a observação, formulação de hipóteses, coleta de dados e **análise de dados**, sendo este o foco deste curso.
+
+## O que é o R?
+
+R é uma **linguagem de programação** com o foco em estatística, análise e visualização de dados.
+
+Ela é uma linguagem de código aberto, o que significa que qualquer pessoa pode utilizá-la gratuitamente. Além disso, as pessoas com mais experiência na linguagem podem contribuir com o desenvolvimento de novas funcionalidades e pacotes.
+
+Caso queira saber mais sobre a linguagem R, [acesse o site oficial (R-Project)](https://www.r-project.org/about.html).
+
+Ao instalar o R, você terá acesso a um programa chamado "R Console" que permite escrever e executar códigos em R:
+
+![Captura de tela do R Console no Windows](images/01_r_console_windows.jpg){fig-align="center"}
+
+Porém o `R Console` não é muito amigável para escrever códigos complexos ou realizar análises de dados. Por isso, é recomendado utilizar um ambiente de desenvolvimento integrado (IDE). A IDE mais utilizada por pessoas que programam em R é o RStudio.
+
+## O que é o RStudio?
+
+<img src="images/00_RStudio_logo.png" align="right" width="120px" class = "img-rstudio">
+
+O RStudio é um IDE focada em programação em R, e é desenvolvido pela [Posit](https://posit.co/). Ele facilita a escrita de códigos, execução de scripts, e visualização dos resultados.
+
+Existem algumas versões do RStudio. Neste curso, utilizaremos o [RStudio Desktop](https://posit.co/download/rstudio-desktop/), pois é a versão de código aberto (portanto é gratuita). Daqui em diante, sempre que mencionarmos "RStudio", estaremos nos referindo ao RStudio Desktop.
+
+
+
+## Instalando o R e o RStudio
+
+Durante as aulas, utilizaremos os computadores do laboratório da universidade. Porém, caso você tenha acesso a um computador pessoal, recomendamos que instale o R e o RStudio nele, para praticar fora do período das aulas.
+
+### Instalação do R
+
+Para instalar o R, acesse o site [CRAN](https://cran.r-project.org/) e escolha o link de download de acordo com o seu sistema operacional:
+
+[![Captura de tela do site CRAN](images/01_cran.png){fig-align="center"}](https://cran.r-project.org/)
+
+Instale o R utilizando o instalador baixado.
+
+### Instalação do RStudio
+
+Após instalar o R, acesse o site [RStudio Desktop](https://posit.co/download/rstudio-desktop/) e escolha o link de download de acordo com o seu sistema operacional:
+
+[![Captura de tela do site RStudio Desktop](images/01_rstudio_desktop.png){fig-align="center"}](https://posit.co/download/rstudio-desktop/)
+
+Instale o RStudio utilizando o instalador baixado.
+
+::: callout-tip
+Caso o seu computador tenha limitações para instalação de programas, você pode utilizar o [Posit Cloud](https://posit.cloud/), uma versão online do RStudio. Entretanto, a versão gratuita do Posit Cloud tem algumas limitações, como limite de tempo de uso (25 horas por mês) e de memória RAM (1 GB).
+
+O vídeo abaixo apresenta um tutorial sobre como utilizar o Posit Cloud:
+
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/N-GJowa-V0o?si=Ohy9cbx9GSUrnIn_" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+</iframe>
+</center>
+:::
+
+## Conhecendo o RStudio
+
+
+Ao abrir o RStudio, veremos a seguinte tela:
+
+![Captura de tela do RStudio](images/01_rstudio_3_paineis.png){fig-align="center"} Aos poucos, conheceremos os painéis e funcionalidades do RStudio. Neste momento, podemos destacar os três painéis que são apresentados:
+
+-   **Console**: painel onde os códigos são executados. É similar ao "R Console", citado anteriormente.
+
+-   **Environment**: painel onde as variáveis e dados carregados ficam listados.
+
+-   **Files**: painel onde podemos navegar por arquivos no computador. A página inicial é o diretório de trabalho: esse conceito será explicado mais adiante.
+
+## Scripts
+
+No RStudio, podemos escrever e executar códigos no Console, porém os códigos são perdidos quando fechamos o programa. Para salvar os códigos e reutilizá-los posteriormente, utilizamos scripts.
+
+Os scripts são arquivos de texto onde podemos escrever códigos R e salvá-los para utilizar posteriormente. É recomendado que qualquer código que você deseje reutilizar ou que seja importante para a análise que você fizer seja salvo em um script.
+
+Existem algumas formas de criar um novo script:
+
+-   No menu superior, clicando em `File > New File > R Script`.
+
+-   Utilizando o atalho `Ctrl + Shift + N` (Windows) ou `Cmd + Shift + N` (Mac).
+
+-   Clicando no ícone de um arquivo com um sinal de `+` no canto superior esquerdo do RStudio e selecionando `R Script`:
+
+![Captura de tela do RStudio: Opção para criar novo Script](images/01_rstudio_new_script.jpg){fig-align="center"}
+
+Após abrir um script, o RStudio exibirá 4 paineis:
+
+![Captura de tela do RStudio](images/01_rstudio_4_paineis.png){fig-align="center"}
+
+::: callout-tip
+O script é um arquivo salvo no nosso computador. Lembre-se de salvar os scripts com frequência para evitar perder o nosso trabalho.
+
+Podemos salvar um script de algumas formas, como:
+
+-   Clicando em `File > Save` no menu superior.
+
+-   Clicando no ícone do disquete (![](images/01_disquete.png)).
+
+-   Utilizando o atalho `Ctrl + S` (Windows) ou `Cmd + S` (Mac).
+:::
+
+### Como executar os códigos?
+
+Podemos escrever e executar códigos no Console ou em um script.
+
+No Console, escrevemos o código diretamente e pressionamos `Enter` para executá-lo.
+
+Em um Script, escrevemos o código e podemos executá-lo de algumas formas:
+
+-   Selecionando o trecho de código que queremos executar e clicando no botão `Run` do RStudio, ou utilizando o atalho `Ctrl + Enter` (Windows) ou `Cmd + Enter` (Mac).
+
+-   Clicando no trecho que queremos executar e clicando no botão `Run` do RStudio, ou utilizando o atalho `Ctrl + Enter` (Windows) ou `Cmd + Enter` (Mac).
+
+### Comentários
+
+Comentários são textos que não são executados pelo R. Podemos usar comentários para explicar o que um bloco de código faz, para anotar ideias e explicar escolhas feitas, ou para desativar temporariamente um trecho de código.
+
+No R, todo texto em uma linha após um hashtag (`#`) é um comentário. Por exemplo:
+
+```{r}
+# Este é um comentário
+```
+
+## Funções
+
+Agora que já sabemos onde escrever nossos códigos em R (no Console ou em um script), é importante entender o conceito de funções.
+
+Uma função é tipo de objeto no R, que quando executado, executa um bloco de código específico. As funções são úteis para evitar repetição de códigos e organizar o nosso trabalho.
+
+No R, existem muitas funções prontas que podemos utilizar. Por exemplo, a função `Sys.Date()` retorna a data atual do sistema:
+
+```{r}
+# Consutar a data atual do sistema (computador)
+Sys.Date()
+```
+
+Para utilizar uma função, escrevemos o nome dela seguido de parênteses. Dentro dos parênteses, podemos colocar dados e informações úteis para a função executar a tarefa desejada, e são chamados de **argumentos**.
+
+Por exemplo, a função `sqrt()` calcula a raiz quadrada de um número. Para utilizá-la, podemos escrever `sqrt()` e informar esse número entre parênteses:
+
+```{r}
+# Calcular a raiz quadrada de 25
+sqrt(25)
+```
+
+::: callout-tip
+Ao adquirir experiência com o R, podemos criar nossas próprias funções. Isso é útil para automatizar tarefas repetitivas e para organizar o código.
+:::
+
+## Pacotes
+
+Pacotes do R são coleções de funções, dados e documentação que estendem a funcionalidade básica da linguagem.
+
+O [CRAN (*Comprehensive R Archive Network*)](https://cran.r-project.org/) é o repositório oficial de pacotes do R. Ele contém milhares de pacotes que podem ser instalados e utilizados gratuitamente. Em maio de 2025, o CRAN continha mais de 22.000 pacotes disponíveis.
+
+Para instalar um pacote, utilizamos a função `install.packages()` e informando o nome do pacote como texto entre aspas. Por exemplo, para instalar o pacote `{tidyverse}`, utilizamos o seguinte comando:
+
+```{r}
+#| eval: false
+# Instalar o pacote tidyverse
+install.packages("tidyverse") 
+```
+
+
+Apenas precisamos instalar um pacote uma vez.
+
+Depois de instalado, podemos carregá-lo com a função `library()`, para que as funções do pacote fiquem disponíveis para uso:
+
+```{r}
+# Carregar o pacote tidyverse
+library(tidyverse) 
+```
+
+
+Precisamos carregar o pacote sempre que abrirmos um novo script, ou quando reiniciamos o RStudio. Uma pratica frequente é carregar os principais pacotes necessários no início do script.
+
+::: callout-caution
+Uma outra forma de acessar uma função é utilizando o operador `::`. Por exemplo, para acessar a função `read_csv()` do pacote `{readr}`, podemos escrever `readr::read_csv()`.
+
+Essa sintaxe é menos frequente, porém útil para evitar problemas de conflito de funções com o mesmo nome em pacotes diferentes. Esse problema acontece mais frequentemente quando carregamos muitos pacotes em um mesmo script.
+
+Por exemplo: o pacote `{dplyr}` apresenta uma função `filter()`, e o pacote `{stats}` também apresenta uma função `filter()`. Se não usarmos o operador `::`, a função utilizada será a do pacote que foi carregado por último. Usando o operador `::`, podemos escolher qual função queremos utilizar.
+:::
+
+## Documentação
+
+As funções e pacotes do R apresentam textos com explicações e exemplos de uso, chamados de **documentação**.
+
+As documentações podem ser acessadas online, ou diretamente no RStudio.
+
+### Documentação no RStudio
+
+No RStudio, podemos acessar a documentação de uma função ou pacote das seguintes formas:
+
+-   Para buscar informações sobre funções de pacotes já carregados (com `library`), podemos utilizar a função `help()`, informando o nome da função que queremos buscar como argumento (ex: `help(mean)`), ou utilizar o operador `?`, seguido do nome da função (ex: `?mean`).
+
+```{r}
+#| eval: false
+# Abrir a documentação da função mean()
+help(mean)
+?mean  
+```
+
+
+-   Para fazer uma por funções presentes em todos os pacotes instalados no computador, podemos utilizar o operador `??`, seguido pelo termo que queremos buscar (ex: `??mean`). Essa é uma busca mais ampla, que procura pelo termo no nome e na descrição das funções.
+
+```{r}
+#| eval: false
+# Buscar por funções que contenham o termo "mean"
+??mean 
+```
+
+
+-   Podemos utilizar o painel Help para buscar informações sobre funções e pacotes:
+
+![Captura de tela do RStudio: Painel Help](images/01_rstudio_help.png){fig-align="center"}
+
+Além disso, a maioria dos pacotes vem com textos explicativos sobre como usá-los, chamadas de *vignettes*. Elas estão disponíveis online, mas também podem ser acessadas diretamente no RStudio.
+
+Para acessar no RStudio, podemos usar a função `browseVignettes()` para listar as *vignettes* disponíveis para um pacote específico. A lista será apresentada em uma janela do navegador (ex: Google Chrome, Firefox, Safari, etc):
+
+```{r}
+#| eval: false
+# Listar as vignettes do pacote dplyr
+browseVignettes("dplyr")
+```
+
+![Captura de tela: Lista de Vignettes do pacote dplyr](images/01_vignettes.png){fig-align="center"}
+
+### Documentação online
+
+Como citado anteriormente, é possível acessar a documentação dos pacotes diretamente no RStudio e também online. No geral, o conteúdo disponível online é igual ao disponível no RStudio, mas pode ser mais fácil de buscar e navegar.
+
+Uma forma de acessar a documentação online é fazendo uma busca no Google com os termos "`R documentation {nome da função}`". Por exemplo: "`R documentation mean()`".
+
+Alguns pacotes apresentam também sites próprios com documentações e *vignettes*.
+
+Por exemplo, o pacote `{dplyr}` (que usaremos no curso) tem um [site próprio](https://dplyr.tidyverse.org/index.html) onde conseguimos acessar a documentação. Os pacotes do tidyverse apresentam sites similares, com páginas com os seguintes conteúdos:
+
+-   Em [*Get started*](https://dplyr.tidyverse.org/articles/dplyr.html) encontramos uma introdução ao pacote, e exemplos de uso para quem quer aprender a usá-lo.
+
+-   Em [*Reference*](https://dplyr.tidyverse.org/reference/index.html), encontramos a lista de funções disponíveis no pacote, e podemos acessar a documentação de cada uma delas:
+
+![Captura de tela: Site do pacote dplyr - Reference](images/01_reference_dplyr.png){fig-align="center"}
+
+-   Em [*Articles*](https://dplyr.tidyverse.org/articles/index.html) podemos acessar as *vignettes*:
+
+![Captura de tela: Site do pacote dplyr - Vignettes](images/01_vignettes_dplyr.png){fig-align="center"}
+
+### Cheatsheets
+
+As *cheatsheets* (ou folhas de cola) são documentos resumidos com informações sobre funções e pacotes. Elas são úteis para consulta rápida.
+
+A Posit (empresa que desenvolve o RStudio) disponibiliza *cheatsheets* para diversos pacotes e tópicos. Elas podem ser acessadas no site [Posit Cheatsheets](https://posit.co/resources/cheatsheets/).
+
+A lista a seguir apresenta algumas *cheatsheets* sobre temas que serão abordados ao longo do curso:
+
+-   [RStudio IDE](https://github.com/rstudio/cheatsheets/blob/main/rstudio-ide.pdf)
+
+-   [Importação de dados com o tidyverse](https://github.com/rstudio/cheatsheets/blob/main/data-import.pdf)
+
+-   [Transformação de dados com dplyr](https://github.com/rstudio/cheatsheets/blob/main/data-transformation.pdf)
+
+-   [Visualização de dados com ggplot2](https://github.com/rstudio/cheatsheets/blob/main/data-visualization.pdf)
+
+-   [Arrumando dados com tidyr](https://github.com/rstudio/cheatsheets/blob/main/tidyr.pdf)
+
+## Sugestões de materiais
+
+-   Livro [R para Ciência de Dados 2ed](https://cienciadedatos.github.io/pt-r4ds/):
+    -   [Introdução \> Pré-requisitos em diante](https://cienciadedatos.github.io/pt-r4ds/intro.html#pr%C3%A9-requisitos)
+    -   [Fluxo de Trabalho: obtendo ajuda](https://cienciadedatos.github.io/pt-r4ds/workflow-help.html)

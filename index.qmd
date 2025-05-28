@@ -1,0 +1,30 @@
+
+## Introdução {.unnumbered}
+
+Boas vindas!
+
+Este site apresenta o material de apoio para aulas práticas da disciplina **"Análise de dados para o Planejamento Territorial"** e **"Métodos Quantitativos para Pesquisa em PGT"**, oferecido no segundo quadrimestre de 2025 na Universidade Federal do ABC (UFABC).
+
+
+<!-- ## Equipe do curso {.unnumbered} -->
+
+<!-- **Beatriz Milz** <br> -->
+<!-- *Pesquisadora Colaboradora | Estágio pós-doutoral* <br> -->
+<!-- [Laboratório de Planejamento Territorial (LaPlan)](https://laplan.pesquisa.ufabc.edu.br/) - Universidade Federal do ABC (UFABC) <br> -->
+<!-- [Email](mailto:milz.bea@gmail.com) | [Website](https://beamilz.com) | [GitHub](https://github.com/beatrizmilz) | [LinkedIn](https://www.linkedin.com/in/beatrizmilz/) | -->
+<!-- [ResearchGate](https://www.researchgate.net/profile/Beatriz-Milz) | [Currículo Lattes](http://lattes.cnpq.br/5150665880581477) | [Orcid](https://orcid.org/0000-0002-3064-4486) -->
+
+
+
+## Sobre este material {.unnumbered}
+
+Este material contém partes adaptadas de:
+
+- Material criado por [Luis Felipe Bortolatto Cunha](https://github.com/luisfelipebr/mti2020/tree/master), que atuou como professor Assistente (estágio docência) em oferecimentos anteriores da disciplina.
+
+- Material do curso [Introdução à análise de dados no R](https://ipeadata-lab.github.io/curso_r_intro_202409/), ministrado por Beatriz Milz, Pedro Cavalcanti e Rafael Pereira.
+
+
+### Licença {.unnumbered}
+
+Esse material está disponível sob a [licença CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).

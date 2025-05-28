@@ -1,0 +1,18 @@
+color:
+  palette:
+    dark-grey: "#282828"
+    yellow: "#fdb913"
+    write: "#ffffff"
+  background: white
+  foreground: dark-grey
+  primary: black
+
+logo: 
+  medium: cover.png
+
+typography:
+  fonts:
+    - family: Montserrat
+      source: google
+  base: Verdana
+  headings: Montserrat
