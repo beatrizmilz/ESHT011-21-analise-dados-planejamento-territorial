@@ -42,7 +42,7 @@ format:
     code-link: true
   pdf:
     documentclass: scrreprt
-    mainfont: Verdana
+   # mainfont: Verdana
 
 editor: visual
 
