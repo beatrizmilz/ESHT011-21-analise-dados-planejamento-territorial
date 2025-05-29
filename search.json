@@ -4,7 +4,17 @@
     "href": "index.html",
     "title": "Análise de dados para o Planejamento Territorial",
     "section": "",
-    "text": "Introdução\nBoas vindas!\nEste site apresenta o material de apoio para aulas práticas da disciplina “Análise de dados para o Planejamento Territorial” e “Métodos Quantitativos para Pesquisa em PGT”, oferecido no segundo quadrimestre de 2025 na Universidade Federal do ABC (UFABC).",
+    "text": "Introdução\nBoas vindas!\nEste site apresenta o material de apoio para aulas práticas das disciplinas “Análise de dados para o Planejamento Territorial” e “Métodos Quantitativos para Pesquisa em PGT”, oferecidas no segundo quadrimestre de 2025 na Universidade Federal do ABC (UFABC).\nO conteúdo das aulas teóricas está disponível no Moodle.",
+    "crumbs": [
+      "Introdução"
+    ]
+  },
+  {
+    "objectID": "index.html#calendário",
+    "href": "index.html#calendário",
+    "title": "Análise de dados para o Planejamento Territorial",
+    "section": "Calendário",
+    "text": "Calendário\n\n\n\nSemana\nPeríodo\nPráticas\n\n\n\n\n1\n02/06/2025 - 06/06/2025\nIntrodução ao R e RStudio\n\n\n1\n02/06/2025 - 06/06/2025\nLinguagem R",
     "crumbs": [
       "Introdução"
     ]
@@ -24,7 +34,7 @@
     "href": "praticas/01_intro_r_rstudio.html",
     "title": "1  Introdução ao R e RStudio",
     "section": "",
-    "text": "1.1 Introdução\nAo longo deste curso, os softwares R e RStudio serão usados como uma ferramenta para auxiliar na aplicação de métodos e técnicas de análise da informação no planejamento, uma etapa fundamental em pesquisas que buscam o aumento da compreensão de questões no nosso campo de interesse.\nÉ importante ressaltar o uso do R e do RStudio não pode ser dissociado do processo de pesquisa, que envolve a observação, formulação de hipóteses, coleta de dados e análise de dados, sendo este o foco deste curso.",
+    "text": "1.1 Introdução\nAo longo deste curso, os softwares R e RStudio serão usados como uma ferramenta para auxiliar na análise de dados para o planejamento territorial.\nÉ importante ressaltar o uso do R e do RStudio não pode ser dissociado do processo de pesquisa, que envolve a observação, formulação de hipóteses, coleta de dados e análise de dados, sendo este o foco deste curso.",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introdução ao R e RStudio</span>"
     ]
@@ -84,7 +94,7 @@
     "href": "praticas/01_intro_r_rstudio.html#funções",
     "title": "1  Introdução ao R e RStudio",
     "section": "1.7 Funções",
-    "text": "1.7 Funções\nAgora que já sabemos onde escrever nossos códigos em R (no Console ou em um script), é importante entender o conceito de funções.\nUma função é tipo de objeto no R, que quando executado, executa um bloco de código específico. As funções são úteis para evitar repetição de códigos e organizar o nosso trabalho.\nNo R, existem muitas funções prontas que podemos utilizar. Por exemplo, a função Sys.Date() retorna a data atual do sistema:\n\n# Consutar a data atual do sistema (computador)\nSys.Date()\n\n[1] \"2025-05-28\"\n\n\nPara utilizar uma função, escrevemos o nome dela seguido de parênteses. Dentro dos parênteses, podemos colocar dados e informações úteis para a função executar a tarefa desejada, e são chamados de argumentos.\nPor exemplo, a função sqrt() calcula a raiz quadrada de um número. Para utilizá-la, podemos escrever sqrt() e informar esse número entre parênteses:\n\n# Calcular a raiz quadrada de 25\nsqrt(25)\n\n[1] 5\n\n\n\n\n\n\n\n\nDica\n\n\n\nAo adquirir experiência com o R, podemos criar nossas próprias funções. Isso é útil para automatizar tarefas repetitivas e para organizar o código.",
+    "text": "1.7 Funções\nAgora que já sabemos onde escrever nossos códigos em R (no Console ou em um script), é importante entender o conceito de funções.\nUma função é tipo de objeto no R, que quando executado, executa um bloco de código específico. As funções são úteis para evitar repetição de códigos e organizar o nosso trabalho.\nNo R, existem muitas funções prontas que podemos utilizar. Por exemplo, a função Sys.Date() retorna a data atual do sistema:\n\n# Consutar a data atual do sistema (computador)\nSys.Date()\n\n[1] \"2025-05-29\"\n\n\nPara utilizar uma função, escrevemos o nome dela seguido de parênteses. Dentro dos parênteses, podemos colocar dados e informações úteis para a função executar a tarefa desejada, e são chamados de argumentos.\nPor exemplo, a função sqrt() calcula a raiz quadrada de um número. Para utilizá-la, podemos escrever sqrt() e informar esse número entre parênteses:\n\n# Calcular a raiz quadrada de 25\nsqrt(25)\n\n[1] 5\n\n\n\n\n\n\n\n\nDica\n\n\n\nAo adquirir experiência com o R, podemos criar nossas próprias funções. Isso é útil para automatizar tarefas repetitivas e para organizar o código.",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introdução ao R e RStudio</span>"
     ]
@@ -110,11 +120,11 @@
     ]
   },
   {
-    "objectID": "praticas/01_intro_r_rstudio.html#sugestões-de-materiais",
-    "href": "praticas/01_intro_r_rstudio.html#sugestões-de-materiais",
+    "objectID": "praticas/01_intro_r_rstudio.html#materiais-complementares",
+    "href": "praticas/01_intro_r_rstudio.html#materiais-complementares",
     "title": "1  Introdução ao R e RStudio",
-    "section": "1.10 Sugestões de materiais",
-    "text": "1.10 Sugestões de materiais\n\nLivro R para Ciência de Dados 2ed:\n\nIntrodução &gt; Pré-requisitos em diante\nFluxo de Trabalho: obtendo ajuda",
+    "section": "1.10 Materiais complementares",
+    "text": "1.10 Materiais complementares\n\nMateriais do curso Introdução à análise de dados no R:\n\nInstalação\nConhecendo o R e o RStudio\n\nLivro R para Ciência de Dados 2ed:\n\nIntrodução &gt; Pré-requisitos em diante\nFluxo de Trabalho: obtendo ajuda",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introdução ao R e RStudio</span>"
     ]
@@ -144,7 +154,7 @@
     "href": "praticas/02_conceitos-basicos-r.html#tipos-de-dados",
     "title": "2  Linguagem R",
     "section": "2.3 Tipos de dados",
-    "text": "2.3 Tipos de dados\nExistem diferentes tipos de dados que podemos armazenar em objetos no R, como números, textos, lógicos, fatores, datas, entre outros.\nÉ muito importante identificar o tipo de dado que estamos trabalhando, pois cada tipo de dado permite usar funções específicas.\nA função class() permite verificar a classe de um objeto. Por exemplo, podemos verificar a classe do objeto pi:\n\nclass(pi)\n\n[1] \"numeric\"\n\n\n\n2.3.1 Numérico\nOs objetos numéricos no R podem ser de dois tipos:\n\ninteiros (integer): armazena apenas números inteiros, ou seja, sem casas decimais. Ex: 1, 2, 3, 4, 5.\nnuméricos (numeric ou double): armazena números que podem conter casas decimais. Ex: 1, 2, 3.14, 4, 5.\n\nNa maioria dos casos, utilizamos o tipo numeric para armazenar números, pois ele é mais flexível.\nPor exemplo, para criar um objeto que armazena o número 42:\n\nexemplo_numero &lt;- 42\nclass(exemplo_numero)\n\n[1] \"numeric\"\n\n\nPara criar um objeto que armazena um valor usado para converter dólar em reais (R$), podemos usar o tipo numeric:\n\nconversao_dolar &lt;- 5.45\nclass(conversao_dolar)\n\n[1] \"numeric\"\n\n\n\n\n2.3.2 Lógico (booleano)\nO tipo lógico (logical) armazena valores booleanos: TRUE (verdadeiro) ou FALSE (falso). Os valores binários podem ser convertidos para números, onde TRUE será 1, e FALSE será 0.\nPor exemplo, para criar objetos com os valores lógicos TRUE e FALSE:\n\nexemplo_logico_verdadeiro &lt;- TRUE\nclass(exemplo_logico_verdadeiro)\n\n[1] \"logical\"\n\nexemplo_logico_falso &lt;- FALSE\nclass(exemplo_logico_falso)\n\n[1] \"logical\"\n\n\n\n\n2.3.3 Character (texto)\nO tipo texto (character, ou também conhecido como string) armazena textos. Para criar um objeto com um texto, precisamos colocar o texto entre aspas:\n\nnome_do_curso &lt;- \"Universidade Federal do ABC\"\nclass(nome_do_curso)\n\n[1] \"character\"\n\n\n\n\n2.3.4 Fator (categórico)\nO tipo fator (factor) armazena variáveis categóricas, ou seja, variáveis que possuem um número limitado de categorias. Os valores possíveis de categoria são chamados de levels. Os fatores podem ser ordenados ou não ordenados.\nOs fatores são muito úteis para a visualização de dados e para alguns modelos usados em análise de dados.\nNeste momento, não vamos aprofundar no conceito de fatores: falaremos mais sobre eles nas próximas aulas.\n\n\n2.3.5 Datas\nO tipo data (Date) armazena datas no formato aaaa-mm-dd (ano-mês-dia).\nPara criar um objeto com uma data, podemos usar a função as.Date(), que converte um texto para o tipo Date. Por exemplo, para criar um objeto com a data de início do curso:\n\ndata_inicio_curso &lt;- as.Date(\"2025-06-02\")\nclass(data_inicio_curso)\n\n[1] \"Date\"\n\n\nA função Sys.Date() retorna a data atual do sistema:\n\ndata_sistema &lt;- Sys.Date()\nclass(data_sistema)\n\n[1] \"Date\"\n\n\nPodemos fazer operações com datas:\n\n# Diferença entre duas datas\ndata_inicio_curso - data_sistema \n\nTime difference of 5 days\n\n# Somar um dia à data atual\ndata_sistema + 1  \n\n[1] \"2025-05-29\"\n\n# Somar um dia à data de início do curso\nas.Date(\"2025-06-02\") + 1 \n\n[1] \"2025-06-03\"",
+    "text": "2.3 Tipos de dados\nExistem diferentes tipos de dados que podemos armazenar em objetos no R, como números, textos, lógicos, fatores, datas, entre outros.\nÉ muito importante identificar o tipo de dado que estamos trabalhando, pois cada tipo de dado permite usar funções específicas.\nA função class() permite verificar a classe de um objeto. Por exemplo, podemos verificar a classe do objeto pi:\n\nclass(pi)\n\n[1] \"numeric\"\n\n\n\n2.3.1 Numérico\nOs objetos numéricos no R podem ser de dois tipos:\n\ninteiros (integer): armazena apenas números inteiros, ou seja, sem casas decimais. Ex: 1, 2, 3, 4, 5.\nnuméricos (numeric ou double): armazena números que podem conter casas decimais. Ex: 1, 2, 3.14, 4, 5.\n\nNa maioria dos casos, utilizamos o tipo numeric para armazenar números, pois ele é mais flexível.\nPor exemplo, para criar um objeto que armazena o número 42:\n\nexemplo_numero &lt;- 42\nclass(exemplo_numero)\n\n[1] \"numeric\"\n\n\nPara criar um objeto que armazena um valor usado para converter dólar em reais (R$), podemos usar o tipo numeric:\n\nconversao_dolar &lt;- 5.45\nclass(conversao_dolar)\n\n[1] \"numeric\"\n\n\n\n\n2.3.2 Lógico (booleano)\nO tipo lógico (logical) armazena valores booleanos: TRUE (verdadeiro) ou FALSE (falso). Os valores binários podem ser convertidos para números, onde TRUE será 1, e FALSE será 0.\nPor exemplo, para criar objetos com os valores lógicos TRUE e FALSE:\n\nexemplo_logico_verdadeiro &lt;- TRUE\nclass(exemplo_logico_verdadeiro)\n\n[1] \"logical\"\n\nexemplo_logico_falso &lt;- FALSE\nclass(exemplo_logico_falso)\n\n[1] \"logical\"\n\n\n\n\n2.3.3 Character (texto)\nO tipo texto (character, ou também conhecido como string) armazena textos. Para criar um objeto com um texto, precisamos colocar o texto entre aspas:\n\nnome_do_curso &lt;- \"Universidade Federal do ABC\"\nclass(nome_do_curso)\n\n[1] \"character\"\n\n\n\n\n2.3.4 Fator (categórico)\nO tipo fator (factor) armazena variáveis categóricas, ou seja, variáveis que possuem um número limitado de categorias. Os valores possíveis de categoria são chamados de levels. Os fatores podem ser ordenados ou não ordenados.\nOs fatores são muito úteis para a visualização de dados e para alguns modelos usados em análise de dados.\nNeste momento, não vamos aprofundar no conceito de fatores: falaremos mais sobre eles nas próximas aulas.\n\n\n2.3.5 Datas\nO tipo data (Date) armazena datas no formato aaaa-mm-dd (ano-mês-dia).\nPara criar um objeto com uma data, podemos usar a função as.Date(), que converte um texto para o tipo Date. Por exemplo, para criar um objeto com a data de início do curso:\n\ndata_inicio_curso &lt;- as.Date(\"2025-06-02\")\nclass(data_inicio_curso)\n\n[1] \"Date\"\n\n\nA função Sys.Date() retorna a data atual do sistema:\n\ndata_sistema &lt;- Sys.Date()\nclass(data_sistema)\n\n[1] \"Date\"\n\n\nPodemos fazer operações com datas:\n\n# Diferença entre duas datas\ndata_inicio_curso - data_sistema \n\nTime difference of 4 days\n\n# Somar um dia à data atual\ndata_sistema + 1  \n\n[1] \"2025-05-30\"\n\n# Somar um dia à data de início do curso\nas.Date(\"2025-06-02\") + 1 \n\n[1] \"2025-06-03\"",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Linguagem R</span>"
     ]
@@ -180,11 +190,11 @@
     ]
   },
   {
-    "objectID": "praticas/02_conceitos-basicos-r.html#sugestões-de-materiais",
-    "href": "praticas/02_conceitos-basicos-r.html#sugestões-de-materiais",
+    "objectID": "praticas/02_conceitos-basicos-r.html#materiais-complementares",
+    "href": "praticas/02_conceitos-basicos-r.html#materiais-complementares",
     "title": "2  Linguagem R",
-    "section": "2.7 Sugestões de materiais",
-    "text": "2.7 Sugestões de materiais\n\nLivro R para Ciência de Dados 2ed:\n\nFluxo de Trabalho: básico\n\nLivro Zen do R:\n\nCapítulo .RData e .Rhistory",
+    "section": "2.7 Materiais complementares",
+    "text": "2.7 Materiais complementares\n\nMateriais do curso Introdução à análise de dados no R:\n\nDiretório de trabalho e projetos\nLinguagem R\n\nLivro R para Ciência de Dados 2ed:\n\nFluxo de Trabalho: básico\n\nLivro Zen do R:\n\nCapítulo .RData e .Rhistory",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Linguagem R</span>"
     ]

@@ -77,7 +77,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-0f0fb7d3bc77f577cd90c28aad1d0fd7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-6e4858b4921ffe5a9c7d897cee0e5447.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -131,14 +131,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
-      <a href="../index.html" class="sidebar-logo-link">
-      <img src="../cover.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
-      </a>
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="../">Análise de dados para o Planejamento Territorial</a> 
         <div class="sidebar-tools-main">
     <a href="https://github.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial" title="Código fonte" class="quarto-navigation-tool px-1" aria-label="Código fonte"><i class="bi bi-github"></i></a>
+    <a href="../analise-de-dados-para-planejamento-territorial.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
 </div>
     </div>
       </div>
@@ -203,9 +201,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#data.frames" id="toc-data.frames" class="nav-link" data-scroll-target="#data.frames"><span class="header-section-number">2.6.3</span> Data.frames</a></li>
   <li><a href="#listas" id="toc-listas" class="nav-link" data-scroll-target="#listas"><span class="header-section-number">2.6.4</span> Listas</a></li>
   </ul></li>
-  <li><a href="#sugestões-de-materiais" id="toc-sugestões-de-materiais" class="nav-link" data-scroll-target="#sugestões-de-materiais"><span class="header-section-number">2.7</span> Sugestões de materiais</a></li>
+  <li><a href="#materiais-complementares" id="toc-materiais-complementares" class="nav-link" data-scroll-target="#materiais-complementares"><span class="header-section-number">2.7</span> Materiais complementares</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial/edit/main/praticas/02_conceitos-basicos-r.qmd" class="toc-action"><i class="bi bi-github"></i>Editar essa página</a></li><li><a href="https://github.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial/issues/new" class="toc-action"><i class="bi empty"></i>Criar uma issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial/edit/main/praticas/02_conceitos-basicos-r.qmd" class="toc-action"><i class="bi bi-github"></i>Editar essa página</a></li><li><a href="https://github.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial/issues/new" class="toc-action"><i class="bi empty"></i>Criar uma issue</a></li><li><a href="https://github.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial/blob/main/praticas/02_conceitos-basicos-r.qmd" class="toc-action"><i class="bi empty"></i>Ver o código fonte</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -549,12 +547,12 @@ Dica
 <div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Diferença entre duas datas</span></span>
 <span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>data_inicio_curso <span class="sc">-</span> data_sistema </span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Time difference of 5 days</code></pre>
+<pre><code>Time difference of 4 days</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Somar um dia à data atual</span></span>
 <span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>data_sistema <span class="sc">+</span> <span class="dv">1</span>  </span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "2025-05-29"</code></pre>
+<pre><code>[1] "2025-05-30"</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Somar um dia à data de início do curso</span></span>
 <span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a><span class="fu">as.Date</span>(<span class="st">"2025-06-02"</span>) <span class="sc">+</span> <span class="dv">1</span> </span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -741,9 +739,14 @@ Dica
 </div>
 </section>
 </section>
-<section id="sugestões-de-materiais" class="level2" data-number="2.7">
-<h2 data-number="2.7" class="anchored" data-anchor-id="sugestões-de-materiais"><span class="header-section-number">2.7</span> Sugestões de materiais</h2>
+<section id="materiais-complementares" class="level2" data-number="2.7">
+<h2 data-number="2.7" class="anchored" data-anchor-id="materiais-complementares"><span class="header-section-number">2.7</span> Materiais complementares</h2>
 <ul>
+<li>Materiais do curso <a href="https://ipeadata-lab.github.io/curso_r_intro_202409/">Introdução à análise de dados no R</a>:
+<ul>
+<li><a href="https://ipeadata-lab.github.io/curso_r_intro_202409/01_1_rproj.html">Diretório de trabalho e projetos</a></li>
+<li><a href="https://ipeadata-lab.github.io/curso_r_intro_202409/02_conceitos_basicos_r.html">Linguagem R</a></li>
+</ul></li>
 <li>Livro <a href="https://cienciadedatos.github.io/pt-r4ds/">R para Ciência de Dados 2ed</a>:
 <ul>
 <li><a href="https://cienciadedatos.github.io/pt-r4ds/workflow-basics.html">Fluxo de Trabalho: básico</a></li>
@@ -1177,4 +1180,4 @@ Dica
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial/edit/main/praticas/02_conceitos-basicos-r.qmd" class="toc-action"><i class="bi bi-github"></i>Editar essa página</a></li><li><a href="https://github.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial/issues/new" class="toc-action"><i class="bi empty"></i>Criar uma issue</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial/edit/main/praticas/02_conceitos-basicos-r.qmd" class="toc-action"><i class="bi bi-github"></i>Editar essa página</a></li><li><a href="https://github.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial/issues/new" class="toc-action"><i class="bi empty"></i>Criar uma issue</a></li><li><a href="https://github.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial/blob/main/praticas/02_conceitos-basicos-r.qmd" class="toc-action"><i class="bi empty"></i>Ver o código fonte</a></li></ul></div></div></div></footer></body></html>

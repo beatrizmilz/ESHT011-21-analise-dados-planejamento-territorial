@@ -78,7 +78,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-0f0fb7d3bc77f577cd90c28aad1d0fd7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-6e4858b4921ffe5a9c7d897cee0e5447.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -132,14 +132,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
-      <a href="../index.html" class="sidebar-logo-link">
-      <img src="../cover.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
-      </a>
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="../">Análise de dados para o Planejamento Territorial</a> 
         <div class="sidebar-tools-main">
     <a href="https://github.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial" title="Código fonte" class="quarto-navigation-tool px-1" aria-label="Código fonte"><i class="bi bi-github"></i></a>
+    <a href="../analise-de-dados-para-planejamento-territorial.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
 </div>
     </div>
       </div>
@@ -200,9 +198,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#documentação-online" id="toc-documentação-online" class="nav-link" data-scroll-target="#documentação-online"><span class="header-section-number">1.9.2</span> Documentação online</a></li>
   <li><a href="#cheatsheets" id="toc-cheatsheets" class="nav-link" data-scroll-target="#cheatsheets"><span class="header-section-number">1.9.3</span> Cheatsheets</a></li>
   </ul></li>
-  <li><a href="#sugestões-de-materiais" id="toc-sugestões-de-materiais" class="nav-link" data-scroll-target="#sugestões-de-materiais"><span class="header-section-number">1.10</span> Sugestões de materiais</a></li>
+  <li><a href="#materiais-complementares" id="toc-materiais-complementares" class="nav-link" data-scroll-target="#materiais-complementares"><span class="header-section-number">1.10</span> Materiais complementares</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial/edit/main/praticas/01_intro_r_rstudio.qmd" class="toc-action"><i class="bi bi-github"></i>Editar essa página</a></li><li><a href="https://github.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial/issues/new" class="toc-action"><i class="bi empty"></i>Criar uma issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial/edit/main/praticas/01_intro_r_rstudio.qmd" class="toc-action"><i class="bi bi-github"></i>Editar essa página</a></li><li><a href="https://github.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial/issues/new" class="toc-action"><i class="bi empty"></i>Criar uma issue</a></li><li><a href="https://github.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial/blob/main/praticas/01_intro_r_rstudio.qmd" class="toc-action"><i class="bi empty"></i>Ver o código fonte</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -235,7 +233,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="introdução" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="introdução"><span class="header-section-number">1.1</span> Introdução</h2>
-<p>Ao longo deste curso, os softwares R e RStudio serão usados como uma <strong>ferramenta</strong> para auxiliar na aplicação de <strong>métodos e técnicas de análise da informação no planejamento</strong>, uma etapa fundamental em pesquisas que buscam o aumento da compreensão de questões no nosso campo de interesse.</p>
+<p>Ao longo deste curso, os softwares R e RStudio serão usados como uma <strong>ferramenta</strong> para auxiliar na análise de dados para o planejamento territorial.</p>
 <p>É importante ressaltar o uso do R e do RStudio não pode ser dissociado do <strong>processo de pesquisa</strong>, que envolve a observação, formulação de hipóteses, coleta de dados e <strong>análise de dados</strong>, sendo este o foco deste curso.</p>
 </section>
 <section id="o-que-é-o-r" class="level2" data-number="1.2">
@@ -390,7 +388,7 @@ Dica
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Consutar a data atual do sistema (computador)</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.Date</span>()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "2025-05-28"</code></pre>
+<pre><code>[1] "2025-05-29"</code></pre>
 </div>
 </div>
 <p>Para utilizar uma função, escrevemos o nome dela seguido de parênteses. Dentro dos parênteses, podemos colocar dados e informações úteis para a função executar a tarefa desejada, e são chamados de <strong>argumentos</strong>.</p>
@@ -544,9 +542,14 @@ Cuidado
 </ul>
 </section>
 </section>
-<section id="sugestões-de-materiais" class="level2" data-number="1.10">
-<h2 data-number="1.10" class="anchored" data-anchor-id="sugestões-de-materiais"><span class="header-section-number">1.10</span> Sugestões de materiais</h2>
+<section id="materiais-complementares" class="level2" data-number="1.10">
+<h2 data-number="1.10" class="anchored" data-anchor-id="materiais-complementares"><span class="header-section-number">1.10</span> Materiais complementares</h2>
 <ul>
+<li>Materiais do curso <a href="https://ipeadata-lab.github.io/curso_r_intro_202409/">Introdução à análise de dados no R</a>:
+<ul>
+<li><a href="https://ipeadata-lab.github.io/curso_r_intro_202409/00_instrucoes_pre_curso.html">Instalação</a></li>
+<li><a href="https://ipeadata-lab.github.io/curso_r_intro_202409/01_r_rstudio.html">Conhecendo o R e o RStudio</a></li>
+</ul></li>
 <li>Livro <a href="https://cienciadedatos.github.io/pt-r4ds/">R para Ciência de Dados 2ed</a>:
 <ul>
 <li><a href="https://cienciadedatos.github.io/pt-r4ds/intro.html#pr%C3%A9-requisitos">Introdução &gt; Pré-requisitos em diante</a></li>
@@ -974,4 +977,4 @@ Cuidado
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial/edit/main/praticas/01_intro_r_rstudio.qmd" class="toc-action"><i class="bi bi-github"></i>Editar essa página</a></li><li><a href="https://github.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial/issues/new" class="toc-action"><i class="bi empty"></i>Criar uma issue</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial/edit/main/praticas/01_intro_r_rstudio.qmd" class="toc-action"><i class="bi bi-github"></i>Editar essa página</a></li><li><a href="https://github.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial/issues/new" class="toc-action"><i class="bi empty"></i>Criar uma issue</a></li><li><a href="https://github.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial/blob/main/praticas/01_intro_r_rstudio.qmd" class="toc-action"><i class="bi empty"></i>Ver o código fonte</a></li></ul></div></div></div></footer></body></html>
