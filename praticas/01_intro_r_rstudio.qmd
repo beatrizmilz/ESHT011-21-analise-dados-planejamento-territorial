@@ -4,7 +4,7 @@ title: "Introdução ao R e RStudio"
 
 ## Introdução
 
-Ao longo deste curso, os softwares R e RStudio serão usados como uma **ferramenta** para auxiliar na aplicação de **métodos e técnicas de análise da informação no planejamento**, uma etapa fundamental em pesquisas que buscam o aumento da compreensão de questões no nosso campo de interesse.
+Ao longo deste curso, os softwares R e RStudio serão usados como uma **ferramenta** para auxiliar na análise de dados para o planejamento territorial.
 
 É importante ressaltar o uso do R e do RStudio não pode ser dissociado do **processo de pesquisa**, que envolve a observação, formulação de hipóteses, coleta de dados e **análise de dados**, sendo este o foco deste curso.
 
@@ -270,7 +270,11 @@ A lista a seguir apresenta algumas *cheatsheets* sobre temas que serão abordado
 
 -   [Arrumando dados com tidyr](https://github.com/rstudio/cheatsheets/blob/main/tidyr.pdf)
 
-## Sugestões de materiais
+## Materiais complementares
+
+- Materiais do curso [Introdução à análise de dados no R](https://ipeadata-lab.github.io/curso_r_intro_202409/):
+  - [Instalação](https://ipeadata-lab.github.io/curso_r_intro_202409/00_instrucoes_pre_curso.html)
+  - [Conhecendo o R e o RStudio](https://ipeadata-lab.github.io/curso_r_intro_202409/01_r_rstudio.html)
 
 -   Livro [R para Ciência de Dados 2ed](https://cienciadedatos.github.io/pt-r4ds/):
     -   [Introdução \> Pré-requisitos em diante](https://cienciadedatos.github.io/pt-r4ds/intro.html#pr%C3%A9-requisitos)
