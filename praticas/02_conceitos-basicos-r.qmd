@@ -431,8 +431,11 @@ str(lista_exemplo)
 
 
 
-## Sugestões de materiais
+## Materiais complementares
 
+- Materiais do curso [Introdução à análise de dados no R](https://ipeadata-lab.github.io/curso_r_intro_202409/):
+  - [Diretório de trabalho e projetos](https://ipeadata-lab.github.io/curso_r_intro_202409/01_1_rproj.html)
+  - [Linguagem R](https://ipeadata-lab.github.io/curso_r_intro_202409/02_conceitos_basicos_r.html)
 
 -   Livro [R para Ciência de Dados 2ed](https://cienciadedatos.github.io/pt-r4ds/):
     -   [Fluxo de Trabalho: básico](https://cienciadedatos.github.io/pt-r4ds/workflow-basics.html)

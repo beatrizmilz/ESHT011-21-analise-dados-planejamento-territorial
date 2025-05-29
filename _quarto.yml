@@ -13,12 +13,14 @@ language:
 
 book:
   title: "Análise de dados para o Planejamento Territorial"
-  subtitle: "ESHT011-21 - 2025"
+  subtitle: "Práticas em R"
   site-url: "https://beatrizmilz.github.io/ESHT011-21-analise-dados-planejamento-territorial/"
   repo-url: "https://github.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial"  
   date: last-modified
   repo-branch: main
-  repo-actions: [edit, issue]  
+  repo-actions: [edit, issue, source]  
+  downloads: [pdf]
+  output-file: "analise-de-dados-para-planejamento-territorial"
   chapters:
     - index.qmd
     - praticas/01_intro_r_rstudio.qmd
@@ -36,10 +38,11 @@ format:
   html:
     theme:
       - cosmo
-      - brand
+ #     - brand
     code-link: true
   pdf:
     documentclass: scrreprt
+    mainfont: Verdana
 
 editor: visual
 
