@@ -152,6 +152,17 @@ Por exemplo, a função `sqrt()` calcula a raiz quadrada de um número. Para uti
 sqrt(25)
 ```
 
+Algumas funções podem receber mais de um argumento. Por exemplo, a função `round()` arredonda um número para um determinado número de casas decimais. Para utilizá-la, podemos escrever `round()` e informar o número e o número de casas decimais entre parênteses:
+
+```{r}
+pi
+# Sem argumentos: arredondar o número pi para um número inteiro (0 casas decimais)
+round(pi)
+# Com argumentos: arredondar o número pi para 2 casas decimais
+round(pi, digits = 2)
+```
+Podemos consultar a documentação de uma função para entender como ela funciona, quais argumentos ela aceita e como utilizá-la. Falaremos mais sobre isso na seção de documentação.
+
 ::: callout-tip
 Ao adquirir experiência com o R, podemos criar nossas próprias funções. Isso é útil para automatizar tarefas repetitivas e para organizar o código.
 :::
@@ -159,8 +170,6 @@ Ao adquirir experiência com o R, podemos criar nossas próprias funções. Isso
 ## Pacotes
 
 Pacotes do R são coleções de funções, dados e documentação que estendem a funcionalidade básica da linguagem.
-
-O [CRAN (*Comprehensive R Archive Network*)](https://cran.r-project.org/) é o repositório oficial de pacotes do R. Ele contém milhares de pacotes que podem ser instalados e utilizados gratuitamente. Em maio de 2025, o CRAN continha mais de 22.000 pacotes disponíveis.
 
 Para instalar um pacote, utilizamos a função `install.packages()` e informando o nome do pacote como texto entre aspas. Por exemplo, para instalar o pacote `{tidyverse}`, utilizamos o seguinte comando:
 
@@ -188,6 +197,24 @@ Essa sintaxe é menos frequente, porém útil para evitar problemas de conflito 
 
 Por exemplo: o pacote `{dplyr}` apresenta uma função `filter()`, e o pacote `{stats}` também apresenta uma função `filter()`. Se não usarmos o operador `::`, a função utilizada será a do pacote que foi carregado por último. Usando o operador `::`, podemos escolher qual função queremos utilizar.
 :::
+
+### Repositório de pacotes
+
+Existem diferentes repositórios de pacotes do R, que são locais onde os pacotes são armazenados e disponibilizados para instalação.
+
+O [CRAN (*Comprehensive R Archive Network*)](https://cran.r-project.org/) é o repositório oficial de pacotes do R. Ele contém milhares de pacotes que podem ser instalados e utilizados gratuitamente. Em maio de 2025, o CRAN continha mais de 22.000 pacotes disponíveis. Para que um pacote seja adicionado ao CRAN, ele deve atender a critérios de qualidade de software.
+
+A [rOpenSci](https://ropensci.org/) é uma organização que mantêm uma [coleção de pacotes](https://ropensci.org/packages/) que foram revisados por pares e que atendem a critérios de qualidade. Esses pacotes são voltados para pesquisa, ciência aberta e reprodutibilidade.
+
+![Captura de tela da página da rOpenSci: página de pacotes no tema Geoespacial](images/01_rOpenSci.png){fig-align="center"}
+
+A rOpenSci também mantém o [R-universe](https://ropensci.org/r-universe/), uma plataforma que permite que pacotes sejam publicados e compartilhados de forma mais fácil. O R Universe é uma alternativa ao CRAN, e permite que pacotes sejam publicados sem a necessidade de passar pelo processo de revisão do CRAN.
+
+
+![Captura de tela da página do R-Universe](images/01_r-universe.png){fig-align="center"}
+
+
+Outros repositórios de pacotes também existem, como o [Bioconductor](https://www.bioconductor.org/), que é voltado para análise de dados biológicos e genômicos.
 
 ## Documentação
 
