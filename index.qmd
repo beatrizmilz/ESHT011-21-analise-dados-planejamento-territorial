@@ -1,42 +1,39 @@
-
 ## Introdução {.unnumbered}
 
 <img src="praticas/images/logo-ufabc.png" class="img-rstudio" align="right" width="120px"/>
 
-
 Boas vindas!
-
 
 Este site apresenta o material de apoio para **aulas práticas** das disciplinas **"Análise de dados para o Planejamento Territorial"** e **"Métodos Quantitativos para Pesquisa em PGT"**, oferecidas no segundo quadrimestre de 2025 na Universidade Federal do ABC (UFABC).
 
-
-O conteúdo das aulas teóricas está disponível no Moodle. 
+O conteúdo das aulas teóricas está disponível no Moodle.
 
 ## Calendário {.unnumbered}
 
 | Semana | Período | Práticas |
-|--------|---------| -------|
+|------------------------|---------------------------|---------------------|
 | 1 | 02/06/2025 - 06/06/2025 | [Introdução ao R e RStudio](praticas/01_intro_r_rstudio.qmd) |
 | 2 | 02/06/2025 - 06/06/2025 | [Linguagem R](praticas/02_conceitos-basicos-r.qmd) |
 
 <!-- ## Equipe do curso {.unnumbered} -->
 
 <!-- **Beatriz Milz** <br> -->
+
 <!-- *Pesquisadora Colaboradora | Estágio pós-doutoral* <br> -->
+
 <!-- [Laboratório de Planejamento Territorial (LaPlan)](https://laplan.pesquisa.ufabc.edu.br/) - Universidade Federal do ABC (UFABC) <br> -->
+
 <!-- [Email](mailto:milz.bea@gmail.com) | [Website](https://beamilz.com) | [GitHub](https://github.com/beatrizmilz) | [LinkedIn](https://www.linkedin.com/in/beatrizmilz/) | -->
+
 <!-- [ResearchGate](https://www.researchgate.net/profile/Beatriz-Milz) | [Currículo Lattes](http://lattes.cnpq.br/5150665880581477) | [Orcid](https://orcid.org/0000-0002-3064-4486) -->
-
-
 
 ## Sobre este material {.unnumbered}
 
 Este material contém partes adaptadas de:
 
-- Material criado por [Luis Felipe Bortolatto Cunha](https://github.com/luisfelipebr/mti2020/tree/master), que atuou como professor Assistente (estágio docência) em oferecimentos anteriores da disciplina.
+-   Material criado por [Luis Felipe Bortolatto Cunha](https://github.com/luisfelipebr/mti2020/tree/master), que atuou como professor Assistente (estágio docência) em oferecimentos anteriores da disciplina.
 
-- Material do curso [Introdução à análise de dados no R](https://ipeadata-lab.github.io/curso_r_intro_202409/), ministrado por Beatriz Milz, Pedro Cavalcanti e Rafael Pereira.
-
+-   Material do curso [Introdução à análise de dados no R](https://ipeadata-lab.github.io/curso_r_intro_202409/), ministrado por Beatriz Milz, Pedro Cavalcanti e Rafael Pereira.
 
 ### Licença {.unnumbered}
 
