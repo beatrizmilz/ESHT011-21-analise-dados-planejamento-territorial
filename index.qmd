@@ -17,8 +17,7 @@ O conteúdo das aulas teóricas está disponível no Moodle.
 | Semana | Período | Práticas |
 |--------|---------| -------|
 | 1 | 02/06/2025 - 06/06/2025 | [Introdução ao R e RStudio](praticas/01_intro_r_rstudio.qmd) |
-| 1 | 02/06/2025 - 06/06/2025 | [Linguagem R](praticas/02_conceitos-basicos-r.qmd) |
- 
+| 2 | 02/06/2025 - 06/06/2025 | [Linguagem R](praticas/02_conceitos-basicos-r.qmd) |
 
 <!-- ## Equipe do curso {.unnumbered} -->
 
