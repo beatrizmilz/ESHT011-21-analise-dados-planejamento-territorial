@@ -9,7 +9,7 @@
 <meta name="author" content="Flávia da Fonseca Feitosa">
 <meta name="author" content="Beatriz Milz">
 
-<title>2&nbsp; Conceitos básicos do R – Análise de dados para o Planejamento Territorial</title>
+<title>4&nbsp; Erros e warnings frequentes – Análise de dados para o Planejamento Territorial</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -67,8 +67,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../praticas/03_analise-exploratoria.html" rel="next">
-<link href="../praticas/01_intro_r_rstudio.html" rel="prev">
+<link href="../praticas/03_analise-exploratoria.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -119,7 +118,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../praticas/02_conceitos-basicos-r.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Conceitos básicos do R</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../apendices/00_erros_frequentes.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Erros e <em>warnings</em> frequentes</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Procurar" onclick="window.quartoOpenSearch();">
@@ -162,7 +161,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../praticas/02_conceitos-basicos-r.html" class="sidebar-item-text sidebar-link active">
+  <a href="../praticas/02_conceitos-basicos-r.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Conceitos básicos do R</span></span></a>
   </div>
 </li>
@@ -174,7 +173,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../apendices/00_erros_frequentes.html" class="sidebar-item-text sidebar-link">
+  <a href="../apendices/00_erros_frequentes.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Erros e <em>warnings</em> frequentes</span></span></a>
   </div>
 </li>
@@ -188,27 +187,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Índice</h2>
    
   <ul>
-  <li><a href="#operações-matemáticas" id="toc-operações-matemáticas" class="nav-link active" data-scroll-target="#operações-matemáticas"><span class="header-section-number">2.1</span> Operações matemáticas</a></li>
-  <li><a href="#objetos" id="toc-objetos" class="nav-link" data-scroll-target="#objetos"><span class="header-section-number">2.2</span> Objetos</a>
+  <li><a href="#instalação" id="toc-instalação" class="nav-link active" data-scroll-target="#instalação"><span class="header-section-number">4.1</span> Instalação</a>
   <ul class="collapse">
-  <li><a href="#objetos-existentes-no-r" id="toc-objetos-existentes-no-r" class="nav-link" data-scroll-target="#objetos-existentes-no-r"><span class="header-section-number">2.2.1</span> Objetos existentes no R</a></li>
-  <li><a href="#criando-um-objeto" id="toc-criando-um-objeto" class="nav-link" data-scroll-target="#criando-um-objeto"><span class="header-section-number">2.2.2</span> Criando um objeto</a></li>
+  <li><a href="#rtools" id="toc-rtools" class="nav-link" data-scroll-target="#rtools"><span class="header-section-number">4.1.1</span> RTools</a></li>
   </ul></li>
-  <li><a href="#tipos-de-objetos" id="toc-tipos-de-objetos" class="nav-link" data-scroll-target="#tipos-de-objetos"><span class="header-section-number">2.3</span> Tipos de objetos</a>
+  <li><a href="#conceitos-básicos" id="toc-conceitos-básicos" class="nav-link" data-scroll-target="#conceitos-básicos"><span class="header-section-number">4.2</span> Conceitos básicos</a>
   <ul class="collapse">
-  <li><a href="#vetores" id="toc-vetores" class="nav-link" data-scroll-target="#vetores"><span class="header-section-number">2.3.1</span> Vetores</a></li>
-  <li><a href="#data.frames" id="toc-data.frames" class="nav-link" data-scroll-target="#data.frames"><span class="header-section-number">2.3.2</span> Data.frames</a></li>
+  <li><a href="#instalando-pacotes" id="toc-instalando-pacotes" class="nav-link" data-scroll-target="#instalando-pacotes"><span class="header-section-number">4.2.1</span> Instalando pacotes</a></li>
+  <li><a href="#pacote-não-encontrado" id="toc-pacote-não-encontrado" class="nav-link" data-scroll-target="#pacote-não-encontrado"><span class="header-section-number">4.2.2</span> Pacote não encontrado</a></li>
+  <li><a href="#objeto-não-encontrado" id="toc-objeto-não-encontrado" class="nav-link" data-scroll-target="#objeto-não-encontrado"><span class="header-section-number">4.2.3</span> Objeto não encontrado</a></li>
+  <li><a href="#função-não-encontrada" id="toc-função-não-encontrada" class="nav-link" data-scroll-target="#função-não-encontrada"><span class="header-section-number">4.2.4</span> Função não encontrada</a></li>
   </ul></li>
-  <li><a href="#materiais-complementares" id="toc-materiais-complementares" class="nav-link" data-scroll-target="#materiais-complementares"><span class="header-section-number">2.4</span> Materiais complementares</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial/edit/main/praticas/02_conceitos-basicos-r.qmd" class="toc-action"><i class="bi bi-github"></i>Editar essa página</a></li><li><a href="https://github.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial/issues/new" class="toc-action"><i class="bi empty"></i>Criar uma issue</a></li><li><a href="https://github.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial/blob/main/praticas/02_conceitos-basicos-r.qmd" class="toc-action"><i class="bi empty"></i>Ver o código fonte</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial/edit/main/apendices/00_erros_frequentes.qmd" class="toc-action"><i class="bi bi-github"></i>Editar essa página</a></li><li><a href="https://github.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial/issues/new" class="toc-action"><i class="bi empty"></i>Criar uma issue</a></li><li><a href="https://github.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial/blob/main/apendices/00_erros_frequentes.qmd" class="toc-action"><i class="bi empty"></i>Ver o código fonte</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Conceitos básicos do R</span></h1>
+<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Erros e <em>warnings</em> frequentes</span></h1>
 </div>
 
 
@@ -232,183 +230,184 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Existem muitos conceitos básicos que são fundamentais para quem está começando a programar em R.</p>
-<p>Nesta aula, vamos abordar alguns conceitos considerados mais importantes para as próximas aulas.</p>
-<section id="operações-matemáticas" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="operações-matemáticas"><span class="header-section-number">2.1</span> Operações matemáticas</h2>
-<p>O R permite realizar operações matemáticas básicas, como soma, subtração, multiplicação, divisão, potenciação, entre outras.</p>
+<p>A lista a seguir apresenta alguns erros e <em>warnings</em> mais comuns.</p>
+<section id="instalação" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="instalação"><span class="header-section-number">4.1</span> Instalação</h2>
+<section id="rtools" class="level3" data-number="4.1.1">
+<h3 data-number="4.1.1" class="anchored" data-anchor-id="rtools"><span class="header-section-number">4.1.1</span> RTools</h3>
+<p><strong>Para pessoas que utilizam o sistema operacional Windows</strong>, a aviso (<em>warning</em>) abaixo pode aparecer em alguns contextos:</p>
+<pre><code>WARNING: Rtools is required to build R packages but is not currently installed.
+Please download and install the appropriate version of Rtools before proceeding:
+
+https://cran.rstudio.com/bin/windows/Rtools/
+Instalando pacote em ‘C:/Users/.../AppData/Local/R/win-library/4.4’
+(como ‘lib’ não foi especificado)</code></pre>
+<p>Para que esse aviso não apareça mais, você pode instalar o Rtools no seu computador. O RTools é um software (<strong>não</strong> é um pacote do R), portanto você precisa fazer o download da versão compatível com a versão do R que você está utilizando, e instalar no seu computador.</p>
+<p>Para fazer o download, acesse o link <a href="https://cran.rstudio.com/bin/windows/Rtools/" class="uri">https://cran.rstudio.com/bin/windows/Rtools/</a>, e escolha a versão do RTools compatível com a versão do R que você está utilizando:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/00_rtools.png" class="img-fluid figure-img"></p>
+<figcaption>Captura de tela: página de download do RTools</figcaption>
+</figure>
+</div>
+<p>Para consultar a versão do R que você está utilizando, você pode rodar o seguinte comando no console do R:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span> <span class="co"># Soma</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>R.version.string</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 2</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="dv">1</span> <span class="co"># Subtração</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> <span class="dv">3</span> <span class="co"># Multiplicação</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 6</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> <span class="sc">/</span> <span class="dv">2</span> <span class="co"># Divisão</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 5</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">^</span> <span class="dv">3</span> <span class="co"># Potenciação</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 8</code></pre>
-</div>
-</div>
-<p>A ordem matemática das operações também vale no R. Por exemplo, a expressão <code>2 + 3 * 4</code> será calculada como <code>2 + (3 * 4)</code>:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">+</span> <span class="dv">3</span> <span class="sc">*</span> <span class="dv">4</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 14</code></pre>
+<pre><code>[1] "R version 4.5.0 (2025-04-11)"</code></pre>
 </div>
 </div>
 </section>
-<section id="objetos" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="objetos"><span class="header-section-number">2.2</span> Objetos</h2>
-<p>No R, um objeto é uma estrutura de dados que armazena valores: podemos armazenar um valor único, um conjunto de valores, uma base de dados, entre outros.</p>
-<p>É muito útil armazenar valores em objetos, pois podemos reutilizá-los em diferentes partes do código, sem precisar digitar o valor novamente.</p>
-<section id="objetos-existentes-no-r" class="level3" data-number="2.2.1">
-<h3 data-number="2.2.1" class="anchored" data-anchor-id="objetos-existentes-no-r"><span class="header-section-number">2.2.1</span> Objetos existentes no R</h3>
-<p>Existem alguns objetos já criados no R, como por exemplo o objeto <code>letters</code>, que armazena as letras do alfabeto:</p>
+</section>
+<section id="conceitos-básicos" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="conceitos-básicos"><span class="header-section-number">4.2</span> Conceitos básicos</h2>
+<section id="instalando-pacotes" class="level3" data-number="4.2.1">
+<h3 data-number="4.2.1" class="anchored" data-anchor-id="instalando-pacotes"><span class="header-section-number">4.2.1</span> Instalando pacotes</h3>
+<p>O erro a seguir ocorre quando o usuário tenta instalar um pacote sem aspas. O correto é colocar o nome do pacote entre aspas.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>pi</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 3.141593</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>letters</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code> [1] "a" "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l" "m" "n" "o" "p" "q" "r" "s"
-[20] "t" "u" "v" "w" "x" "y" "z"</code></pre>
-</div>
-</div>
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Aviso
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>O R é <em>case-sensitive</em>, ou seja, ele diferencia letras maiúsculas de minúsculas. Portanto, <code>nome</code> é diferente de <code>Nome</code>.</p>
-<p>Por exemplo, o objeto <code>pi</code> armazena o valor de π (com um número limitado de casas decimais). O nome do objeto é escrito em minúsculas:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>pi</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 3.141593</code></pre>
-</div>
-</div>
-<p>Se tentarmos acessar o objeto com o nome em maiúsculas, o R irá retornar um erro, pois esse objeto não existe:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>Pi</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># O código abaixo gerará um erro:</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(janitor)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
-<pre><code>Error: object 'Pi' not found</code></pre>
+<pre><code>Error in eval(call, envir = parent.frame()): object 'janitor' not found</code></pre>
 </div>
 </div>
-</div>
+<p>A função deve receber o nome do pacote <strong>entre aspas</strong>, pois <strong>é um texto</strong>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># O código abaixo funcionará:</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"janitor"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="criando-um-objeto" class="level3" data-number="2.2.2">
-<h3 data-number="2.2.2" class="anchored" data-anchor-id="criando-um-objeto"><span class="header-section-number">2.2.2</span> Criando um objeto</h3>
-<p>Para criar um objeto, precisamos definir um nome, e atribuir um valor à este nome. Para isso, usamos o operador de atribuição: <code>&lt;-</code>. Um atalho para esse operador é o <code>Ctrl</code> + <code>-</code> no Windows, ou <code>Option</code> + <code>-</code> no Mac .</p>
-<p>No exemplo a seguir, criamos um objeto chamado <code>nome_do_curso</code> e atribuímos a ele o texto <code>"Universidade Federal do ABC"</code>:</p>
+<section id="pacote-não-encontrado" class="level3" data-number="4.2.2">
+<h3 data-number="4.2.2" class="anchored" data-anchor-id="pacote-não-encontrado"><span class="header-section-number">4.2.2</span> Pacote não encontrado</h3>
+<p>O erro a seguir ocorre quando tentamos carregar um pacote que não foi instalado anteriormente. Para resolver, precisamos instalar o pacote.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>nome_do_curso <span class="ot">&lt;-</span> <span class="st">"Universidade Federal do ABC"</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># O código abaixo gerará um erro:</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quarto)                   </span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Podemos acessar o valor armazenado em um objeto digitando o nome do objeto:</p>
+<p>Para que consiga acessar, é necessário instalar o pacote, e depois carregá-lo:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>nome_do_curso</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "Universidade Federal do ABC"</code></pre>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"quarto"</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quarto)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
-<p>O objeto apenas será alterado se utilizarmos o operador de atribuição novamente. Por exemplo, a função <code>tolower()</code> transforma todas as letras de um texto em minúsculas:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tolower</span>(nome_do_curso)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "universidade federal do abc"</code></pre>
-</div>
-</div>
-<p>Mas como não utilizamos a atribuição, o objeto <code>nome_do_curso</code> não foi alterado:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>nome_do_curso</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "Universidade Federal do ABC"</code></pre>
-</div>
-</div>
-<p>Para alterar o objeto, precisamos atribuir o resultado da função <code>tolower()</code> ao objeto <code>nome_do_curso</code>:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>nome_do_curso <span class="ot">&lt;-</span> <span class="fu">tolower</span>(nome_do_curso)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Agora, o objeto <code>nome_do_curso</code> foi alterado:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>nome_do_curso</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "universidade federal do abc"</code></pre>
-</div>
-</div>
-<p>Portanto, cuidado: ao criar um objeto com nome igual à outro objeto existente, o objeto anterior será substituído pelo novo objeto.</p>
 </section>
-</section>
-<section id="tipos-de-objetos" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="tipos-de-objetos"><span class="header-section-number">2.3</span> Tipos de objetos</h2>
-<p>Existem diferentes tipos de objetos no R, e cada tipo de objeto possui diferentes propriedades. Os principais tipos de objetos que utilizaremos ao longo do curso são: vetores e <em>data.frames</em>.</p>
-<section id="vetores" class="level3" data-number="2.3.1">
-<h3 data-number="2.3.1" class="anchored" data-anchor-id="vetores"><span class="header-section-number">2.3.1</span> Vetores</h3>
-<p>Vetores armazenam um conjunto de valores de uma dimensão. Eles podem ser criados com a função <code>c()</code>, que significa <em>combine</em> (combinar). Por exemplo, para criar um vetor com os números de 1 a 5:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>vetor_de_numeros <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Os vetores podem armazenar diferentes tipos de dados, como números, textos, fatores, entre outros. Porém cada vetor pode armazenar apenas um tipo de dado. Por exemplo, se tentarmos criar um vetor que armazena números e textos, o R irá converter todos os valores para texto. Essa propriedade é chamada de <strong>coerção</strong>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>vetor_misto <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="st">"três"</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(vetor_misto)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "character"</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>vetor_misto</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "1"    "2"    "três" "4"    "5"   </code></pre>
-</div>
-</div>
-<p>No geral, podemos converter dados sem perder informação seguindo essa ordem: Lógico &gt; Inteiro &gt; Numérico &gt; Texto.</p>
-</section>
-<section id="data.frames" class="level3" data-number="2.3.2">
-<h3 data-number="2.3.2" class="anchored" data-anchor-id="data.frames"><span class="header-section-number">2.3.2</span> Data.frames</h3>
-<p>Os <em>data.frames</em> são conjuntos de valores com duas dimensões: linhas e colunas. Porém, diferente do que vimos para as matrizes, os <em>data.frames</em> podem armazenar diferentes tipos de dados em cada coluna.</p>
-<p>Esse é o principal tipo de objeto que utilizaremos nesse curso, pois ele é muito útil para armazenar dados tabulares.</p>
-<p>Existem alguns <em>data.frames</em> já criados no R, como o <code>airquality</code>, que armazena dados sobre a qualidade do ar na cidade de Nova York, em 1973. Essas são as primeiras linhas do <em>data.frame</em> <code>airquality</code>:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(airquality)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>  Ozone Solar.R Wind Temp Month Day
-1    41     190  7.4   67     5   1
-2    36     118  8.0   72     5   2
-3    12     149 12.6   74     5   3
-4    18     313 11.5   62     5   4
-5    NA      NA 14.3   56     5   5
-6    28      NA 14.9   66     5   6</code></pre>
-</div>
-</div>
-<p>Para criar um data.frame, podemos usar a função <code>data.frame()</code>. Entretanto, o mais comum é importar dados de arquivos, como CSV, Excel, ou de bancos de dados. Falaremos sobre como importar dados na próxima aula.</p>
-</section>
-</section>
-<section id="materiais-complementares" class="level2" data-number="2.4">
-<h2 data-number="2.4" class="anchored" data-anchor-id="materiais-complementares"><span class="header-section-number">2.4</span> Materiais complementares</h2>
+<section id="objeto-não-encontrado" class="level3" data-number="4.2.3">
+<h3 data-number="4.2.3" class="anchored" data-anchor-id="objeto-não-encontrado"><span class="header-section-number">4.2.3</span> Objeto não encontrado</h3>
+<p>O erro a seguir ocorre quando tentamos acessar um objeto que não consta no painel <em>Environment</em>. Existe alguns motivos para isso acontecer:</p>
 <ul>
-<li>Materiais do curso <a href="https://ipeadata-lab.github.io/curso_r_intro_202409/">Introdução à análise de dados no R</a>:
-<ul>
-<li><a href="https://ipeadata-lab.github.io/curso_r_intro_202409/01_1_rproj.html">Diretório de trabalho e projetos</a></li>
-<li><a href="https://ipeadata-lab.github.io/curso_r_intro_202409/02_conceitos_basicos_r.html">Linguagem R</a></li>
-</ul></li>
+<li><p>O objeto não foi criado (provavelmente precisa executar o código que cria o objeto);</p></li>
+<li><p>O objeto existe no painel <em>Environment</em>, mas estamos tentando acessá-lo com o nome incorreto.</p></li>
 </ul>
+<p>No exemplo a seguir, o código gerará um erro pois o objeto que estamos tentando acessar ainda não foi criado:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># O código abaixo gerará um erro:</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(estados_sudeste)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error: object 'estados_sudeste' not found</code></pre>
+</div>
+</div>
+<p>Após criar o objeto, conseguimos utilizá-lo:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>estados_sudeste <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"SP"</span>, <span class="st">"RJ"</span>, <span class="st">"MG"</span>, <span class="st">"ES"</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(estados_sudeste)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4</code></pre>
+</div>
+</div>
+</section>
+<section id="função-não-encontrada" class="level3" data-number="4.2.4">
+<h3 data-number="4.2.4" class="anchored" data-anchor-id="função-não-encontrada"><span class="header-section-number">4.2.4</span> Função não encontrada</h3>
+<p>O erro <code>could not find function</code> ocorre quando tentamos acessar uma função que não está sendo encontrada. Isso pode acontecer por alguns motivos:</p>
+<ul>
+<li><p>A função faz parte de um pacote que não foi carregado (precisamos carregar o pacote antes);</p></li>
+<li><p>A função foi escrita de forma incorreta (por exemplo, com letras maiúsculas ou minúsculas incorretas).</p></li>
+</ul>
+<section id="pacote-não-carregado" class="level4" data-number="4.2.4.1">
+<h4 data-number="4.2.4.1" class="anchored" data-anchor-id="pacote-não-carregado"><span class="header-section-number">4.2.4.1</span> Pacote não carregado</h4>
+<p>No exemplo a seguir, queremos limpar o nome das colunas do <em>data frame</em> <code>iris</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(iris)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+1          5.1         3.5          1.4         0.2  setosa
+2          4.9         3.0          1.4         0.2  setosa
+3          4.7         3.2          1.3         0.2  setosa
+4          4.6         3.1          1.5         0.2  setosa
+5          5.0         3.6          1.4         0.2  setosa
+6          5.4         3.9          1.7         0.4  setosa</code></pre>
+</div>
+</div>
+<p>O código a seguir gerará um erro pois a função <code>clean_names()</code> faz parte do pacote <code>janitor</code>, mas o pacote não foi carregado:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">clean_names</span>(iris)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in clean_names(iris): could not find function "clean_names"</code></pre>
+</div>
+</div>
+<p>Para corrigir, precisamos carregar o pacote <code>janitor</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>iris_nome_limpo <span class="ot">&lt;-</span> <span class="fu">clean_names</span>(iris)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(iris_nome_limpo)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  sepal_length sepal_width petal_length petal_width species
+1          5.1         3.5          1.4         0.2  setosa
+2          4.9         3.0          1.4         0.2  setosa
+3          4.7         3.2          1.3         0.2  setosa
+4          4.6         3.1          1.5         0.2  setosa
+5          5.0         3.6          1.4         0.2  setosa
+6          5.4         3.9          1.7         0.4  setosa</code></pre>
+</div>
+</div>
+</section>
+<section id="erro-de-digitação" class="level4" data-number="4.2.4.2">
+<h4 data-number="4.2.4.2" class="anchored" data-anchor-id="erro-de-digitação"><span class="header-section-number">4.2.4.2</span> Erro de digitação</h4>
+<p>No exemplo a seguir, o código gerará um erro pois a função <code>length()</code> está escrito de forma incorreta:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># O código abaixo gerará um erro:</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">lenght</span>(letters)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in lenght(letters): could not find function "lenght"</code></pre>
+</div>
+</div>
+<p>Para corrigir, precisamos escrever a função corretamente:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(letters)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 26</code></pre>
+</div>
+</div>
+<!-- ## Importação -->
+<!-- ### Arquivo não encontrado -->
+<!-- Ao importar um arquivo, é importante que o caminho esteja correto. Caso contrário, o código gerará um erro. -->
+<!-- ```{r} -->
+<!-- #| message: false -->
+<!-- library(tidyverse) -->
+<!-- ``` -->
+<!-- ```{r} -->
+<!-- #| error: true -->
+<!-- # O caminho abaixo está incorreto, esse arquivo não existe -->
+<!-- # no nosso projeto: -->
+<!-- sidra_4092 <- read_csv("SIDRAR.csv") -->
+<!-- ``` -->
+<!-- Corrigindo o arquivo, o código funcionará: -->
+<!-- ```{r} -->
+<!-- #| message: false -->
+<!-- sidra_4092 <- read_csv("dados/sidrar_4092_bruto.csv") -->
+<!-- glimpse(sidra_4092) -->
+<!-- ``` -->
+<!-- ## Arquivo corrompido -->
+<!-- O erro a seguir ocorre quando tentamos importar um arquivo que está corrompido. Nesse caso, precisamos baixar o arquivo novamente. -->
+<!-- ```{r} -->
+<!-- #| eval: false -->
+<!-- library(readxl) -->
+<!-- excel_sheets("dados/sidrar_4092_bruto.xlsx") -->
+<!-- # Error in readBin(con, raw(), n = size) :  -->
+<!-- #   error reading from the connection -->
+<!-- ``` -->
 
 
+</section>
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -813,14 +812,11 @@ Aviso
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../praticas/01_intro_r_rstudio.html" class="pagination-link" aria-label="Introdução ao R e RStudio">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introdução ao R e RStudio</span></span>
+      <a href="../praticas/03_analise-exploratoria.html" class="pagination-link" aria-label="Análise exploratória de dados - Parte 1">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Análise exploratória de dados - Parte 1</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../praticas/03_analise-exploratoria.html" class="pagination-link" aria-label="Análise exploratória de dados - Parte 1">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Análise exploratória de dados - Parte 1</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->
@@ -828,4 +824,4 @@ Aviso
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial/edit/main/praticas/02_conceitos-basicos-r.qmd" class="toc-action"><i class="bi bi-github"></i>Editar essa página</a></li><li><a href="https://github.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial/issues/new" class="toc-action"><i class="bi empty"></i>Criar uma issue</a></li><li><a href="https://github.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial/blob/main/praticas/02_conceitos-basicos-r.qmd" class="toc-action"><i class="bi empty"></i>Ver o código fonte</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial/edit/main/apendices/00_erros_frequentes.qmd" class="toc-action"><i class="bi bi-github"></i>Editar essa página</a></li><li><a href="https://github.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial/issues/new" class="toc-action"><i class="bi empty"></i>Criar uma issue</a></li><li><a href="https://github.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial/blob/main/apendices/00_erros_frequentes.qmd" class="toc-action"><i class="bi empty"></i>Ver o código fonte</a></li></ul></div></div></div></footer></body></html>

@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.31">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Flávia da Fonseca Feitosa">
+<meta name="author" content="Beatriz Milz">
+
+<title>3&nbsp; Análise exploratória de dados - Parte 1 – Análise de dados para o Planejamento Territorial</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../apendices/00_erros_frequentes.html" rel="next">
+<link href="../praticas/02_conceitos-basicos-r.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-6e4858b4921ffe5a9c7d897cee0e5447.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Nenhum resultado",
+    "search-matching-documents-text": "documentos correspondentes",
+    "search-copy-link-title": "Copiar link para a busca",
+    "search-hide-matches-text": "Esconder correspondências adicionais",
+    "search-more-match-text": "mais correspondência neste documento",
+    "search-more-matches-text": "mais correspondências neste documento",
+    "search-clear-button-title": "Limpar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Procurar"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../praticas/03_analise-exploratoria.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Análise exploratória de dados - Parte 1</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Procurar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Análise de dados para o Planejamento Territorial</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial" title="Código fonte" class="quarto-navigation-tool px-1" aria-label="Código fonte"><i class="bi bi-github"></i></a>
+    <a href="../analise-de-dados-para-planejamento-territorial.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Procurar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introdução</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../praticas/01_intro_r_rstudio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introdução ao R e RStudio</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../praticas/02_conceitos-basicos-r.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Conceitos básicos do R</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../praticas/03_analise-exploratoria.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Análise exploratória de dados - Parte 1</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../apendices/00_erros_frequentes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Erros e <em>warnings</em> frequentes</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Índice</h2>
+   
+  <ul>
+  <li><a href="#criando-um-projeto" id="toc-criando-um-projeto" class="nav-link active" data-scroll-target="#criando-um-projeto"><span class="header-section-number">3.1</span> Criando um projeto</a></li>
+  <li><a href="#salvando-os-dados-no-projeto" id="toc-salvando-os-dados-no-projeto" class="nav-link" data-scroll-target="#salvando-os-dados-no-projeto"><span class="header-section-number">3.2</span> Salvando os dados no projeto</a></li>
+  <li><a href="#importando-os-dados" id="toc-importando-os-dados" class="nav-link" data-scroll-target="#importando-os-dados"><span class="header-section-number">3.3</span> Importando os dados</a></li>
+  <li><a href="#conhecendo-a-base-de-dados" id="toc-conhecendo-a-base-de-dados" class="nav-link" data-scroll-target="#conhecendo-a-base-de-dados"><span class="header-section-number">3.4</span> Conhecendo a base de dados</a></li>
+  <li><a href="#calculando-estatísticas-descritivas" id="toc-calculando-estatísticas-descritivas" class="nav-link" data-scroll-target="#calculando-estatísticas-descritivas"><span class="header-section-number">3.5</span> Calculando estatísticas descritivas</a></li>
+  <li><a href="#visualizando-os-dados" id="toc-visualizando-os-dados" class="nav-link" data-scroll-target="#visualizando-os-dados"><span class="header-section-number">3.6</span> Visualizando os dados</a></li>
+  <li><a href="#materiais-complementares" id="toc-materiais-complementares" class="nav-link" data-scroll-target="#materiais-complementares"><span class="header-section-number">3.7</span> Materiais complementares</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial/edit/main/praticas/03_analise-exploratoria.qmd" class="toc-action"><i class="bi bi-github"></i>Editar essa página</a></li><li><a href="https://github.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial/issues/new" class="toc-action"><i class="bi empty"></i>Criar uma issue</a></li><li><a href="https://github.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial/blob/main/praticas/03_analise-exploratoria.qmd" class="toc-action"><i class="bi empty"></i>Ver o código fonte</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Análise exploratória de dados - Parte 1</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Docentes</div>
+    <div class="quarto-title-meta-contents">
+             <p><a href="https://sig.ufabc.edu.br/sigaa/public/docente/portal.jsf?siape=2064223">Flávia da Fonseca Feitosa</a> <a href="mailto:flavia.feitosa@ufabc.edu.br" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
+             <p><a href="https://www.beamilz.com/">Beatriz Milz</a> <a href="mailto:milz.bea@gmail.com" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Nesta aula, vamos conhecer algumas funções do R e do pacote tidyverse que nos ajudam a fazer uma análise exploratória dos dados.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Dados
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Utilizaremos dados de saneamento por municipio do estado de São Paulo, disponibilizados pela CETESB<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>, referente à 2022.</p>
+<p><strong>O arquivo csv pode ser baixado através <a href="https://raw.githubusercontent.com/beatrizmilz/cetesb_saneamento/refs/heads/main/data-raw/dados-cetesb-tidy/2022.csv">deste link</a>.</strong></p>
+<p>Esses dados foram <a href="https://cetesb.sp.gov.br/aguas-interiores/wp-content/uploads/sites/12/2023/11/Apendice-J-Dados-de-Saneamento-por-municipio-%E2%80%93-2022.pdf">originalmente disponibilizados em PDF</a>, e foram <a href="https://github.com/beatrizmilz/cetesb_saneamento/">extraídos e organizados</a> por Beatriz Milz.</p>
+</div>
+</div>
+<section id="criando-um-projeto" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="criando-um-projeto"><span class="header-section-number">3.1</span> Criando um projeto</h2>
+<p>O RStudio possui uma funcionalidade chamada <strong>projetos</strong>. Quando criamos um projeto no RStudio, uma nova pasta é criada no computador, e o RStudio define essa pasta como o diretório de trabalho. Além disso, o RStudio também cria um arquivo com a extensão <code>.Rproj</code> dentro dessa pasta, que contém informações sobre o projeto.</p>
+<p>É recomendado que sempre trabalhemos em projetos no RStudio, pois isso facilita a organização dos arquivos e a reprodução do código.</p>
+<p>É recomendado também salvar os arquivos referentes ao projeto (como scripts, bases de dados, resultados, etc) dentro do projeto. Isso não significa que precisamos colocar todos os arquivos dentro da pasta principal do projeto: podemos criar sub-pastas para organizar os arquivos.</p>
+<p>Para criar um projeto no RStudio, primeiro precisamos acessar o menu de criação de projetos (<em>New project Wizard</em>). Podemos fazer isso de três formas:</p>
+<ul>
+<li><p>No menu superior, clicando em <code>File &gt; New Project...</code></p></li>
+<li><p>Clicando no ícone de novo projeto na barra de ferramentas do RStudio: <img src="images/01_icone_novo_proj.png" class="img-fluid"></p></li>
+<li><p>No canto superior esquerdo, clicando no botão referente à projetos, e depois em <code>New Project...</code>:</p></li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/01_botao_projetos.png" class="img-fluid figure-img"></p>
+<figcaption>Captura de tela do RStudio: Menu de projetos</figcaption>
+</figure>
+</div>
+<p>Depois, escolhemos o tipo de projeto que queremos criar. No geral, escolhemos a opção <code>New Directory</code>, para criar uma nova pasta no computador:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/01_new_project.png" class="img-fluid figure-img"></p>
+<figcaption>Captura de tela do RStudio: Criando um projeto</figcaption>
+</figure>
+</div>
+<p>Depois, escolhemos o tipo de projeto que queremos criar. Cada tipo de projeto apresenta arquivos específicos de template. O RStudio apresenta algumas opções de projeto, porém é possível adicionar novos tipos de projeto instalandos pacotes específicos.</p>
+<p>No geral, escolhemos a opção <code>New Project</code>, para criar um projeto simples:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/01_new_project_type.png" class="img-fluid figure-img"></p>
+<figcaption>Captura de tela do RStudio: Escolhendo o tipo de projeto</figcaption>
+</figure>
+</div>
+<p>Na tela seguinte, precisamos informar o nome do projeto (no campo <em>Directory name</em>) e o diretório onde ele será criado (no campo <em>Create project as subdirectory of</em>):</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/01_new_project_name_dir.png" class="img-fluid figure-img"></p>
+<figcaption>Captura de tela do RStudio: Nomeando o projeto</figcaption>
+</figure>
+</div>
+<p>Após preencher as informações solicitadas, clicamos em <code>Create Project</code>. O RStudio criará o projeto e o abrirá:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/01_projeto_criado.png" class="img-fluid figure-img"></p>
+<figcaption>Captura de tela do RStudio: projeto criado</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Dica
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Note que o nome do projeto que criamos aparece no canto superior direito do RStudio.</strong></p>
+</div>
+</div>
+</section>
+<section id="salvando-os-dados-no-projeto" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="salvando-os-dados-no-projeto"><span class="header-section-number">3.2</span> Salvando os dados no projeto</h2>
+<p>Para facilitar o trabalho, vamos salvar os dados que utilizaremos nesta aula dentro do projeto que acabamos de criar.</p>
+<p>Primeiro, vamos criar uma pasta chamada <code>dados</code> dentro do projeto:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="st">"dados"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Depois, vamos baixar os dados da CETESB e salvar na pasta <code>dados</code> que acabamos de criar:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">url =</span> <span class="st">"https://raw.githubusercontent.com/beatrizmilz/cetesb_saneamento/refs/heads/main/data-raw/dados-cetesb-tidy/2022.csv"</span>,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">destfile =</span> <span class="st">"dados/dados-cetesb-2022.csv"</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Confira se o arquivo foi baixado corretamente, e se está na pasta <code>dados</code> do projeto.</p>
+</section>
+<section id="importando-os-dados" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="importando-os-dados"><span class="header-section-number">3.3</span> Importando os dados</h2>
+<p>Para importar os dados que acabamos de baixar, vamos utilizar a função <code>read_csv()</code> do pacote <code>readr</code>, que faz parte do <code>tidyverse</code>.</p>
+<p>Lembre-se de carregar o pacote <code>tidyverse</code> antes de utilizar a função <code>read_csv()</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.2     ✔ tibble    3.2.1
+✔ lubridate 1.9.4     ✔ tidyr     1.3.1
+✔ purrr     1.0.4     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+</div>
+<p>Agora, podemos importar os dados:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>dados_cetesb <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"dados/dados-cetesb-2022.csv"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 645 Columns: 12
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr  (2): uf, municipio
+dbl (10): ano, ugrhi, codigo_ibge, populacao_urbana, atendimento_coleta_porc...
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+</div>
+<p>Vamos conferir se os dados foram importados corretamente, utilizando a função <code>glimpse()</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(dados_cetesb)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 645
+Columns: 12
+$ ano                           &lt;dbl&gt; 2022, 2022, 2022, 2022, 2022, 2022, 2022…
+$ uf                            &lt;chr&gt; "SP", "SP", "SP", "SP", "SP", "SP", "SP"…
+$ ugrhi                         &lt;dbl&gt; 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2…
+$ municipio                     &lt;chr&gt; "Campos do Jordão", "Santo Antônio do Pi…
+$ codigo_ibge                   &lt;dbl&gt; 3509700, 3548203, 3548609, 3502507, 3503…
+$ populacao_urbana              &lt;dbl&gt; 52384, 4067, 5251, 35684, 1844, 2619, 88…
+$ atendimento_coleta_porc       &lt;dbl&gt; 52.6, 46.7, 98.0, 70.0, 95.6, 100.0, 88.…
+$ atendimento_tratamento_porc   &lt;dbl&gt; 100.0, 100.0, 100.0, 0.0, 95.6, 0.0, 100…
+$ eficiencia                    &lt;dbl&gt; 93.0, 80.0, 91.3, 0.0, 99.0, 0.0, 75.0, …
+$ carga_poluidora_potencial     &lt;dbl&gt; 2829, 220, 284, 1927, 100, 141, 476, 442…
+$ carga_poluidora_remancescente &lt;dbl&gt; 1445, 138, 30, 1927, 9, 141, 161, 1858, …
+$ ictem                         &lt;dbl&gt; 5.97, 4.63, 9.97, 1.55, 9.86, 1.50, 7.61…</code></pre>
+</div>
+</div>
+<p>A função <code>View()</code> também pode ser utilizada para visualizar os dados em uma tabela interativa:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(dados_cetesb)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="conhecendo-a-base-de-dados" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="conhecendo-a-base-de-dados"><span class="header-section-number">3.4</span> Conhecendo a base de dados</h2>
+<p>Para conhecer melhor a base de dados, podemos utilizar algumas funções para explorar as colunas e os tipos de dados.</p>
+<p>A função <code>colnames()</code> nos mostra os nomes das colunas:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(dados_cetesb)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "ano"                           "uf"                           
+ [3] "ugrhi"                         "municipio"                    
+ [5] "codigo_ibge"                   "populacao_urbana"             
+ [7] "atendimento_coleta_porc"       "atendimento_tratamento_porc"  
+ [9] "eficiencia"                    "carga_poluidora_potencial"    
+[11] "carga_poluidora_remancescente" "ictem"                        </code></pre>
+</div>
+</div>
+<p>A função <code>head()</code> nos mostra as primeiras linhas da base de dados, e a função <code>tail()</code> nos mostra as últimas linhas:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dados_cetesb)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 12
+    ano uf    ugrhi municipio               codigo_ibge populacao_urbana
+  &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;                         &lt;dbl&gt;            &lt;dbl&gt;
+1  2022 SP        1 Campos do Jordão            3509700            52384
+2  2022 SP        1 Santo Antônio do Pinhal     3548203             4067
+3  2022 SP        1 São Bento do Sapucaí        3548609             5251
+4  2022 SP        2 Aparecida                   3502507            35684
+5  2022 SP        2 Arapeí                      3503158             1844
+6  2022 SP        2 Areias                      3503505             2619
+# ℹ 6 more variables: atendimento_coleta_porc &lt;dbl&gt;,
+#   atendimento_tratamento_porc &lt;dbl&gt;, eficiencia &lt;dbl&gt;,
+#   carga_poluidora_potencial &lt;dbl&gt;, carga_poluidora_remancescente &lt;dbl&gt;,
+#   ictem &lt;dbl&gt;</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(dados_cetesb)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 12
+    ano uf    ugrhi municipio       codigo_ibge populacao_urbana
+  &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;                 &lt;dbl&gt;            &lt;dbl&gt;
+1  2022 SP       22 Rosana              3544251            12828
+2  2022 SP       22 Sandovalina         3545506             3074
+3  2022 SP       22 Santo Anastácio     3547700            19434
+4  2022 SP       22 Taciba              3552908             5410
+5  2022 SP       22 Tarabai             3553906             7035
+6  2022 SP       22 Teodoro Sampaio     3554300            18996
+# ℹ 6 more variables: atendimento_coleta_porc &lt;dbl&gt;,
+#   atendimento_tratamento_porc &lt;dbl&gt;, eficiencia &lt;dbl&gt;,
+#   carga_poluidora_potencial &lt;dbl&gt;, carga_poluidora_remancescente &lt;dbl&gt;,
+#   ictem &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>A função <code>summary()</code> nos mostra um resumo de estatísticas descritivas para todas as colunas. Mas cuidado: nem todos os resultados fazem sentido (exemplo: a coluna <code>codigo_ibge</code> é um identificador, e não devemos calcular estatísticas descritivas para ela).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(dados_cetesb)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      ano            uf                ugrhi        municipio        
+ Min.   :2022   Length:645         Min.   : 1.00   Length:645        
+ 1st Qu.:2022   Class :character   1st Qu.: 7.00   Class :character  
+ Median :2022   Mode  :character   Median :13.00   Mode  :character  
+ Mean   :2022                      Mean   :12.38                     
+ 3rd Qu.:2022                      3rd Qu.:17.00                     
+ Max.   :2022                      Max.   :22.00                     
+                                                                     
+  codigo_ibge      populacao_urbana   atendimento_coleta_porc
+ Min.   :3500105   Min.   :     653   Min.   : 12.80         
+ 1st Qu.:3514601   1st Qu.:    4498   1st Qu.: 88.30         
+ Median :3528700   Median :   11524   Median : 98.70         
+ Mean   :3528698   Mean   :   69406   Mean   : 91.06         
+ 3rd Qu.:3543204   3rd Qu.:   39045   3rd Qu.:100.00         
+ Max.   :3557303   Max.   :12284940   Max.   :100.00         
+                                                             
+ atendimento_tratamento_porc   eficiencia    carga_poluidora_potencial
+ Min.   :  0.00              Min.   : 0.00   Min.   :    35           
+ 1st Qu.:100.00              1st Qu.:74.97   1st Qu.:   243           
+ Median :100.00              Median :83.45   Median :   622           
+ Mean   : 89.73              Mean   :77.04   Mean   :  3748           
+ 3rd Qu.:100.00              3rd Qu.:88.80   3rd Qu.:  2108           
+ Max.   :100.00              Max.   :99.10   Max.   :663387           
+ NA's   :5                   NA's   :5                                
+ carga_poluidora_remancescente     ictem      
+ Min.   :     1.0              Min.   : 0.75  
+ 1st Qu.:    49.0              1st Qu.: 6.78  
+ Median :   156.0              Median : 8.21  
+ Mean   :  1409.2              Mean   : 7.76  
+ 3rd Qu.:   617.8              3rd Qu.: 9.94  
+ Max.   :231038.0              Max.   :10.00  
+ NA's   :5                                    </code></pre>
+</div>
+</div>
+</section>
+<section id="calculando-estatísticas-descritivas" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="calculando-estatísticas-descritivas"><span class="header-section-number">3.5</span> Calculando estatísticas descritivas</h2>
+<p>Como vimos acima, a função <code>summary()</code> nos dá um resumo de estatísticas descritivas para todas as colunas. Porém, podemos querer calcular estatísticas descritivas apenas para algum subconjunto dos dados.</p>
+<p>Imagine que queremos calcular algumas estatísticas descritivas considerando cada UGRHI (Unidade de Gerenciamento de Recursos Hídricos) separadamente. Podemos fazer isso utilizando as funções <code>group_by()</code> e <code>summarise()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>dados_cetesb <span class="sc">|&gt;</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># agrupar os dados pela coluna ugrhi</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ugrhi) <span class="sc">|&gt;</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># calcular estatísticas descritivas para cada grupo</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">quantidade_municipios =</span> <span class="fu">n</span>(),</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">soma_populacao_urbana =</span> <span class="fu">sum</span>(populacao_urbana),</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">media_atendimento_coleta_porc =</span> <span class="fu">mean</span>(atendimento_coleta_porc, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">mediana_atendimento_coleta_porc =</span> <span class="fu">median</span>(atendimento_coleta_porc, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">desvio_padrao_atendimento_coleta_porc =</span> <span class="fu">sd</span>(atendimento_coleta_porc, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 22 × 6
+   ugrhi quantidade_municipios soma_populacao_urbana media_atendimento_coleta_…¹
+   &lt;dbl&gt;                 &lt;int&gt;                 &lt;dbl&gt;                       &lt;dbl&gt;
+ 1     1                     3                 61702                        65.8
+ 2     2                    34               2124413                        84.2
+ 3     3                     4                337159                        49.6
+ 4     4                    23               1215586                        97.2
+ 5     5                    57               5737151                        87.0
+ 6     6                    34              21626154                        72.4
+ 7     7                     9               1893370                        72.9
+ 8     8                    22                707923                        98.1
+ 9     9                    38               1542781                        97.0
+10    10                    33               1937230                        79.8
+# ℹ 12 more rows
+# ℹ abbreviated name: ¹​media_atendimento_coleta_porc
+# ℹ 2 more variables: mediana_atendimento_coleta_porc &lt;dbl&gt;,
+#   desvio_padrao_atendimento_coleta_porc &lt;dbl&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="visualizando-os-dados" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="visualizando-os-dados"><span class="header-section-number">3.6</span> Visualizando os dados</h2>
+<p>Para visualizar os dados, podemos utilizar a função <code>ggplot()</code> do pacote <code>ggplot2</code>, que também faz parte do <code>tidyverse</code>.</p>
+<p>Para quem está começando, recomendo utilizar o pacote <code>esquisse</code>, que facilita a criação de gráficos com o <code>ggplot2</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"esquisse"</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"plotly"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Depois de instalar o pacote, podemos carregá-lo e utilizar a função <code>esquisser()</code> para criar gráficos interativos:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(esquisse)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">esquisser</span>(dados_cetesb)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>O <code>esquisse</code> oferece uma interface amigável para criar gráficos com o <code>ggplot2</code>, permitindo que você arraste e solte variáveis, escolha tipos de gráficos e customize os elementos do gráfico. Ao usar o <code>esquisse</code>, você pode gerar o código correspondente ao gráfico que está criando, e depois copiá-lo para o seu script R.</p>
+<p>Para criar um histograma simples, por exemplo, podemos usar o seguinte código:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># inicia o gráfico com os dados `dados_cetesb`</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dados_cetesb) <span class="sc">+</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># define a variável que será plotada no eixo x</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> atendimento_coleta_porc) <span class="sc">+</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># adiciona a geometria de histograma</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() </span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="03_analise-exploratoria_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Podemos criar também um boxplot com um código semelhante:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># inicia o gráfico com os dados `dados_cetesb`</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dados_cetesb) <span class="sc">+</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># define a variável que será plotada no eixo y</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">y =</span> atendimento_coleta_porc) <span class="sc">+</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># adiciona a geometria de histograma</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() </span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="03_analise-exploratoria_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Nesta aula, o objetivo foi apresentar algumas funções básicas que veremos outras vezes ao longo do curso. Não se preocupe se não entendeu tudo agora, pois iremos aprofundar esses conceitos em aulas futuras.</p>
+<p>Se você quiser praticar mais, recomendo que explore os materiais complementares.</p>
+</div>
+</div>
+</section>
+<section id="materiais-complementares" class="level2" data-number="3.7">
+<h2 data-number="3.7" class="anchored" data-anchor-id="materiais-complementares"><span class="header-section-number">3.7</span> Materiais complementares</h2>
+<ul>
+<li>Materiais do curso <a href="https://ipeadata-lab.github.io/curso_r_intro_202409/">Introdução à análise de dados no R</a>:
+<ul>
+<li><a href="https://ipeadata-lab.github.io/curso_r_intro_202409/01_1_rproj.html">Diretório de trabalho e projetos</a></li>
+<li><a href="https://ipeadata-lab.github.io/curso_r_intro_202409/03_importacao.html">Importando dados</a></li>
+<li><a href="https://ipeadata-lab.github.io/curso_r_intro_202409/04_conhecendo.html">Conhecendo a base de dados</a></li>
+</ul></li>
+</ul>
+
+
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>CETESB - Companhia Ambiental do Estado de São Paulo.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiada");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiada");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/beatrizmilz\.github\.io\/ESHT011-21-analise-dados-planejamento-territorial\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../praticas/02_conceitos-basicos-r.html" class="pagination-link" aria-label="Conceitos básicos do R">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Conceitos básicos do R</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../apendices/00_erros_frequentes.html" class="pagination-link" aria-label="Erros e *warnings* frequentes">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Erros e <em>warnings</em> frequentes</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial/edit/main/praticas/03_analise-exploratoria.qmd" class="toc-action"><i class="bi bi-github"></i>Editar essa página</a></li><li><a href="https://github.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial/issues/new" class="toc-action"><i class="bi empty"></i>Criar uma issue</a></li><li><a href="https://github.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial/blob/main/praticas/03_analise-exploratoria.qmd" class="toc-action"><i class="bi empty"></i>Ver o código fonte</a></li></ul></div></div></div></footer></body></html>
