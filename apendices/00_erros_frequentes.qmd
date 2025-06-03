@@ -10,7 +10,7 @@ A lista a seguir apresenta alguns erros e *warnings* mais comuns.
 
 **Para pessoas que utilizam o sistema operacional Windows**, a aviso (*warning*) abaixo pode aparecer em alguns contextos:
 
-```{md}         
+```
 WARNING: Rtools is required to build R packages but is not currently installed.
 Please download and install the appropriate version of Rtools before proceeding:
 
