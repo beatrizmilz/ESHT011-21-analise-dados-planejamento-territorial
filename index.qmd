@@ -8,6 +8,11 @@ Este site apresenta o material de apoio para **aulas práticas** das disciplinas
 
 O conteúdo das aulas teóricas está disponível no Moodle.
 
+::: {.callout-important}
+Este material foi feito para guiar as aulas práticas, mas você verá que ele está bem detalhado. Dessa forma, você pode usá-lo para revisar os conceitos e praticar as atividades (dentro e fora do horário das aulas).
+:::
+
+
 ## Calendário {.unnumbered}
 
 | Semana | Período | Práticas |
