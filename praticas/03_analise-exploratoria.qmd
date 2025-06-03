@@ -1,0 +1,210 @@
+---
+title: "Análise exploratória de dados - Parte 1"
+---
+
+Nesta aula, vamos conhecer algumas funções do R e do pacote tidyverse que nos ajudam a fazer uma análise exploratória dos dados.
+
+::: callout-note
+## Dados
+
+Utilizaremos dados de saneamento por municipio do estado de São Paulo, disponibilizados pela CETESB[^03_analise-exploratoria-1], referente à 2022.
+
+**O arquivo csv pode ser baixado através [deste link](https://raw.githubusercontent.com/beatrizmilz/cetesb_saneamento/refs/heads/main/data-raw/dados-cetesb-tidy/2022.csv).**
+
+Esses dados foram [originalmente disponibilizados em PDF](https://cetesb.sp.gov.br/aguas-interiores/wp-content/uploads/sites/12/2023/11/Apendice-J-Dados-de-Saneamento-por-municipio-%E2%80%93-2022.pdf), e foram [extraídos e organizados](https://github.com/beatrizmilz/cetesb_saneamento/) por Beatriz Milz.
+:::
+
+[^03_analise-exploratoria-1]: CETESB - Companhia Ambiental do Estado de São Paulo.
+
+## Criando um projeto
+
+O RStudio possui uma funcionalidade chamada **projetos**. Quando criamos um projeto no RStudio, uma nova pasta é criada no computador, e o RStudio define essa pasta como o diretório de trabalho. Além disso, o RStudio também cria um arquivo com a extensão `.Rproj` dentro dessa pasta, que contém informações sobre o projeto.
+
+É recomendado que sempre trabalhemos em projetos no RStudio, pois isso facilita a organização dos arquivos e a reprodução do código.
+
+É recomendado também salvar os arquivos referentes ao projeto (como scripts, bases de dados, resultados, etc) dentro do projeto. Isso não significa que precisamos colocar todos os arquivos dentro da pasta principal do projeto: podemos criar sub-pastas para organizar os arquivos.
+
+Para criar um projeto no RStudio, primeiro precisamos acessar o menu de criação de projetos (*New project Wizard*). Podemos fazer isso de três formas:
+
+-   No menu superior, clicando em `File > New Project...`
+
+-   Clicando no ícone de novo projeto na barra de ferramentas do RStudio: ![](images/01_icone_novo_proj.png)
+
+-   No canto superior esquerdo, clicando no botão referente à projetos, e depois em `New Project...`:
+
+![Captura de tela do RStudio: Menu de projetos](images/01_botao_projetos.png){fig-align="center"}
+
+Depois, escolhemos o tipo de projeto que queremos criar. No geral, escolhemos a opção `New Directory`, para criar uma nova pasta no computador:
+
+![Captura de tela do RStudio: Criando um projeto](images/01_new_project.png){fig-align="center"}
+
+Depois, escolhemos o tipo de projeto que queremos criar. Cada tipo de projeto apresenta arquivos específicos de template. O RStudio apresenta algumas opções de projeto, porém é possível adicionar novos tipos de projeto instalandos pacotes específicos.
+
+No geral, escolhemos a opção `New Project`, para criar um projeto simples:
+
+![Captura de tela do RStudio: Escolhendo o tipo de projeto](images/01_new_project_type.png){fig-align="center"}
+
+Na tela seguinte, precisamos informar o nome do projeto (no campo *Directory name*) e o diretório onde ele será criado (no campo *Create project as subdirectory of*):
+
+![Captura de tela do RStudio: Nomeando o projeto](images/01_new_project_name_dir.png){fig-align="center"}
+
+Após preencher as informações solicitadas, clicamos em `Create Project`. O RStudio criará o projeto e o abrirá:
+
+![Captura de tela do RStudio: projeto criado](images/01_projeto_criado.png){fig-align="center"}
+
+::: callout-tip
+**Note que o nome do projeto que criamos aparece no canto superior direito do RStudio.**
+:::
+
+## Salvando os dados no projeto
+
+Para facilitar o trabalho, vamos salvar os dados que utilizaremos nesta aula dentro do projeto que acabamos de criar.
+
+Primeiro, vamos criar uma pasta chamada `dados` dentro do projeto:
+
+```{r}
+#| eval: false
+dir.create("dados")
+```
+
+Depois, vamos baixar os dados da CETESB e salvar na pasta `dados` que acabamos de criar:
+
+```{r}
+#| eval: false
+download.file(
+  url = "https://raw.githubusercontent.com/beatrizmilz/cetesb_saneamento/refs/heads/main/data-raw/dados-cetesb-tidy/2022.csv",
+  destfile = "dados/dados-cetesb-2022.csv"
+)
+```
+
+Confira se o arquivo foi baixado corretamente, e se está na pasta `dados` do projeto.
+
+## Importando os dados
+
+Para importar os dados que acabamos de baixar, vamos utilizar a função `read_csv()` do pacote `readr`, que faz parte do `tidyverse`.
+
+Lembre-se de carregar o pacote `tidyverse` antes de utilizar a função `read_csv()`:
+
+```{r}
+library(tidyverse)
+```
+
+Agora, podemos importar os dados:
+
+```{r}
+dados_cetesb <- read_csv("dados/dados-cetesb-2022.csv")
+```
+
+Vamos conferir se os dados foram importados corretamente, utilizando a função `glimpse()`:
+
+```{r}
+glimpse(dados_cetesb)
+```
+
+A função `View()` também pode ser utilizada para visualizar os dados em uma tabela interativa:
+
+```{r}
+#| eval: false
+View(dados_cetesb)
+```
+
+## Conhecendo a base de dados
+
+Para conhecer melhor a base de dados, podemos utilizar algumas funções para explorar as colunas e os tipos de dados.
+
+A função `colnames()` nos mostra os nomes das colunas:
+
+```{r}
+colnames(dados_cetesb)
+```
+
+A função `head()` nos mostra as primeiras linhas da base de dados, e a função `tail()` nos mostra as últimas linhas:
+
+```{r}
+head(dados_cetesb)
+tail(dados_cetesb)
+```
+
+A função `summary()` nos mostra um resumo de estatísticas descritivas para todas as colunas. Mas cuidado: nem todos os resultados fazem sentido (exemplo: a coluna `codigo_ibge` é um identificador, e não devemos calcular estatísticas descritivas para ela).
+
+```{r}
+summary(dados_cetesb)
+```
+
+## Calculando estatísticas descritivas
+
+Como vimos acima, a função `summary()` nos dá um resumo de estatísticas descritivas para todas as colunas. Porém, podemos querer calcular estatísticas descritivas apenas para algum subconjunto dos dados.
+
+Imagine que queremos calcular algumas estatísticas descritivas considerando cada UGRHI (Unidade de Gerenciamento de Recursos Hídricos) separadamente. Podemos fazer isso utilizando as funções `group_by()` e `summarise()`.
+
+```{r}
+dados_cetesb |>
+  # agrupar os dados pela coluna ugrhi
+  group_by(ugrhi) |>
+  # calcular estatísticas descritivas para cada grupo
+  summarise(
+    quantidade_municipios = n(),
+    soma_populacao_urbana = sum(populacao_urbana),
+    media_atendimento_coleta_porc = mean(atendimento_coleta_porc, na.rm = TRUE),
+    mediana_atendimento_coleta_porc = median(atendimento_coleta_porc, na.rm = TRUE),
+    desvio_padrao_atendimento_coleta_porc = sd(atendimento_coleta_porc, na.rm = TRUE)
+  )
+```
+
+## Visualizando os dados
+
+Para visualizar os dados, podemos utilizar a função `ggplot()` do pacote `ggplot2`, que também faz parte do `tidyverse`.
+
+Para quem está começando, recomendo utilizar o pacote `esquisse`, que facilita a criação de gráficos com o `ggplot2`.
+
+```{r}
+#| eval: false
+install.packages("esquisse")
+install.packages("plotly")
+```
+
+Depois de instalar o pacote, podemos carregá-lo e utilizar a função `esquisser()` para criar gráficos interativos:
+
+```{r}
+#| eval: false
+library(esquisse)
+esquisser(dados_cetesb)
+```
+
+O `esquisse` oferece uma interface amigável para criar gráficos com o `ggplot2`, permitindo que você arraste e solte variáveis, escolha tipos de gráficos e customize os elementos do gráfico. Ao usar o `esquisse`, você pode gerar o código correspondente ao gráfico que está criando, e depois copiá-lo para o seu script R.
+
+Para criar um histograma simples, por exemplo, podemos usar o seguinte código:
+
+```{r}
+# inicia o gráfico com os dados `dados_cetesb`
+ggplot(dados_cetesb) +
+  # define a variável que será plotada no eixo x
+  aes(x = atendimento_coleta_porc) +
+  # adiciona a geometria de histograma
+  geom_histogram() 
+```
+
+Podemos criar também um boxplot com um código semelhante:
+
+```{r}
+# inicia o gráfico com os dados `dados_cetesb`
+ggplot(dados_cetesb) +
+  # define a variável que será plotada no eixo y
+  aes(y = atendimento_coleta_porc) +
+  # adiciona a geometria de histograma
+  geom_boxplot() 
+```
+
+::: {.callout-note}
+Nesta aula, o objetivo foi apresentar algumas funções básicas que veremos outras vezes ao longo do curso. Não se preocupe se não entendeu tudo agora, pois iremos aprofundar esses conceitos em aulas futuras.
+
+Se você quiser praticar mais, recomendo que explore os materiais complementares.
+:::
+
+## Materiais complementares
+
+-   Materiais do curso [Introdução à análise de dados no R](https://ipeadata-lab.github.io/curso_r_intro_202409/):
+    -   [Diretório de trabalho e projetos](https://ipeadata-lab.github.io/curso_r_intro_202409/01_1_rproj.html)
+    -   [Importando dados](https://ipeadata-lab.github.io/curso_r_intro_202409/03_importacao.html)
+    -   [Conhecendo a base de dados](https://ipeadata-lab.github.io/curso_r_intro_202409/04_conhecendo.html)    
+    
