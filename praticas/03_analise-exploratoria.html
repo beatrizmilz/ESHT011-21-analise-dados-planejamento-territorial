@@ -403,6 +403,65 @@ $ ictem                         &lt;dbl&gt; 5.97, 4.63, 9.97, 1.55, 9.86, 1.50, 
 [11] "carga_poluidora_remancescente" "ictem"                        </code></pre>
 </div>
 </div>
+<p>Segue abaixo uma tabela com os nomes das colunas e suas descrições<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Nome da coluna</th>
+<th>Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ano</td>
+<td>Ano de referência dos dados</td>
+</tr>
+<tr class="even">
+<td>uf</td>
+<td>Unidade da Federação (estado)</td>
+</tr>
+<tr class="odd">
+<td>ugrhi</td>
+<td>Unidade de Gerenciamento de Recursos Hídricos</td>
+</tr>
+<tr class="even">
+<td>municipio</td>
+<td>Nome do município</td>
+</tr>
+<tr class="odd">
+<td>codigo_ibge</td>
+<td>Código do município no IBGE</td>
+</tr>
+<tr class="even">
+<td>populacao_urbana</td>
+<td>População urbana do município</td>
+</tr>
+<tr class="odd">
+<td>atendimento_coleta_porc</td>
+<td>Percentual de atendimento da coleta de esgoto</td>
+</tr>
+<tr class="even">
+<td>atendimento_tratamento_porc</td>
+<td>Percentual de atendimento do tratamento de esgoto, <strong>para o esgoto coletado</strong></td>
+</tr>
+<tr class="odd">
+<td>eficiencia</td>
+<td>Eficiência do sistema de esgoto</td>
+</tr>
+<tr class="even">
+<td>carga_poluidora_potencial</td>
+<td>Carga poluidora potencial do esgoto coletado</td>
+</tr>
+<tr class="odd">
+<td>carga_poluidora_remancescente</td>
+<td>Carga poluidora remanescente do esgoto coletado</td>
+</tr>
+<tr class="even">
+<td>ictem</td>
+<td><a href="https://cetesb.sp.gov.br/wp-content/uploads/sites/12/2013/11/11.pdf">Indicador de Coleta e Tratabilidade de Esgoto da População Urbana de Município (ICTEM)</a></td>
+</tr>
+</tbody>
+</table>
 <p>A função <code>head()</code> nos mostra as primeiras linhas da base de dados, e a função <code>tail()</code> nos mostra as últimas linhas:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dados_cetesb)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -724,7 +783,8 @@ Nota
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn1"><p>CETESB - Companhia Ambiental do Estado de São Paulo.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>O arquivo original não apresenta um dicionário de dados, portanto as descrições foram elaboradas com base no conteúdo do arquivo e na documentação do ICTEM (Indicador de Coleta e Tratabilidade de Esgoto da População Urbana de Município) disponível no site da CETESB.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>O arquivo original não apresenta um dicionário de dados, portanto as descrições foram elaboradas com base no conteúdo do arquivo e na documentação do ICTEM (Indicador de Coleta e Tratabilidade de Esgoto da População Urbana de Município) disponível no site da CETESB.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 
