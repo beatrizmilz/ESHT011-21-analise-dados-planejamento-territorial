@@ -253,7 +253,7 @@ Para criar um histograma simples, por exemplo, podemos usar o seguinte código:
 # inicia o gráfico com os dados `dados_cetesb`
 ggplot(dados_cetesb) +
   # define a variável que será plotada no eixo x
-  aes(x = atendimento_coleta_porc) +
+  aes(x = ictem) +
   # adiciona a geometria de histograma
   geom_histogram() 
 ```
@@ -264,7 +264,7 @@ Podemos criar também um boxplot com um código semelhante:
 # inicia o gráfico com os dados `dados_cetesb`
 ggplot(dados_cetesb) +
   # define a variável que será plotada no eixo y
-  aes(y = atendimento_coleta_porc) +
+  aes(y = ictem) +
   # adiciona a geometria de histograma
   geom_boxplot() 
 ```
