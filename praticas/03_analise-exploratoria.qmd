@@ -112,6 +112,14 @@ View(dados_cetesb)
 
 Para conhecer melhor a base de dados, podemos utilizar algumas funções para explorar as colunas e os tipos de dados.
 
+A função `nrow()` nos mostra o número de linhas da base de dados, e a função `ncol()` nos mostra o número de colunas:
+
+```{r}
+nrow(dados_cetesb)
+ncol(dados_cetesb)
+```
+
+
 A função `colnames()` nos mostra os nomes das colunas:
 
 ```{r}
@@ -133,23 +141,68 @@ summary(dados_cetesb)
 
 ## Calculando estatísticas descritivas
 
-Como vimos acima, a função `summary()` nos dá um resumo de estatísticas descritivas para todas as colunas. Porém, podemos querer calcular estatísticas descritivas apenas para algum subconjunto dos dados.
+Como vimos acima, a função `summary()` nos dá um resumo de estatísticas descritivas para todas as colunas.
 
-Imagine que queremos calcular algumas estatísticas descritivas considerando cada UGRHI (Unidade de Gerenciamento de Recursos Hídricos) separadamente. Podemos fazer isso utilizando as funções `group_by()` e `summarise()`.
+Também podemos calcular estatísticas descritivas específicas para colunas numéricas, como média, mediana, desvio padrão, entre outras.
+
+| função | descrição |
+| --- | --- |
+| `sum()` | calcula a soma dos valores |
+| `mean()` | calcula a média |
+| `median()` | calcula a mediana |
+| `var()` | calcula a variância |
+| `sd()` | calcula o desvio padrão |
+| `min()` | calcula o valor mínimo |
+| `max()` | calcula o valor máximo |
+| `quantile()` | calcula os quantis (percentis) |
+
+
+::: {.callout-important}
+## O operador `$`
+Quando estamos trabalhando com *data.frames* (ou *tibbles*) podemos utilizar o operador `$` para acessar uma coluna específica. O resultado será um vetor com os valores dessa coluna.
+
+Por exemplo, para acessar a coluna `atendimento_coleta_porc`, podemos fazer:
 
 ```{r}
-dados_cetesb |>
-  # agrupar os dados pela coluna ugrhi
-  group_by(ugrhi) |>
-  # calcular estatísticas descritivas para cada grupo
-  summarise(
-    quantidade_municipios = n(),
-    soma_populacao_urbana = sum(populacao_urbana),
-    media_atendimento_coleta_porc = mean(atendimento_coleta_porc, na.rm = TRUE),
-    mediana_atendimento_coleta_porc = median(atendimento_coleta_porc, na.rm = TRUE),
-    desvio_padrao_atendimento_coleta_porc = sd(atendimento_coleta_porc, na.rm = TRUE)
-  )
+dados_cetesb$atendimento_coleta_porc 
 ```
+
+:::
+
+Vamos ver alguns exemplos de como calcular estatísticas descritivas utilizando as funções apresentadas acima:
+
+```{r}
+# Soma dos valores da coluna `populacao_urbana`
+# Ou seja, a população urbana total do estado de São Paulo
+sum(dados_cetesb$populacao_urbana)
+```
+
+
+```{r}
+# Média dos valores da coluna `ictem`
+mean(dados_cetesb$ictem)
+
+
+# Mediana dos valores da coluna `ictem`
+median(dados_cetesb$ictem)
+
+# Variância dos valores da coluna `ictem`
+var(dados_cetesb$ictem)
+
+
+# Desvio padrão dos valores da coluna `ictem`
+sd(dados_cetesb$ictem)
+
+# Valor mínimo da coluna `ictem`
+min(dados_cetesb$ictem)
+
+# Valor máximo da coluna `ictem`
+max(dados_cetesb$ictem)
+
+# Quantis dos valores da coluna `ictem`
+quantile(dados_cetesb$ictem)
+```
+
 
 ## Visualizando os dados
 
@@ -195,7 +248,7 @@ ggplot(dados_cetesb) +
   geom_boxplot() 
 ```
 
-::: {.callout-note}
+::: callout-note
 Nesta aula, o objetivo foi apresentar algumas funções básicas que veremos outras vezes ao longo do curso. Não se preocupe se não entendeu tudo agora, pois iremos aprofundar esses conceitos em aulas futuras.
 
 Se você quiser praticar mais, recomendo que explore os materiais complementares.
@@ -206,5 +259,4 @@ Se você quiser praticar mais, recomendo que explore os materiais complementares
 -   Materiais do curso [Introdução à análise de dados no R](https://ipeadata-lab.github.io/curso_r_intro_202409/):
     -   [Diretório de trabalho e projetos](https://ipeadata-lab.github.io/curso_r_intro_202409/01_1_rproj.html)
     -   [Importando dados](https://ipeadata-lab.github.io/curso_r_intro_202409/03_importacao.html)
-    -   [Conhecendo a base de dados](https://ipeadata-lab.github.io/curso_r_intro_202409/04_conhecendo.html)    
-    
+    -   [Conhecendo a base de dados](https://ipeadata-lab.github.io/curso_r_intro_202409/04_conhecendo.html)
