@@ -126,6 +126,27 @@ A função `colnames()` nos mostra os nomes das colunas:
 colnames(dados_cetesb)
 ```
 
+Segue abaixo uma tabela com os nomes das colunas e suas descrições[^03_analise-exploratoria-1]:
+
+[^03_analise-exploratoria-1]: O arquivo original não apresenta um dicionário de dados, portanto as descrições foram elaboradas com base no conteúdo do arquivo e na documentação do ICTEM (Indicador de Coleta e Tratabilidade de Esgoto da População Urbana de Município) disponível no site da CETESB.
+
+| Nome da coluna | Descrição |
+| --- | --- |
+| ano | Ano de referência dos dados |
+| uf | Unidade da Federação (estado) |
+| ugrhi | Unidade de Gerenciamento de Recursos Hídricos |
+| municipio | Nome do município |
+| codigo_ibge | Código do município no IBGE |
+| populacao_urbana | População urbana do município |
+| atendimento_coleta_porc | Percentual de atendimento da coleta de esgoto |
+| atendimento_tratamento_porc | Percentual de atendimento do tratamento de esgoto, **para o esgoto coletado** |
+| eficiencia | Eficiência do sistema de esgoto |
+| carga_poluidora_potencial | Carga poluidora potencial do esgoto coletado |
+| carga_poluidora_remancescente | Carga poluidora remanescente do esgoto coletado |
+| ictem | [Indicador de Coleta e Tratabilidade de Esgoto da População Urbana de Município (ICTEM)](https://cetesb.sp.gov.br/wp-content/uploads/sites/12/2013/11/11.pdf) |
+
+
+
 A função `head()` nos mostra as primeiras linhas da base de dados, e a função `tail()` nos mostra as últimas linhas:
 
 ```{r}
