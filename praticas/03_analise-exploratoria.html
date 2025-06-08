@@ -380,9 +380,20 @@ $ ictem                         &lt;dbl&gt; 5.97, 4.63, 9.97, 1.55, 9.86, 1.50, 
 <section id="conhecendo-a-base-de-dados" class="level2" data-number="3.4">
 <h2 data-number="3.4" class="anchored" data-anchor-id="conhecendo-a-base-de-dados"><span class="header-section-number">3.4</span> Conhecendo a base de dados</h2>
 <p>Para conhecer melhor a base de dados, podemos utilizar algumas funções para explorar as colunas e os tipos de dados.</p>
+<p>A função <code>nrow()</code> nos mostra o número de linhas da base de dados, e a função <code>ncol()</code> nos mostra o número de colunas:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(dados_cetesb)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 645</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ncol</span>(dados_cetesb)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 12</code></pre>
+</div>
+</div>
 <p>A função <code>colnames()</code> nos mostra os nomes das colunas:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(dados_cetesb)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(dados_cetesb)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "ano"                           "uf"                           
  [3] "ugrhi"                         "municipio"                    
@@ -394,7 +405,7 @@ $ ictem                         &lt;dbl&gt; 5.97, 4.63, 9.97, 1.55, 9.86, 1.50, 
 </div>
 <p>A função <code>head()</code> nos mostra as primeiras linhas da base de dados, e a função <code>tail()</code> nos mostra as últimas linhas:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dados_cetesb)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dados_cetesb)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 12
     ano uf    ugrhi municipio               codigo_ibge populacao_urbana
@@ -410,7 +421,7 @@ $ ictem                         &lt;dbl&gt; 5.97, 4.63, 9.97, 1.55, 9.86, 1.50, 
 #   carga_poluidora_potencial &lt;dbl&gt;, carga_poluidora_remancescente &lt;dbl&gt;,
 #   ictem &lt;dbl&gt;</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(dados_cetesb)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(dados_cetesb)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 12
     ano uf    ugrhi municipio       codigo_ibge populacao_urbana
@@ -429,7 +440,7 @@ $ ictem                         &lt;dbl&gt; 5.97, 4.63, 9.97, 1.55, 9.86, 1.50, 
 </div>
 <p>A função <code>summary()</code> nos mostra um resumo de estatísticas descritivas para todas as colunas. Mas cuidado: nem todos os resultados fazem sentido (exemplo: a coluna <code>codigo_ibge</code> é um identificador, e não devemos calcular estatísticas descritivas para ela).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(dados_cetesb)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(dados_cetesb)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      ano            uf                ugrhi        municipio        
  Min.   :2022   Length:645         Min.   : 1.00   Length:645        
@@ -468,38 +479,168 @@ $ ictem                         &lt;dbl&gt; 5.97, 4.63, 9.97, 1.55, 9.86, 1.50, 
 </section>
 <section id="calculando-estatísticas-descritivas" class="level2" data-number="3.5">
 <h2 data-number="3.5" class="anchored" data-anchor-id="calculando-estatísticas-descritivas"><span class="header-section-number">3.5</span> Calculando estatísticas descritivas</h2>
-<p>Como vimos acima, a função <code>summary()</code> nos dá um resumo de estatísticas descritivas para todas as colunas. Porém, podemos querer calcular estatísticas descritivas apenas para algum subconjunto dos dados.</p>
-<p>Imagine que queremos calcular algumas estatísticas descritivas considerando cada UGRHI (Unidade de Gerenciamento de Recursos Hídricos) separadamente. Podemos fazer isso utilizando as funções <code>group_by()</code> e <code>summarise()</code>.</p>
+<p>Como vimos acima, a função <code>summary()</code> nos dá um resumo de estatísticas descritivas para todas as colunas.</p>
+<p>Também podemos calcular estatísticas descritivas específicas para colunas numéricas, como média, mediana, desvio padrão, entre outras.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>função</th>
+<th>descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>sum()</code></td>
+<td>calcula a soma dos valores</td>
+</tr>
+<tr class="even">
+<td><code>mean()</code></td>
+<td>calcula a média</td>
+</tr>
+<tr class="odd">
+<td><code>median()</code></td>
+<td>calcula a mediana</td>
+</tr>
+<tr class="even">
+<td><code>var()</code></td>
+<td>calcula a variância</td>
+</tr>
+<tr class="odd">
+<td><code>sd()</code></td>
+<td>calcula o desvio padrão</td>
+</tr>
+<tr class="even">
+<td><code>min()</code></td>
+<td>calcula o valor mínimo</td>
+</tr>
+<tr class="odd">
+<td><code>max()</code></td>
+<td>calcula o valor máximo</td>
+</tr>
+<tr class="even">
+<td><code>quantile()</code></td>
+<td>calcula os quantis (percentis)</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+O operador <code>$</code>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Quando estamos trabalhando com <em>data.frames</em> (ou <em>tibbles</em>) podemos utilizar o operador <code>$</code> para acessar uma coluna específica. O resultado será um vetor com os valores dessa coluna.</p>
+<p>Por exemplo, para acessar a coluna <code>atendimento_coleta_porc</code>, podemos fazer:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>dados_cetesb <span class="sc">|&gt;</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># agrupar os dados pela coluna ugrhi</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ugrhi) <span class="sc">|&gt;</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># calcular estatísticas descritivas para cada grupo</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">quantidade_municipios =</span> <span class="fu">n</span>(),</span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">soma_populacao_urbana =</span> <span class="fu">sum</span>(populacao_urbana),</span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">media_atendimento_coleta_porc =</span> <span class="fu">mean</span>(atendimento_coleta_porc, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">mediana_atendimento_coleta_porc =</span> <span class="fu">median</span>(atendimento_coleta_porc, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">desvio_padrao_atendimento_coleta_porc =</span> <span class="fu">sd</span>(atendimento_coleta_porc, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>dados_cetesb<span class="sc">$</span>atendimento_coleta_porc </span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 22 × 6
-   ugrhi quantidade_municipios soma_populacao_urbana media_atendimento_coleta_…¹
-   &lt;dbl&gt;                 &lt;int&gt;                 &lt;dbl&gt;                       &lt;dbl&gt;
- 1     1                     3                 61702                        65.8
- 2     2                    34               2124413                        84.2
- 3     3                     4                337159                        49.6
- 4     4                    23               1215586                        97.2
- 5     5                    57               5737151                        87.0
- 6     6                    34              21626154                        72.4
- 7     7                     9               1893370                        72.9
- 8     8                    22                707923                        98.1
- 9     9                    38               1542781                        97.0
-10    10                    33               1937230                        79.8
-# ℹ 12 more rows
-# ℹ abbreviated name: ¹​media_atendimento_coleta_porc
-# ℹ 2 more variables: mediana_atendimento_coleta_porc &lt;dbl&gt;,
-#   desvio_padrao_atendimento_coleta_porc &lt;dbl&gt;</code></pre>
+<pre><code>  [1]  52.6  46.7  98.0  70.0  95.6 100.0  88.1 100.0 100.0  84.6  74.3  90.0
+ [13]  60.4  98.2  30.7  98.2 100.0  83.5  73.2  99.6  84.4  96.0  68.0 100.0
+ [25]  84.3  85.0  77.2  44.3  93.6  64.0  57.3  84.7  94.4  88.3  95.9 100.0
+ [37]  98.6  78.6  40.5  44.6  34.7 100.0  99.0 100.0  96.4 100.0  91.4  99.0
+ [49]  85.2  88.5 100.0  99.0  99.5  99.2 100.0  96.2 100.0  96.9 100.0  92.8
+ [61] 100.0 100.0  91.7 100.0  96.5  95.7  95.0  96.0  98.0  67.8  20.0  89.6
+ [73]  96.3  60.2  95.0  86.9 100.0 100.0  98.0  94.6 100.0  95.2  97.7  90.5
+ [85] 100.0  89.7  74.2  98.0  29.7  65.2  99.5 100.0  86.6 100.0  95.0  90.7
+ [97]  89.9  12.8  96.2  94.9  70.6  99.0  96.0  52.9 100.0 100.0  99.8  99.0
+[109] 100.0  98.0  99.0 100.0 100.0 100.0  90.0  95.0  50.0  94.3  46.4  84.2
+[121]  91.5  71.5  83.5  53.1  74.0  74.4  69.8  54.0  97.5  72.3  40.5  82.7
+[133]  58.2  74.0  86.4  52.0  64.5  63.0  74.1  25.8  93.0  60.7  77.8  51.0
+[145]  96.8  71.2  50.2  77.3  46.9  99.5  92.3 100.0  89.5  94.5  89.5  66.0
+[157]  51.3  69.4  49.3  82.9  81.2  80.0  96.6  79.4 100.0  99.0  99.7  97.0
+[169] 100.0 100.0 100.0  96.9 100.0  98.8 100.0 100.0  87.5 100.0 100.0 100.0
+[181] 100.0  87.1  97.8  98.3 100.0  95.9  98.1  98.8  99.0 100.0 100.0 100.0
+[193]  97.0  99.1 100.0 100.0  93.7 100.0  99.8 100.0 100.0 100.0 100.0  70.0
+[205] 100.0  99.2  96.0 100.0 100.0 100.0  98.9  96.4 100.0 100.0  97.0 100.0
+[217] 100.0  96.3  92.4 100.0  78.3 100.0  77.5 100.0  56.2  70.9  86.9  42.1
+[229]  40.0  89.0  88.3 100.0  66.2  75.6  98.0 100.0  82.1  49.6  90.2 100.0
+[241]  90.0  96.4  77.0 100.0  73.8  79.7  99.9  69.2  98.9  48.5  58.0  99.0
+[253]  97.2  86.5  89.2  35.4  99.0  61.9  87.6  73.9  86.7  83.3  97.9  60.3
+[265]  44.5  67.9  61.5  82.1  38.3 100.0  83.0  16.6  86.6  93.9  58.3  99.6
+[277]  62.7  31.6  75.8  79.5  89.3 100.0  99.1 100.0 100.0 100.0  99.5  90.4
+[289] 100.0 100.0  93.1 100.0 100.0  99.7  77.0  99.2  98.8  99.0  98.3 100.0
+[301] 100.0 100.0 100.0 100.0  98.5 100.0 100.0  93.0 100.0  95.0 100.0 100.0
+[313]  95.0  87.5 100.0 100.0 100.0  97.0 100.0  98.8  96.0 100.0 100.0  99.1
+[325]  98.5 100.0  86.6  83.3  99.1 100.0  80.6  97.2  83.9  94.9  97.9 100.0
+[337]  78.9  85.8  99.0  88.1  83.5  95.9  87.8  89.5  91.2  90.0  64.1  70.3
+[349]  73.2 100.0  81.0 100.0  97.5  70.1  96.0 100.0 100.0  75.8  92.0  94.5
+[361] 100.0  99.0 100.0 100.0  99.9 100.0 100.0 100.0  99.1 100.0 100.0  99.5
+[373] 100.0 100.0 100.0 100.0 100.0  80.0 100.0  93.4 100.0  98.7 100.0  99.1
+[385]  98.6 100.0  80.0 100.0  99.8  97.7 100.0 100.0 100.0  92.1 100.0  98.5
+[397]  80.7 100.0 100.0  80.0 100.0 100.0 100.0 100.0 100.0 100.0 100.0  99.0
+[409] 100.0 100.0  71.0 100.0 100.0 100.0 100.0 100.0  98.2 100.0 100.0 100.0
+[421] 100.0 100.0 100.0  99.0 100.0  91.4 100.0 100.0  99.0 100.0 100.0 100.0
+[433] 100.0 100.0  98.9 100.0  83.4 100.0  99.0 100.0  87.3 100.0 100.0 100.0
+[445] 100.0  98.0 100.0 100.0  90.0 100.0 100.0  98.6  67.0 100.0 100.0  83.3
+[457] 100.0  73.2  99.0 100.0  99.8  99.0 100.0  99.6  92.0  90.0  99.0 100.0
+[469] 100.0 100.0  94.1 100.0  93.2 100.0 100.0 100.0  83.2 100.0 100.0  92.3
+[481]  98.1  93.1 100.0  99.3 100.0 100.0  70.5  95.3 100.0  87.5 100.0  95.3
+[493]  99.0  93.9  70.0 100.0 100.0 100.0 100.0 100.0 100.0  96.6 100.0 100.0
+[505]  98.8  91.5 100.0 100.0 100.0  95.0 100.0 100.0 100.0  90.1  79.7 100.0
+[517] 100.0 100.0 100.0 100.0 100.0  97.0  98.0 100.0  96.5  98.6  98.5 100.0
+[529]  99.0  92.4 100.0  98.0 100.0  89.2 100.0 100.0  94.9  82.1  85.4 100.0
+[541] 100.0  80.0  99.0 100.0 100.0  99.0 100.0  90.0 100.0 100.0  92.5 100.0
+[553]  76.9 100.0  99.0  94.0 100.0  99.0 100.0 100.0 100.0 100.0 100.0 100.0
+[565]  99.8  95.9  99.2  98.0 100.0  93.1 100.0  99.5  80.0  99.0  96.3  97.6
+[577] 100.0  97.9  86.4  99.0 100.0 100.0  72.9  92.8 100.0  60.0  97.1  95.0
+[589] 100.0 100.0  99.5  88.0  96.2  88.7 100.0 100.0 100.0  98.0 100.0  99.0
+[601] 100.0  99.0 100.0  90.6  98.7  89.4 100.0  98.5  97.0 100.0 100.0 100.0
+[613]  97.0  80.0 100.0 100.0  95.1 100.0  95.0  97.0 100.0  96.8  91.7  97.5
+[625] 100.0 100.0 100.0  86.6  95.0  97.0  84.1 100.0 100.0  94.5  81.6  93.1
+[637] 100.0  98.0 100.0  79.5  87.7  97.8 100.0  88.1 100.0</code></pre>
+</div>
+</div>
+</div>
+</div>
+<p>Vamos ver alguns exemplos de como calcular estatísticas descritivas utilizando as funções apresentadas acima:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Soma dos valores da coluna `populacao_urbana`</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Ou seja, a população urbana total do estado de São Paulo</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(dados_cetesb<span class="sc">$</span>populacao_urbana)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 44767107</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Média dos valores da coluna `ictem`</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(dados_cetesb<span class="sc">$</span>ictem)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 7.759767</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mediana dos valores da coluna `ictem`</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(dados_cetesb<span class="sc">$</span>ictem)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 8.21</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Variância dos valores da coluna `ictem`</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(dados_cetesb<span class="sc">$</span>ictem)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 6.09937</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Desvio padrão dos valores da coluna `ictem`</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(dados_cetesb<span class="sc">$</span>ictem)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.46969</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Valor mínimo da coluna `ictem`</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(dados_cetesb<span class="sc">$</span>ictem)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.75</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Valor máximo da coluna `ictem`</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span>(dados_cetesb<span class="sc">$</span>ictem)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 10</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Quantis dos valores da coluna `ictem`</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(dados_cetesb<span class="sc">$</span>ictem)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   0%   25%   50%   75%  100% 
+ 0.75  6.78  8.21  9.94 10.00 </code></pre>
 </div>
 </div>
 </section>
@@ -508,46 +649,46 @@ $ ictem                         &lt;dbl&gt; 5.97, 4.63, 9.97, 1.55, 9.86, 1.50, 
 <p>Para visualizar os dados, podemos utilizar a função <code>ggplot()</code> do pacote <code>ggplot2</code>, que também faz parte do <code>tidyverse</code>.</p>
 <p>Para quem está começando, recomendo utilizar o pacote <code>esquisse</code>, que facilita a criação de gráficos com o <code>ggplot2</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"esquisse"</span>)</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"plotly"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"esquisse"</span>)</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"plotly"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Depois de instalar o pacote, podemos carregá-lo e utilizar a função <code>esquisser()</code> para criar gráficos interativos:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(esquisse)</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">esquisser</span>(dados_cetesb)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(esquisse)</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">esquisser</span>(dados_cetesb)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>O <code>esquisse</code> oferece uma interface amigável para criar gráficos com o <code>ggplot2</code>, permitindo que você arraste e solte variáveis, escolha tipos de gráficos e customize os elementos do gráfico. Ao usar o <code>esquisse</code>, você pode gerar o código correspondente ao gráfico que está criando, e depois copiá-lo para o seu script R.</p>
 <p>Para criar um histograma simples, por exemplo, podemos usar o seguinte código:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># inicia o gráfico com os dados `dados_cetesb`</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dados_cetesb) <span class="sc">+</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># define a variável que será plotada no eixo x</span></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> atendimento_coleta_porc) <span class="sc">+</span></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># adiciona a geometria de histograma</span></span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() </span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># inicia o gráfico com os dados `dados_cetesb`</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dados_cetesb) <span class="sc">+</span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># define a variável que será plotada no eixo x</span></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> atendimento_coleta_porc) <span class="sc">+</span></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># adiciona a geometria de histograma</span></span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() </span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="03_analise-exploratoria_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="03_analise-exploratoria_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>Podemos criar também um boxplot com um código semelhante:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># inicia o gráfico com os dados `dados_cetesb`</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dados_cetesb) <span class="sc">+</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># define a variável que será plotada no eixo y</span></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">y =</span> atendimento_coleta_porc) <span class="sc">+</span></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># adiciona a geometria de histograma</span></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() </span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># inicia o gráfico com os dados `dados_cetesb`</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dados_cetesb) <span class="sc">+</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># define a variável que será plotada no eixo y</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">y =</span> atendimento_coleta_porc) <span class="sc">+</span></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># adiciona a geometria de histograma</span></span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() </span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="03_analise-exploratoria_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="03_analise-exploratoria_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
