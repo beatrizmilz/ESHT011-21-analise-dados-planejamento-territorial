@@ -223,7 +223,17 @@ max(dados_cetesb$ictem)
 # Quantis dos valores da coluna `ictem`
 quantile(dados_cetesb$ictem)
 ```
+Atenção aos valores faltantes (`NA`): Por padrão, as funções acima consideram os valores faltantes (`NA`) no cálculo, e portanto, o resultado também será um valor faltante (`NA`). Veja esse exemplo:
 
+```{r}
+mean(dados_cetesb$eficiencia)
+```
+
+Se você quiser remover os valores faltantes, pode utilizar o argumento `na.rm = TRUE` nas funções. Por exemplo:
+
+```{r}
+mean(dados_cetesb$eficiencia, na.rm = TRUE)
+```
 
 ## Visualizando os dados
 
