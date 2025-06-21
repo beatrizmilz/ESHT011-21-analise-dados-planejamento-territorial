@@ -1,0 +1,92 @@
+---
+title: "Sugestão de vídeos, posts, e outros materiais"
+---
+
+
+Nesta página, reunimos alguns vídeos, posts e outros materiais que podem ser úteis para complementar os estudos!
+
+```{r}
+#| echo: false
+embed_video <- function(id_video){
+  glue::glue('<center><iframe width="100%" height="400" src="https://www.youtube.com/embed/{id_video}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></center>')
+}
+```
+
+## Estatística básica
+
+- Como calcular variância, desvio padrão e coeficiente de variação (manualmente e no Excel) - por [Fernanda Peres](#sec-fernanda-peres). A Fernanda também escreveu [um texto](https://fernandafperes.com.br/blog/variancia-desvio-padrao/) sobre o assunto.
+
+
+```{r}
+#| results: asis
+#| echo: false
+embed_video("A-N-eEB1owQ?si=CHLrjBCNPynwqNPJ") 
+```
+
+
+- O segredo da MERITOCRARIA - por [Atila Iamarino](#sec-atila-iamarino). Este vídeo aborda o tabuleiro de Galton (até cerca de 5 min), que conecta com os conceitos de distribuição normal, média, valores extremos. 
+
+```{r}
+#| results: asis
+#| echo: false
+embed_video("YINTTVjBrY4?si=2uFZFDBZMUUz18qv") 
+```
+
+- Será que você nasceu inteligente? - por [Atila Iamarino](#sec-atila-iamarino). Este vídeo complementa os conceitos apresentados no vídeo anterior: tabuleiro de Galton, distribuição normal, média, valores extremos.
+
+```{r}
+#| results: asis
+#| echo: false
+embed_video("s07UdIXXVdY?si=MT6_Fs3fPT_m9U7G") 
+```
+
+
+- Uma doutora toma chá: entendendo teste de hipóteses, valor de p e nível de significância alfa - por [Fernanda Peres](#sec-fernanda-peres). A Fernanda também escreveu [um texto](https://fernandafperes.com.br/blog/doutora-toma-cha/) sobre o assunto, e alguns outros posts complementares: [Valor de p, nível de significância e testes uni vs. bicaudais](https://fernandafperes.com.br/blog/valor-de-p-calculo/), [As falácias do valor de p](https://fernandafperes.com.br/blog/falacias-valor-de-p/).
+
+```{r}
+#| results: asis
+#| echo: false
+embed_video("kOUZw-wMmXU?si=LO8IAxago4554lDG") 
+```
+
+- Texto: [Como interpretar o intervalo de confiança?](https://fernandafperes.com.br/blog/intervalo-de-confianca/) - por [Fernanda Peres](#sec-fernanda-peres).
+
+
+
+
+- Playlist: Estatística Aplicada no R - por [Fernanda Peres](#sec-fernanda-peres).
+
+<center><iframe width="100%" height="400" src="https://www.youtube.com/embed/videoseries?si=djQcgdDNsk2hgK14&amp;list=PLOw62cBQ5j9VE9X4cCCfFMjW_hhEAJUhU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></center>
+
+## Organização dos dados
+
+- Como organizar sua base de dados para análises estatísticas? - por [Fernanda Peres](#sec-fernanda-peres). 
+
+```{r}
+#| results: asis
+#| echo: false
+embed_video("wzfPR2oQ61A?si=BMgEVolINqLCku8t") 
+```
+
+## Gráficos
+
+- Entendendo o gráfico boxplot - por [Fernanda Peres](#sec-fernanda-peres). A Fernanda também escreveu [um texto](https://fernandafperes.com.br/blog/interpretacao-boxplot/) sobre o assunto.
+
+```{r}
+#| results: asis
+#| echo: false
+embed_video("mvuafSY-SGo?si=212PqqXMYTnsJkgz") 
+```
+
+
+
+## Sobre os canais citados
+
+### Dr. Atila Iamarino {#sec-atila-iamarino}
+  - [Youtube](https://www.youtube.com/@AtilaIamarino)
+  - [Instagram](https://www.instagram.com/oatila/)
+
+### Dra. Fernanda Peres {#sec-fernanda-peres}
+  - [Youtube](https://www.youtube.com/@FernandaPeres)
+  - [Instagram](https://www.instagram.com/estatisticaaplicada/)
+  - [Blog](https://fernandafperes.com.br/blog/)
