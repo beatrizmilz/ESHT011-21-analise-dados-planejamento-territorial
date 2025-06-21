@@ -9,7 +9,7 @@
 <meta name="author" content="Flávia da Fonseca Feitosa">
 <meta name="author" content="Beatriz Milz">
 
-<title>5&nbsp; Erros e warnings frequentes – Análise de dados para o Planejamento Territorial</title>
+<title>Apêndice A — Erros e warnings frequentes – Análise de dados para o Planejamento Territorial</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -67,6 +67,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
+<link href="../apendices/00_sugestao-videos.html" rel="next">
 <link href="../praticas/04_analise-exploratoria-ii.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -118,7 +119,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../apendices/00_erros_frequentes.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Erros e <em>warnings</em> frequentes</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../apendices/00_erros_frequentes.html">Apêndices</a></li><li class="breadcrumb-item"><a href="../apendices/00_erros_frequentes.html"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Erros e <em>warnings</em> frequentes</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Procurar" onclick="window.quartoOpenSearch();">
@@ -177,12 +178,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Análise exploratória de dados - Parte 2</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Apêndices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Alternar seção">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../apendices/00_erros_frequentes.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Erros e <em>warnings</em> frequentes</span></span></a>
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Erros e <em>warnings</em> frequentes</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../apendices/00_sugestao-videos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Sugestão de vídeos, posts, e outros materiais</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -193,16 +211,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Índice</h2>
    
   <ul>
-  <li><a href="#instalação" id="toc-instalação" class="nav-link active" data-scroll-target="#instalação"><span class="header-section-number">5.1</span> Instalação</a>
+  <li><a href="#instalação" id="toc-instalação" class="nav-link active" data-scroll-target="#instalação"><span class="header-section-number">A.1</span> Instalação</a>
   <ul class="collapse">
-  <li><a href="#rtools" id="toc-rtools" class="nav-link" data-scroll-target="#rtools"><span class="header-section-number">5.1.1</span> RTools</a></li>
+  <li><a href="#rtools" id="toc-rtools" class="nav-link" data-scroll-target="#rtools"><span class="header-section-number">A.1.1</span> RTools</a></li>
   </ul></li>
-  <li><a href="#conceitos-básicos" id="toc-conceitos-básicos" class="nav-link" data-scroll-target="#conceitos-básicos"><span class="header-section-number">5.2</span> Conceitos básicos</a>
+  <li><a href="#conceitos-básicos" id="toc-conceitos-básicos" class="nav-link" data-scroll-target="#conceitos-básicos"><span class="header-section-number">A.2</span> Conceitos básicos</a>
   <ul class="collapse">
-  <li><a href="#instalando-pacotes" id="toc-instalando-pacotes" class="nav-link" data-scroll-target="#instalando-pacotes"><span class="header-section-number">5.2.1</span> Instalando pacotes</a></li>
-  <li><a href="#pacote-não-encontrado" id="toc-pacote-não-encontrado" class="nav-link" data-scroll-target="#pacote-não-encontrado"><span class="header-section-number">5.2.2</span> Pacote não encontrado</a></li>
-  <li><a href="#objeto-não-encontrado" id="toc-objeto-não-encontrado" class="nav-link" data-scroll-target="#objeto-não-encontrado"><span class="header-section-number">5.2.3</span> Objeto não encontrado</a></li>
-  <li><a href="#função-não-encontrada" id="toc-função-não-encontrada" class="nav-link" data-scroll-target="#função-não-encontrada"><span class="header-section-number">5.2.4</span> Função não encontrada</a></li>
+  <li><a href="#instalando-pacotes" id="toc-instalando-pacotes" class="nav-link" data-scroll-target="#instalando-pacotes"><span class="header-section-number">A.2.1</span> Instalando pacotes</a></li>
+  <li><a href="#pacote-não-encontrado" id="toc-pacote-não-encontrado" class="nav-link" data-scroll-target="#pacote-não-encontrado"><span class="header-section-number">A.2.2</span> Pacote não encontrado</a></li>
+  <li><a href="#objeto-não-encontrado" id="toc-objeto-não-encontrado" class="nav-link" data-scroll-target="#objeto-não-encontrado"><span class="header-section-number">A.2.3</span> Objeto não encontrado</a></li>
+  <li><a href="#função-não-encontrada" id="toc-função-não-encontrada" class="nav-link" data-scroll-target="#função-não-encontrada"><span class="header-section-number">A.2.4</span> Função não encontrada</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial/edit/main/apendices/00_erros_frequentes.qmd" class="toc-action"><i class="bi bi-github"></i>Editar essa página</a></li><li><a href="https://github.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial/issues/new" class="toc-action"><i class="bi empty"></i>Criar uma issue</a></li><li><a href="https://github.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial/blob/main/apendices/00_erros_frequentes.qmd" class="toc-action"><i class="bi empty"></i>Ver o código fonte</a></li></ul></div></nav>
@@ -210,9 +228,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../apendices/00_erros_frequentes.html">Apêndices</a></li><li class="breadcrumb-item"><a href="../apendices/00_erros_frequentes.html"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Erros e <em>warnings</em> frequentes</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Erros e <em>warnings</em> frequentes</span></h1>
+<h1 class="title">Apêndice A — Erros e <em>warnings</em> frequentes</h1>
 </div>
 
 
@@ -237,10 +255,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p>A lista a seguir apresenta alguns erros e <em>warnings</em> mais comuns.</p>
-<section id="instalação" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="instalação"><span class="header-section-number">5.1</span> Instalação</h2>
-<section id="rtools" class="level3" data-number="5.1.1">
-<h3 data-number="5.1.1" class="anchored" data-anchor-id="rtools"><span class="header-section-number">5.1.1</span> RTools</h3>
+<section id="instalação" class="level2" data-number="A.1">
+<h2 data-number="A.1" class="anchored" data-anchor-id="instalação"><span class="header-section-number">A.1</span> Instalação</h2>
+<section id="rtools" class="level3" data-number="A.1.1">
+<h3 data-number="A.1.1" class="anchored" data-anchor-id="rtools"><span class="header-section-number">A.1.1</span> RTools</h3>
 <p><strong>Para pessoas que utilizam o sistema operacional Windows</strong>, a aviso (<em>warning</em>) abaixo pode aparecer em alguns contextos:</p>
 <pre><code>WARNING: Rtools is required to build R packages but is not currently installed.
 Please download and install the appropriate version of Rtools before proceeding:
@@ -265,10 +283,10 @@ Instalando pacote em ‘C:/Users/.../AppData/Local/R/win-library/4.4’
 </div>
 </section>
 </section>
-<section id="conceitos-básicos" class="level2" data-number="5.2">
-<h2 data-number="5.2" class="anchored" data-anchor-id="conceitos-básicos"><span class="header-section-number">5.2</span> Conceitos básicos</h2>
-<section id="instalando-pacotes" class="level3" data-number="5.2.1">
-<h3 data-number="5.2.1" class="anchored" data-anchor-id="instalando-pacotes"><span class="header-section-number">5.2.1</span> Instalando pacotes</h3>
+<section id="conceitos-básicos" class="level2" data-number="A.2">
+<h2 data-number="A.2" class="anchored" data-anchor-id="conceitos-básicos"><span class="header-section-number">A.2</span> Conceitos básicos</h2>
+<section id="instalando-pacotes" class="level3" data-number="A.2.1">
+<h3 data-number="A.2.1" class="anchored" data-anchor-id="instalando-pacotes"><span class="header-section-number">A.2.1</span> Instalando pacotes</h3>
 <p>O erro a seguir ocorre quando o usuário tenta instalar um pacote sem aspas. O correto é colocar o nome do pacote entre aspas.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># O código abaixo gerará um erro:</span></span>
@@ -283,8 +301,8 @@ Instalando pacote em ‘C:/Users/.../AppData/Local/R/win-library/4.4’
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"janitor"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="pacote-não-encontrado" class="level3" data-number="5.2.2">
-<h3 data-number="5.2.2" class="anchored" data-anchor-id="pacote-não-encontrado"><span class="header-section-number">5.2.2</span> Pacote não encontrado</h3>
+<section id="pacote-não-encontrado" class="level3" data-number="A.2.2">
+<h3 data-number="A.2.2" class="anchored" data-anchor-id="pacote-não-encontrado"><span class="header-section-number">A.2.2</span> Pacote não encontrado</h3>
 <p>O erro a seguir ocorre quando tentamos carregar um pacote que não foi instalado anteriormente. Para resolver, precisamos instalar o pacote.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># O código abaixo gerará um erro:</span></span>
@@ -296,8 +314,8 @@ Instalando pacote em ‘C:/Users/.../AppData/Local/R/win-library/4.4’
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quarto)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="objeto-não-encontrado" class="level3" data-number="5.2.3">
-<h3 data-number="5.2.3" class="anchored" data-anchor-id="objeto-não-encontrado"><span class="header-section-number">5.2.3</span> Objeto não encontrado</h3>
+<section id="objeto-não-encontrado" class="level3" data-number="A.2.3">
+<h3 data-number="A.2.3" class="anchored" data-anchor-id="objeto-não-encontrado"><span class="header-section-number">A.2.3</span> Objeto não encontrado</h3>
 <p>O erro a seguir ocorre quando tentamos acessar um objeto que não consta no painel <em>Environment</em>. Existe alguns motivos para isso acontecer:</p>
 <ul>
 <li><p>O objeto não foi criado (provavelmente precisa executar o código que cria o objeto);</p></li>
@@ -320,15 +338,15 @@ Instalando pacote em ‘C:/Users/.../AppData/Local/R/win-library/4.4’
 </div>
 </div>
 </section>
-<section id="função-não-encontrada" class="level3" data-number="5.2.4">
-<h3 data-number="5.2.4" class="anchored" data-anchor-id="função-não-encontrada"><span class="header-section-number">5.2.4</span> Função não encontrada</h3>
+<section id="função-não-encontrada" class="level3" data-number="A.2.4">
+<h3 data-number="A.2.4" class="anchored" data-anchor-id="função-não-encontrada"><span class="header-section-number">A.2.4</span> Função não encontrada</h3>
 <p>O erro <code>could not find function</code> ocorre quando tentamos acessar uma função que não está sendo encontrada. Isso pode acontecer por alguns motivos:</p>
 <ul>
 <li><p>A função faz parte de um pacote que não foi carregado (precisamos carregar o pacote antes);</p></li>
 <li><p>A função foi escrita de forma incorreta (por exemplo, com letras maiúsculas ou minúsculas incorretas).</p></li>
 </ul>
-<section id="pacote-não-carregado" class="level4" data-number="5.2.4.1">
-<h4 data-number="5.2.4.1" class="anchored" data-anchor-id="pacote-não-carregado"><span class="header-section-number">5.2.4.1</span> Pacote não carregado</h4>
+<section id="pacote-não-carregado" class="level4" data-number="A.2.4.1">
+<h4 data-number="A.2.4.1" class="anchored" data-anchor-id="pacote-não-carregado"><span class="header-section-number">A.2.4.1</span> Pacote não carregado</h4>
 <p>No exemplo a seguir, queremos limpar o nome das colunas do <em>data frame</em> <code>iris</code>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(iris)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -365,8 +383,8 @@ Instalando pacote em ‘C:/Users/.../AppData/Local/R/win-library/4.4’
 </div>
 </div>
 </section>
-<section id="erro-de-digitação" class="level4" data-number="5.2.4.2">
-<h4 data-number="5.2.4.2" class="anchored" data-anchor-id="erro-de-digitação"><span class="header-section-number">5.2.4.2</span> Erro de digitação</h4>
+<section id="erro-de-digitação" class="level4" data-number="A.2.4.2">
+<h4 data-number="A.2.4.2" class="anchored" data-anchor-id="erro-de-digitação"><span class="header-section-number">A.2.4.2</span> Erro de digitação</h4>
 <p>No exemplo a seguir, o código gerará um erro pois a função <code>length()</code> está escrito de forma incorreta:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># O código abaixo gerará um erro:</span></span>
@@ -823,6 +841,9 @@ Instalando pacote em ‘C:/Users/.../AppData/Local/R/win-library/4.4’
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="../apendices/00_sugestao-videos.html" class="pagination-link" aria-label="Sugestão de vídeos, posts, e outros materiais">
+        <span class="nav-page-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Sugestão de vídeos, posts, e outros materiais</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->

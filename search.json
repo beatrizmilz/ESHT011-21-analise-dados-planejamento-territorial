@@ -382,31 +382,89 @@
   {
     "objectID": "apendices/00_erros_frequentes.html",
     "href": "apendices/00_erros_frequentes.html",
-    "title": "5  Erros e warnings frequentes",
+    "title": "Apêndice A — Erros e warnings frequentes",
     "section": "",
-    "text": "5.1 Instalação\nA lista a seguir apresenta alguns erros e warnings mais comuns.",
+    "text": "A.1 Instalação\nA lista a seguir apresenta alguns erros e warnings mais comuns.",
     "crumbs": [
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Erros e *warnings* frequentes</span>"
+      "Apêndices",
+      "<span class='chapter-number'>A</span>  <span class='chapter-title'>Erros e *warnings* frequentes</span>"
     ]
   },
   {
     "objectID": "apendices/00_erros_frequentes.html#instalação",
     "href": "apendices/00_erros_frequentes.html#instalação",
-    "title": "5  Erros e warnings frequentes",
+    "title": "Apêndice A — Erros e warnings frequentes",
     "section": "",
-    "text": "5.1.1 RTools\nPara pessoas que utilizam o sistema operacional Windows, a aviso (warning) abaixo pode aparecer em alguns contextos:\nWARNING: Rtools is required to build R packages but is not currently installed.\nPlease download and install the appropriate version of Rtools before proceeding:\n\nhttps://cran.rstudio.com/bin/windows/Rtools/\nInstalando pacote em ‘C:/Users/.../AppData/Local/R/win-library/4.4’\n(como ‘lib’ não foi especificado)\nPara que esse aviso não apareça mais, você pode instalar o Rtools no seu computador. O RTools é um software (não é um pacote do R), portanto você precisa fazer o download da versão compatível com a versão do R que você está utilizando, e instalar no seu computador.\nPara fazer o download, acesse o link https://cran.rstudio.com/bin/windows/Rtools/, e escolha a versão do RTools compatível com a versão do R que você está utilizando:\n\n\n\nCaptura de tela: página de download do RTools\n\n\nPara consultar a versão do R que você está utilizando, você pode rodar o seguinte comando no console do R:\n\nR.version.string\n\n[1] \"R version 4.5.1 (2025-06-13)\"",
+    "text": "A.1.1 RTools\nPara pessoas que utilizam o sistema operacional Windows, a aviso (warning) abaixo pode aparecer em alguns contextos:\nWARNING: Rtools is required to build R packages but is not currently installed.\nPlease download and install the appropriate version of Rtools before proceeding:\n\nhttps://cran.rstudio.com/bin/windows/Rtools/\nInstalando pacote em ‘C:/Users/.../AppData/Local/R/win-library/4.4’\n(como ‘lib’ não foi especificado)\nPara que esse aviso não apareça mais, você pode instalar o Rtools no seu computador. O RTools é um software (não é um pacote do R), portanto você precisa fazer o download da versão compatível com a versão do R que você está utilizando, e instalar no seu computador.\nPara fazer o download, acesse o link https://cran.rstudio.com/bin/windows/Rtools/, e escolha a versão do RTools compatível com a versão do R que você está utilizando:\n\n\n\nCaptura de tela: página de download do RTools\n\n\nPara consultar a versão do R que você está utilizando, você pode rodar o seguinte comando no console do R:\n\nR.version.string\n\n[1] \"R version 4.5.1 (2025-06-13)\"",
     "crumbs": [
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Erros e *warnings* frequentes</span>"
+      "Apêndices",
+      "<span class='chapter-number'>A</span>  <span class='chapter-title'>Erros e *warnings* frequentes</span>"
     ]
   },
   {
     "objectID": "apendices/00_erros_frequentes.html#conceitos-básicos",
     "href": "apendices/00_erros_frequentes.html#conceitos-básicos",
-    "title": "5  Erros e warnings frequentes",
-    "section": "5.2 Conceitos básicos",
-    "text": "5.2 Conceitos básicos\n\n5.2.1 Instalando pacotes\nO erro a seguir ocorre quando o usuário tenta instalar um pacote sem aspas. O correto é colocar o nome do pacote entre aspas.\n\n# O código abaixo gerará um erro:\ninstall.packages(janitor)\n\nError in eval(call, envir = parent.frame()): object 'janitor' not found\n\n\nA função deve receber o nome do pacote entre aspas, pois é um texto:\n\n# O código abaixo funcionará:\ninstall.packages(\"janitor\")\n\n\n\n5.2.2 Pacote não encontrado\nO erro a seguir ocorre quando tentamos carregar um pacote que não foi instalado anteriormente. Para resolver, precisamos instalar o pacote.\n\n# O código abaixo gerará um erro:\nlibrary(quarto)                   \n\nPara que consiga acessar, é necessário instalar o pacote, e depois carregá-lo:\n\ninstall.packages(\"quarto\")\nlibrary(quarto)\n\n\n\n5.2.3 Objeto não encontrado\nO erro a seguir ocorre quando tentamos acessar um objeto que não consta no painel Environment. Existe alguns motivos para isso acontecer:\n\nO objeto não foi criado (provavelmente precisa executar o código que cria o objeto);\nO objeto existe no painel Environment, mas estamos tentando acessá-lo com o nome incorreto.\n\nNo exemplo a seguir, o código gerará um erro pois o objeto que estamos tentando acessar ainda não foi criado:\n\n# O código abaixo gerará um erro:\nlength(estados_sudeste)\n\nError: object 'estados_sudeste' not found\n\n\nApós criar o objeto, conseguimos utilizá-lo:\n\nestados_sudeste &lt;- c(\"SP\", \"RJ\", \"MG\", \"ES\")\nlength(estados_sudeste)\n\n[1] 4\n\n\n\n\n5.2.4 Função não encontrada\nO erro could not find function ocorre quando tentamos acessar uma função que não está sendo encontrada. Isso pode acontecer por alguns motivos:\n\nA função faz parte de um pacote que não foi carregado (precisamos carregar o pacote antes);\nA função foi escrita de forma incorreta (por exemplo, com letras maiúsculas ou minúsculas incorretas).\n\n\n5.2.4.1 Pacote não carregado\nNo exemplo a seguir, queremos limpar o nome das colunas do data frame iris:\n\nhead(iris)\n\n  Sepal.Length Sepal.Width Petal.Length Petal.Width Species\n1          5.1         3.5          1.4         0.2  setosa\n2          4.9         3.0          1.4         0.2  setosa\n3          4.7         3.2          1.3         0.2  setosa\n4          4.6         3.1          1.5         0.2  setosa\n5          5.0         3.6          1.4         0.2  setosa\n6          5.4         3.9          1.7         0.4  setosa\n\n\nO código a seguir gerará um erro pois a função clean_names() faz parte do pacote janitor, mas o pacote não foi carregado:\n\nclean_names(iris)\n\nError in clean_names(iris): could not find function \"clean_names\"\n\n\nPara corrigir, precisamos carregar o pacote janitor:\n\nlibrary(janitor)\niris_nome_limpo &lt;- clean_names(iris)\nhead(iris_nome_limpo)\n\n  sepal_length sepal_width petal_length petal_width species\n1          5.1         3.5          1.4         0.2  setosa\n2          4.9         3.0          1.4         0.2  setosa\n3          4.7         3.2          1.3         0.2  setosa\n4          4.6         3.1          1.5         0.2  setosa\n5          5.0         3.6          1.4         0.2  setosa\n6          5.4         3.9          1.7         0.4  setosa\n\n\n\n\n5.2.4.2 Erro de digitação\nNo exemplo a seguir, o código gerará um erro pois a função length() está escrito de forma incorreta:\n\n# O código abaixo gerará um erro:\nlenght(letters)\n\nError in lenght(letters): could not find function \"lenght\"\n\n\nPara corrigir, precisamos escrever a função corretamente:\n\nlength(letters)\n\n[1] 26",
+    "title": "Apêndice A — Erros e warnings frequentes",
+    "section": "A.2 Conceitos básicos",
+    "text": "A.2 Conceitos básicos\n\nA.2.1 Instalando pacotes\nO erro a seguir ocorre quando o usuário tenta instalar um pacote sem aspas. O correto é colocar o nome do pacote entre aspas.\n\n# O código abaixo gerará um erro:\ninstall.packages(janitor)\n\nError in eval(call, envir = parent.frame()): object 'janitor' not found\n\n\nA função deve receber o nome do pacote entre aspas, pois é um texto:\n\n# O código abaixo funcionará:\ninstall.packages(\"janitor\")\n\n\n\nA.2.2 Pacote não encontrado\nO erro a seguir ocorre quando tentamos carregar um pacote que não foi instalado anteriormente. Para resolver, precisamos instalar o pacote.\n\n# O código abaixo gerará um erro:\nlibrary(quarto)                   \n\nPara que consiga acessar, é necessário instalar o pacote, e depois carregá-lo:\n\ninstall.packages(\"quarto\")\nlibrary(quarto)\n\n\n\nA.2.3 Objeto não encontrado\nO erro a seguir ocorre quando tentamos acessar um objeto que não consta no painel Environment. Existe alguns motivos para isso acontecer:\n\nO objeto não foi criado (provavelmente precisa executar o código que cria o objeto);\nO objeto existe no painel Environment, mas estamos tentando acessá-lo com o nome incorreto.\n\nNo exemplo a seguir, o código gerará um erro pois o objeto que estamos tentando acessar ainda não foi criado:\n\n# O código abaixo gerará um erro:\nlength(estados_sudeste)\n\nError: object 'estados_sudeste' not found\n\n\nApós criar o objeto, conseguimos utilizá-lo:\n\nestados_sudeste &lt;- c(\"SP\", \"RJ\", \"MG\", \"ES\")\nlength(estados_sudeste)\n\n[1] 4\n\n\n\n\nA.2.4 Função não encontrada\nO erro could not find function ocorre quando tentamos acessar uma função que não está sendo encontrada. Isso pode acontecer por alguns motivos:\n\nA função faz parte de um pacote que não foi carregado (precisamos carregar o pacote antes);\nA função foi escrita de forma incorreta (por exemplo, com letras maiúsculas ou minúsculas incorretas).\n\n\nA.2.4.1 Pacote não carregado\nNo exemplo a seguir, queremos limpar o nome das colunas do data frame iris:\n\nhead(iris)\n\n  Sepal.Length Sepal.Width Petal.Length Petal.Width Species\n1          5.1         3.5          1.4         0.2  setosa\n2          4.9         3.0          1.4         0.2  setosa\n3          4.7         3.2          1.3         0.2  setosa\n4          4.6         3.1          1.5         0.2  setosa\n5          5.0         3.6          1.4         0.2  setosa\n6          5.4         3.9          1.7         0.4  setosa\n\n\nO código a seguir gerará um erro pois a função clean_names() faz parte do pacote janitor, mas o pacote não foi carregado:\n\nclean_names(iris)\n\nError in clean_names(iris): could not find function \"clean_names\"\n\n\nPara corrigir, precisamos carregar o pacote janitor:\n\nlibrary(janitor)\niris_nome_limpo &lt;- clean_names(iris)\nhead(iris_nome_limpo)\n\n  sepal_length sepal_width petal_length petal_width species\n1          5.1         3.5          1.4         0.2  setosa\n2          4.9         3.0          1.4         0.2  setosa\n3          4.7         3.2          1.3         0.2  setosa\n4          4.6         3.1          1.5         0.2  setosa\n5          5.0         3.6          1.4         0.2  setosa\n6          5.4         3.9          1.7         0.4  setosa\n\n\n\n\nA.2.4.2 Erro de digitação\nNo exemplo a seguir, o código gerará um erro pois a função length() está escrito de forma incorreta:\n\n# O código abaixo gerará um erro:\nlenght(letters)\n\nError in lenght(letters): could not find function \"lenght\"\n\n\nPara corrigir, precisamos escrever a função corretamente:\n\nlength(letters)\n\n[1] 26",
     "crumbs": [
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Erros e *warnings* frequentes</span>"
+      "Apêndices",
+      "<span class='chapter-number'>A</span>  <span class='chapter-title'>Erros e *warnings* frequentes</span>"
+    ]
+  },
+  {
+    "objectID": "apendices/00_sugestao-videos.html",
+    "href": "apendices/00_sugestao-videos.html",
+    "title": "Apêndice B — Sugestão de vídeos, posts, e outros materiais",
+    "section": "",
+    "text": "B.1 Estatística básica\nNesta página, reunimos alguns vídeos, posts e outros materiais que podem ser úteis para complementar os estudos!",
+    "crumbs": [
+      "Apêndices",
+      "<span class='chapter-number'>B</span>  <span class='chapter-title'>Sugestão de vídeos, posts, e outros materiais</span>"
+    ]
+  },
+  {
+    "objectID": "apendices/00_sugestao-videos.html#estatística-básica",
+    "href": "apendices/00_sugestao-videos.html#estatística-básica",
+    "title": "Apêndice B — Sugestão de vídeos, posts, e outros materiais",
+    "section": "",
+    "text": "Como calcular variância, desvio padrão e coeficiente de variação (manualmente e no Excel) - por Fernanda Peres. A Fernanda também escreveu um texto sobre o assunto.\n\n\n\n\n\n\nO segredo da MERITOCRARIA - por Atila Iamarino. Este vídeo aborda o tabuleiro de Galton (até cerca de 5 min), que conecta com os conceitos de distribuição normal, média, valores extremos.\n\n\n\n\n\n\nSerá que você nasceu inteligente? - por Atila Iamarino. Este vídeo complementa os conceitos apresentados no vídeo anterior: tabuleiro de Galton, distribuição normal, média, valores extremos.\n\n\n\n\n\n\nUma doutora toma chá: entendendo teste de hipóteses, valor de p e nível de significância alfa - por Fernanda Peres. A Fernanda também escreveu um texto sobre o assunto, e alguns outros posts complementares: Valor de p, nível de significância e testes uni vs. bicaudais, As falácias do valor de p.\n\n\n\n\n\n\nTexto: Como interpretar o intervalo de confiança? - por Fernanda Peres.\nPlaylist: Estatística Aplicada no R - por Fernanda Peres.",
+    "crumbs": [
+      "Apêndices",
+      "<span class='chapter-number'>B</span>  <span class='chapter-title'>Sugestão de vídeos, posts, e outros materiais</span>"
+    ]
+  },
+  {
+    "objectID": "apendices/00_sugestao-videos.html#organização-dos-dados",
+    "href": "apendices/00_sugestao-videos.html#organização-dos-dados",
+    "title": "Apêndice B — Sugestão de vídeos, posts, e outros materiais",
+    "section": "B.2 Organização dos dados",
+    "text": "B.2 Organização dos dados\n\nComo organizar sua base de dados para análises estatísticas? - por Fernanda Peres.",
+    "crumbs": [
+      "Apêndices",
+      "<span class='chapter-number'>B</span>  <span class='chapter-title'>Sugestão de vídeos, posts, e outros materiais</span>"
+    ]
+  },
+  {
+    "objectID": "apendices/00_sugestao-videos.html#gráficos",
+    "href": "apendices/00_sugestao-videos.html#gráficos",
+    "title": "Apêndice B — Sugestão de vídeos, posts, e outros materiais",
+    "section": "B.3 Gráficos",
+    "text": "B.3 Gráficos\n\nEntendendo o gráfico boxplot - por Fernanda Peres. A Fernanda também escreveu um texto sobre o assunto.",
+    "crumbs": [
+      "Apêndices",
+      "<span class='chapter-number'>B</span>  <span class='chapter-title'>Sugestão de vídeos, posts, e outros materiais</span>"
+    ]
+  },
+  {
+    "objectID": "apendices/00_sugestao-videos.html#sobre-os-canais-citados",
+    "href": "apendices/00_sugestao-videos.html#sobre-os-canais-citados",
+    "title": "Apêndice B — Sugestão de vídeos, posts, e outros materiais",
+    "section": "B.4 Sobre os canais citados",
+    "text": "B.4 Sobre os canais citados\n\nB.4.1 Dr. Atila Iamarino\n\nYoutube\nInstagram\n\n\n\nB.4.2 Dra. Fernanda Peres\n\nYoutube\nInstagram\nBlog",
+    "crumbs": [
+      "Apêndices",
+      "<span class='chapter-number'>B</span>  <span class='chapter-title'>Sugestão de vídeos, posts, e outros materiais</span>"
     ]
   }
 ]
