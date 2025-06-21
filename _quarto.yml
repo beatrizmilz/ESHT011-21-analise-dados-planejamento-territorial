@@ -25,7 +25,8 @@ book:
     - index.qmd
     - praticas/01_intro_r_rstudio.qmd
     - praticas/02_conceitos-basicos-r.qmd    
-    - praticas/03_analise-exploratoria.qmd        
+    - praticas/03_analise-exploratoria.qmd
+    - praticas/04_analise-exploratoria-ii.qmd           
     - apendices/00_erros_frequentes.qmd
     # - praticas/02_analise-exploratoria_i.qmd
     # - praticas/03_analise-exploratoria_ii.qmd    
