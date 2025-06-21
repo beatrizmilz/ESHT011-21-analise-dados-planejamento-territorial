@@ -198,9 +198,9 @@ estatisticas_descritivas <- dados_cetesb |>
   summarise(
     quantidade_municipios = n(),
     soma_populacao_urbana = sum(populacao_urbana),
-    media_ictem = mean(ictem),
-    mediana_ictem = median(ictem),
-    desvio_padrao_ictem = sd(ictem)
+    media_ictem = mean(ictem) |> round(2),
+    mediana_ictem = median(ictem) |> round(2),
+    desvio_padrao_ictem = sd(ictem) |> round(2)
   )
 
 reactable::reactable(estatisticas_descritivas)
@@ -211,9 +211,11 @@ Podemos salvar o resultado em um arquivo CSV ou Excel, utilizando as funções `
 
 ```{r}
 #| eval: false
-write_csv(estatisticas_descritivas, "dados/estatisticas-descritivas-ugrhi.csv")
+write_csv(estatisticas_descritivas,
+          "dados/estatisticas-descritivas-ugrhi.csv")
 
-writexl::write_xlsx(estatisticas_descritivas, "dados/estatisticas-descritivas-ugrhi.xlsx")
+writexl::write_xlsx(estatisticas_descritivas,
+                    "dados/estatisticas-descritivas-ugrhi.xlsx")
 ```
 
 ## Materiais complementares
