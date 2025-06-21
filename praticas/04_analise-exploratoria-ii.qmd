@@ -23,19 +23,16 @@ dados_cetesb <- read_csv("dados/dados-cetesb-2022.csv")
 
 Outra forma de importar os dados é utilizando o link direto do repositório do GitHub onde os dados estão armazenados. Você pode fazer isso utilizando a função `read_csv()` do pacote `readr`:
 
-
 ```{r}
 #| eval: false
 dados_cetesb <- read_csv("https://raw.githubusercontent.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial/refs/heads/main/dados/dados-cetesb-2022.csv")
 ```
-
 
 A função `glimpse()` do pacote `dplyr`, que conhecemos na aula passada, é uma forma rápida de visualizar a estrutura dos dados. Ela nos mostra o nome das colunas, o tipo de dado de cada coluna e os primeiros valores de cada coluna:
 
 ```{r}
 glimpse(dados_cetesb)
 ```
-
 
 ## Conhecendo o operador pipe (`|>`)
 
@@ -54,25 +51,23 @@ Com apenas uma função, não é tão óbvio o benefício do operador pipe. No e
 
 O pacote `dplyr` é uma das ferramentas mais poderosas para manipulação de dados no R. Ele oferece uma série de funções que facilitam a transformação e análise de dados. Vamos conhecer algumas das principais funções do `dplyr`:
 
-- `filter()`: filtra linhas com base em condições específicas.
+-   `filter()`: filtra linhas com base em condições específicas.
 
-- `select()`: seleciona colunas específicas de um data frame.
+-   `select()`: seleciona colunas específicas de um data frame.
 
-- `mutate()`: adiciona ou modifica colunas.
+-   `mutate()`: adiciona ou modifica colunas.
 
-- `arrange()`: ordena as linhas de um data frame com base em uma ou mais colunas.
+-   `arrange()`: ordena as linhas de um data frame com base em uma ou mais colunas.
 
-- `summarise()`: resume os dados, calculando estatísticas agregadas.
+-   `summarise()`: resume os dados, calculando estatísticas agregadas.
 
-- `group_by()`: agrupa os dados com base em uma ou mais colunas, permitindo aplicar funções de resumo a cada grupo.
+-   `group_by()`: agrupa os dados com base em uma ou mais colunas, permitindo aplicar funções de resumo a cada grupo.
 
 Ao apresentar essas funções, não vamos abordar todos os casos de uso, mas sim o básico de cada uma delas. Você pode consultar os materiais listados no final da aula para aprender mais sobre cada função e suas possibilidades.
 
-
 ## Filtrando dados com `filter()`
 
-A  A função `filter()` é utilizada para filtrar linhas de um data frame com base em condições específicas. 
-
+A A função `filter()` é utilizada para filtrar linhas de um data frame com base em condições específicas.
 
 Por exemplo, podemos filtrar os dados da CETESB para mostrar apenas os municípios que possuem uma população urbana maior que 1 milhão de habitantes:
 
@@ -80,6 +75,7 @@ Por exemplo, podemos filtrar os dados da CETESB para mostrar apenas os municípi
 dados_cetesb |>
   filter(populacao_urbana > 1000000)
 ```
+
 Podemos também filtrar as linhas dos municípios do Grande ABC. Neste caso, é mais fácil criar um vetor com os nomes dos municípios, e utilizar o operador `%in%` para filtrar os dados:
 
 ```{r}
@@ -89,18 +85,21 @@ dados_cetesb |>
   filter(municipio %in% municipios_grande_abc)
 ```
 
-Podemos também consultar quais são os municípios que coletam 100% do esgoto produzido: 
+Podemos também consultar quais são os municípios que coletam 100% do esgoto produzido:
+
 ```{r}
 dados_cetesb |> 
   filter(atendimento_coleta_porc == 100)
 ```
+
 Destes, podemos filtrar os que tratem 100% do esgoto coletado:
 
 ```{r}
 dados_cetesb |> 
   filter(atendimento_coleta_porc == 100, atendimento_tratamento_porc == 100)
 ```
-As possibilidades são muitas! Podemos combinar várias condições utilizando os operadores lógicos (como o `|` (OU) e o `!` (NEGAÇÃO). 
+
+As possibilidades são muitas! Podemos combinar várias condições utilizando os operadores lógicos (como o `|` (OU) e o `!` (NEGAÇÃO).
 
 ## Selecionando colunas com `select()`
 
@@ -112,6 +111,7 @@ Por exemplo, podemos selecionar apenas as colunas `municipio`, `populacao_urbana
 dados_cetesb |>
   select(municipio, populacao_urbana, atendimento_coleta_porc)
 ```
+
 Podemos também indicar quais colunas queremos excluir, utilizando o operador `-` antes do nome da coluna. Por exemplo, para excluir as colunas `ano` e `uf`, podemos fazer o seguinte:
 
 ```{r}
@@ -151,7 +151,6 @@ dados_cetesb |>
   )
 ```
 
-
 ## Ordenando dados com `arrange()`
 
 A função `arrange()` é utilizada para ordenar as linhas de um data frame com base em uma ou mais colunas.
@@ -162,6 +161,7 @@ Podemos ordenar os dados da CETESB pela coluna `carga_poluidora_remancescente`, 
 dados_cetesb |>
   arrange(carga_poluidora_remancescente)
 ```
+
 Também podemos ordenar os dados em ordem decrescente, utilizando a função `desc()`:
 
 ```{r}
@@ -203,9 +203,8 @@ estatisticas_descritivas <- dados_cetesb |>
     desvio_padrao_ictem = sd(ictem) |> round(2)
   )
 
-reactable::reactable(estatisticas_descritivas)
+knitr::kable(estatisticas_descritivas)
 ```
-
 
 Podemos salvar o resultado em um arquivo CSV ou Excel, utilizando as funções `readr::write_csv()` ou `writexl::write_excel_csv()`:
 
@@ -222,6 +221,4 @@ writexl::write_xlsx(estatisticas_descritivas,
 
 -   Materiais do curso [Introdução à análise de dados no R](https://ipeadata-lab.github.io/curso_r_intro_202409/):
     -   [Transformando dados](https://ipeadata-lab.github.io/curso_r_intro_202409/05_transformacao.html)
-    -   [Análise exploratória de dados](https://ipeadata-lab.github.io/curso_r_intro_202409/06_analise_exploratoria.html)    
-
-
+    -   [Análise exploratória de dados](https://ipeadata-lab.github.io/curso_r_intro_202409/06_analise_exploratoria.html)
