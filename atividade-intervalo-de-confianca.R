@@ -22,12 +22,9 @@ ggplot(aes(x = sexo_biologico, y = altura_em_metros)) +
   labs(title = "Distribuição das Alturas por Sexo Biológico", x = "Sexo Biológico", y = "Altura (m)") +
   theme_minimal()
 
-# filtrar apenas quem informou sexo como Masculino ou Feminino (se desejar)
-dados_filtrados <- dados  |> 
-  filter(sexo_biologico %in% c("Masculino", "Feminino"))
 
 # calcular média, desvio padrão, n e IC para cada grupo
-ic_altura <- dados_filtrados |> 
+ic_altura <- dados |> 
   group_by(sexo_biologico) |> 
   summarise(
     media = mean(altura_em_metros, na.rm = TRUE),
@@ -50,3 +47,4 @@ ggplot(ic_altura,
   labs(title = "Intervalo de Confiança das Alturas por Sexo Biológico", x = "Sexo Biológico", y = "Altura Média (m)") +
   scale_color_brewer(palette = "Set2", direction = -1) +
   theme_minimal()
+
