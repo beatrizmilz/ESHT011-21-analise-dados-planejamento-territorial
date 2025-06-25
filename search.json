@@ -380,6 +380,76 @@
     ]
   },
   {
+    "objectID": "praticas/05_intervalo-de-confianca.html",
+    "href": "praticas/05_intervalo-de-confianca.html",
+    "title": "5  Prática - Intervalo de confiança",
+    "section": "",
+    "text": "5.1 Carregar pacotes\nNesta prática, vamos imaginar a seguinte situação: queremos saber qual é a média das alturas das pessoas que estão matriculadas nessa disciplina, considerando o sexo biológico. Para isso, criamos um formulário do Google Forms e solicitamos que as pessoas respondessem. Entretanto, nem todas as pessoas responderam, e só temos uma amostra.\nRevisando alguns conceitos apresentados em aula: neste exemplo…\nlibrary(tidyverse)\nlibrary(janitor)",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Prática - Intervalo de confiança</span>"
+    ]
+  },
+  {
+    "objectID": "praticas/05_intervalo-de-confianca.html#importar-os-dados",
+    "href": "praticas/05_intervalo-de-confianca.html#importar-os-dados",
+    "title": "5  Prática - Intervalo de confiança",
+    "section": "5.2 Importar os dados",
+    "text": "5.2 Importar os dados\nOs dados estão disponíveis em um formulário do Google. Podemos importá-los de duas formas: - usando o pacote googlesheets4 (requer autenticação) - baixar o arquivo CSV exportado do Google Forms e ler com read_csv(). Salve o arquivo CSV na pasta dados/ do seu projeto.\nNeste exemplo, vamos importar o arquivo CSV exportado do Google Forms. O CSV que será utilizado é um recorte do arquivo completo, pois removemos as colunas de nome e email.\nSe você fez o download do arquivo CSV, coloque-o na pasta dados/ do seu projeto. Caso contrário, você pode usar o link direto para o arquivo CSV no GitHub.\n\n# leitura do CSV exportado do Google Forms\ndados_brutos &lt;- read_csv(\"dados/respostas_forms_altura.csv\")\n\n\n# leitura de uma cópia dos dados que está salva no GitHub\ndados_brutos &lt;- read_csv(\"https://raw.githubusercontent.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial/refs/heads/main/praticas/dados/respostas_forms_altura.csv\")\n\nRows: 29 Columns: 5\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr  (2): Sexo biológico, Turma\ndbl  (2): Idade, Altura (em metros)\ndttm (1): Carimbo de data/hora\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.\n\n\nVamos dar uma olhada nos dados que importamos:\n\nglimpse(dados_brutos)\n\nRows: 29\nColumns: 5\n$ `Carimbo de data/hora` &lt;dttm&gt; 2025-06-23 10:04:10, 2025-06-23 10:08:13, 2025…\n$ Idade                  &lt;dbl&gt; 36, 43, 20, 56, 42, 35, 36, 26, 21, 28, 29, 31,…\n$ `Sexo biológico`       &lt;chr&gt; \"Feminino\", \"Feminino\", \"Masculino\", \"Masculino…\n$ `Altura (em metros)`   &lt;dbl&gt; 1.58, 1.68, 1.73, 1.73, 1.69, 1.68, 1.94, 1.76,…\n$ Turma                  &lt;chr&gt; \"Pós-graduação - Matutino\", \"Pós-graduação - Ma…\n\n\nAlgo que podemos fazer é limpar os nomes das colunas, pois eles podem conter espaços, caracteres especiais ou estarem em letras maiúsculas. Vamos usar a função clean_names() do pacote janitor para isso.\n\ndados &lt;- clean_names(dados_brutos)\n\nAgora podemos verificar os nomes das colunas novamente para garantir que estão limpos e prontos para uso:\n\nglimpse(dados)\n\nRows: 29\nColumns: 5\n$ carimbo_de_data_hora &lt;dttm&gt; 2025-06-23 10:04:10, 2025-06-23 10:08:13, 2025-0…\n$ idade                &lt;dbl&gt; 36, 43, 20, 56, 42, 35, 36, 26, 21, 28, 29, 31, 4…\n$ sexo_biologico       &lt;chr&gt; \"Feminino\", \"Feminino\", \"Masculino\", \"Masculino\",…\n$ altura_em_metros     &lt;dbl&gt; 1.58, 1.68, 1.73, 1.73, 1.69, 1.68, 1.94, 1.76, 1…\n$ turma                &lt;chr&gt; \"Pós-graduação - Matutino\", \"Pós-graduação - Matu…",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Prática - Intervalo de confiança</span>"
+    ]
+  },
+  {
+    "objectID": "praticas/05_intervalo-de-confianca.html#conhecendo-os-dados",
+    "href": "praticas/05_intervalo-de-confianca.html#conhecendo-os-dados",
+    "title": "5  Prática - Intervalo de confiança",
+    "section": "5.3 Conhecendo os dados",
+    "text": "5.3 Conhecendo os dados\nVamos começar visualizando a distribuição das alturas por sexo biológico. Para isso, podemos criar um histograma para cada grupo de sexo biológico.\n\ndados |&gt; \nggplot(aes(x = altura_em_metros, fill = sexo_biologico)) +\n  geom_histogram(binwidth = 0.05, color = \"black\", show.legend = FALSE) +\n  labs(y = \"Quantidade de pessoas\",\n        x = \"Altura (m)\") +\n  scale_x_continuous(breaks = seq(1.50, 2.1, by = 0.05)) +\n  theme_minimal() +\n  facet_wrap(~ sexo_biologico , nrow = 2\n             ) +\n  scale_fill_brewer(palette = \"Set2\", direction = -1)\n\n\n\n\n\n\n\n\nVamos criar um box-plot para visualizar a distribuição das alturas por sexo biológico. Isso nos ajudará a entender como as alturas estão distribuídas em cada grupo.\n\ndados |&gt; \nggplot(aes(x = sexo_biologico, y = altura_em_metros)) +\n  geom_boxplot(aes(fill = sexo_biologico), show.legend = FALSE) +\n  geom_jitter(show.legend = FALSE, alpha = 0.5) +\n  labs(x = \"Sexo Biológico\",\n       y = \"Altura (m)\") +\n  scale_y_continuous(breaks = seq(1.5, 2.1, by = 0.05)) +\n  theme_minimal( )+\n  scale_fill_brewer(palette = \"Set2\", direction = -1)\n\n\n\n\n\n\n\n\nOutro ponto importante é saber o tamanho da nossa amostra. E atenção: neste caso, queremos calcular o intervalo de confiança para a média de dois grupos (sexo biológico), então precisamos calcular a amostra separadamente para cada grupo.\n\ntabyl(dados, sexo_biologico) |&gt; # criando uma tabela de frequências\n  adorn_totals(\"row\") |&gt;  # adicionando a linha de total\n  adorn_pct_formatting() # formatando os percentuais\n\n sexo_biologico  n percent\n       Feminino 10   34.5%\n      Masculino 19   65.5%\n          Total 29  100.0%",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Prática - Intervalo de confiança</span>"
+    ]
+  },
+  {
+    "objectID": "praticas/05_intervalo-de-confianca.html#calcular-a-média-desvio-padrão-e-número-de-respostas",
+    "href": "praticas/05_intervalo-de-confianca.html#calcular-a-média-desvio-padrão-e-número-de-respostas",
+    "title": "5  Prática - Intervalo de confiança",
+    "section": "5.4 Calcular a média, desvio padrão e número de respostas",
+    "text": "5.4 Calcular a média, desvio padrão e número de respostas\nPara calcular o intervalo de confiança da média das alturas por sexo biológico, precisamos primeiro calcular a média, o desvio padrão e o tamanho da amostra.\nPara isso, podemos usar a função group_by() do dplyr para agrupar os dados por sexo biológico e, em seguida, usar a função summarise() para calcular as estatísticas desejadas. Essas funções foram abordadas na prática anterior.\nPara calcular a média, utilizamos a função mean(), para o desvio padrão usamos sd() e para o tamanho da amostra usamos n(). Lembrando que, caso a variável tenha valores ausente (NA), devemos usar o argumento na.rm = TRUE para ignorá-los nos cálculos.\n\ndados |&gt; \n  group_by(sexo_biologico) |&gt;\n  summarise(\n    media = mean(altura_em_metros, na.rm = TRUE),\n    desvio_padrao = sd(altura_em_metros, na.rm = TRUE),\n    tamanho_amostra_n = n(),\n  )\n\n# A tibble: 2 × 4\n  sexo_biologico media desvio_padrao tamanho_amostra_n\n  &lt;chr&gt;          &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;\n1 Feminino        1.67        0.0420                10\n2 Masculino       1.77        0.0778                19",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Prática - Intervalo de confiança</span>"
+    ]
+  },
+  {
+    "objectID": "praticas/05_intervalo-de-confianca.html#calcular-o-erro-padrão",
+    "href": "praticas/05_intervalo-de-confianca.html#calcular-o-erro-padrão",
+    "title": "5  Prática - Intervalo de confiança",
+    "section": "5.5 Calcular o erro padrão",
+    "text": "5.5 Calcular o erro padrão\nCom essas informações, podemos calcular o erro padrão (Standard Error - SE) amostral da média:\n\\[SE = \\frac{s}{\\sqrt{n}}\\]\nOnde \\(s\\) é o desvio padrão amostral e \\(n\\) é o tamanho da amostra. Lembrando que o erro padrão nos dá uma medida da precisão da média amostral como estimativa da média populacional.\n\ndados |&gt; \n  group_by(sexo_biologico) |&gt;\n  summarise(\n    media = mean(altura_em_metros, na.rm = TRUE),\n    desvio_padrao = sd(altura_em_metros, na.rm = TRUE),\n    tamanho_amostra_n = n(),\n    erro_padrao = desvio_padrao / sqrt(tamanho_amostra_n)\n  )\n\n# A tibble: 2 × 5\n  sexo_biologico media desvio_padrao tamanho_amostra_n erro_padrao\n  &lt;chr&gt;          &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;dbl&gt;\n1 Feminino        1.67        0.0420                10      0.0133\n2 Masculino       1.77        0.0778                19      0.0178",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Prática - Intervalo de confiança</span>"
+    ]
+  },
+  {
+    "objectID": "praticas/05_intervalo-de-confianca.html#definindo-o-valor-crítico",
+    "href": "praticas/05_intervalo-de-confianca.html#definindo-o-valor-crítico",
+    "title": "5  Prática - Intervalo de confiança",
+    "section": "5.6 Definindo o valor crítico",
+    "text": "5.6 Definindo o valor crítico\nO intervalo de confiança é dado pela fórmula:\n\\[\nIC = \\bar{x} \\pm (z \\times SE)\n\\]\nOnde \\(\\bar{x}\\) é a média amostral, \\(z\\) é o valor crítico (para um IC de 95%, \\(z \\approx 1.96\\), quando a amostra é grande ou a variável tem distribuição aproximadamente normal) e \\(SE\\) é o erro padrão.\nUsar um intervalo de confiança de 95% significa que queremos encontrar uma faixa de valores onde acreditamos, com 95% de confiança, que está a média verdadeira da população.\nEsse valor de \\(z \\approx 1.96\\) é usado apenas quando usamos a distribuição normal. No entanto, como estamos trabalhando com amostras pequenas, utilizamos a distribuição t de Student, e o valor crítico \\(t\\) (que substitui o \\(z\\)) é calculado com a função qt(). Neste caso, o valor muda conforme o tamanho da amostra (n) e é calculado com base nos graus de liberdade (n − 1).\n\n5.6.1 Como calcular o valor crítico para um intervalo de confiança de 95% com a distribuição t de Student?\nPodemos usar a função qt() do R, que calcula o quantil da distribuição t de Student. Para um intervalo de confiança de 95%, precisamos calcular o quantil para 0.975 (ou seja, 1 - 0.025, já que estamos considerando os dois lados da distribuição).\n\ndados |&gt; \n  group_by(sexo_biologico) |&gt;\n  summarise(\n    media = mean(altura_em_metros, na.rm = TRUE),\n    desvio_padrao = sd(altura_em_metros, na.rm = TRUE),\n    tamanho_amostra_n = n(),\n    erro_padrao = desvio_padrao / sqrt(tamanho_amostra_n),\n    valor_t = qt(p = 0.975, df = tamanho_amostra_n - 1) # valor crítico t para IC de 95%\n  )\n\n# A tibble: 2 × 6\n  sexo_biologico media desvio_padrao tamanho_amostra_n erro_padrao valor_t\n  &lt;chr&gt;          &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;dbl&gt;   &lt;dbl&gt;\n1 Feminino        1.67        0.0420                10      0.0133    2.26\n2 Masculino       1.77        0.0778                19      0.0178    2.10",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Prática - Intervalo de confiança</span>"
+    ]
+  },
+  {
+    "objectID": "praticas/05_intervalo-de-confianca.html#calcular-o-intervalo-de-confiança",
+    "href": "praticas/05_intervalo-de-confianca.html#calcular-o-intervalo-de-confiança",
+    "title": "5  Prática - Intervalo de confiança",
+    "section": "5.7 Calcular o intervalo de confiança",
+    "text": "5.7 Calcular o intervalo de confiança\n\nic_altura &lt;- dados |&gt; \n  group_by(sexo_biologico) |&gt; \n  summarise(\n    media = mean(altura_em_metros, na.rm = TRUE),\n    desvio_padrao = sd(altura_em_metros, na.rm = TRUE),\n    tamanho_amostra_n = n(),\n    erro_padrao = desvio_padrao / sqrt(tamanho_amostra_n),\n    valor_t = qt(p = 0.975, df = tamanho_amostra_n - 1),\n    ic_inferior = media - (valor_t * erro_padrao),\n    ic_superior = media + (valor_t * erro_padrao)\n  )\n\nknitr::kable(ic_altura)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nsexo_biologico\nmedia\ndesvio_padrao\ntamanho_amostra_n\nerro_padrao\nvalor_t\nic_inferior\nic_superior\n\n\n\n\nFeminino\n1.666000\n0.0419524\n10\n0.0132665\n2.262157\n1.635989\n1.696011\n\n\nMasculino\n1.771579\n0.0777648\n19\n0.0178405\n2.100922\n1.734098\n1.809060\n\n\n\n\n\nCom o intervalo de confiança calculado, podemos visualizar os resultados em um gráfico. Vamos criar um gráfico de pontos com barras de erro para representar o intervalo de confiança.\n\nggplot(ic_altura,\n       aes(x = sexo_biologico, y = media, color = sexo_biologico)) +\n  geom_point(show.legend = FALSE) +\n  geom_errorbar(aes(ymin = ic_inferior, ymax = ic_superior),\n                width = 0.2,\n                show.legend = FALSE) +\n  labs(x = \"Sexo Biológico\", y = \"Altura Média (m)\") +\n  scale_color_brewer(palette = \"Set2\", direction = -1) +\n  scale_y_continuous(breaks = seq(1.5, 2.1, by = 0.01)) +\n  theme_minimal()\n\n\n\n\n\n\n\n\nPara discussão:\n\nO intervalo de confiança dos dois grupos se sobrepõe? O que isso pode significar?\nComo o tamanho da amostra (n) afetou o intervalo de confiança?\nComo a variação nas alturas (desvio padrão) influenciou o intervalo de confiança?",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Prática - Intervalo de confiança</span>"
+    ]
+  },
+  {
     "objectID": "apendices/00_erros_frequentes.html",
     "href": "apendices/00_erros_frequentes.html",
     "title": "Apêndice A — Erros e warnings frequentes",
