@@ -28,9 +28,9 @@ jobs:
 
       - uses: r-lib/actions/setup-renv@v2
 
-      - name: Install tinytex
+      - name: Install tinytex via R
         run: |
-          quarto install tinytex      
+          Rscript -e 'install.packages("tinytex"); tinytex::install_tinytex()'      
       
       - name: Publish to GitHub Pages (and render)
         uses: quarto-dev/quarto-actions/publish@v2
