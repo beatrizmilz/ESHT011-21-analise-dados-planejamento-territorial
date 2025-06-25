@@ -3,7 +3,14 @@ library(tidyverse)
 library(janitor)
 library(googlesheets4)
 
-dados_brutos <- read_sheet("https://docs.google.com/spreadsheets/d/1Si2E6Oik-DXaaXy8059l2pWzy_mkhMkbn6iBYUwaYlM/edit?usp=sharing")
+dados_brutos <- read_sheet("https://docs.google.com/spreadsheets/d/1Si2E6Oik-DXaaXy8059l2pWzy_mkhMkbn6iBYUwaYlM/edit?usp=sharing") |> 
+  dplyr::select(-c(Nome, `Endereço de e-mail`))
+
+write_csv(dados_brutos, "praticas/dados/respostas_forms_altura.csv")
+
+
+# ----
+glimpse(dados_brutos)
 
 # leitura do csv exportado do Google Forms
 # dados_brutos <- read_csv("respostas_forms.csv")
