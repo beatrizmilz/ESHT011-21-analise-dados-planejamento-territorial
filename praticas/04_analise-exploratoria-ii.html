@@ -227,7 +227,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#ordenando-dados-com-arrange" id="toc-ordenando-dados-com-arrange" class="nav-link" data-scroll-target="#ordenando-dados-com-arrange"><span class="header-section-number">4.8</span> Ordenando dados com <code>arrange()</code></a></li>
   <li><a href="#agrupando-dados-com-group_by" id="toc-agrupando-dados-com-group_by" class="nav-link" data-scroll-target="#agrupando-dados-com-group_by"><span class="header-section-number">4.9</span> Agrupando dados com <code>group_by()</code></a></li>
   <li><a href="#resumindo-dados-com-summarise" id="toc-resumindo-dados-com-summarise" class="nav-link" data-scroll-target="#resumindo-dados-com-summarise"><span class="header-section-number">4.10</span> Resumindo dados com <code>summarise()</code></a></li>
-  <li><a href="#materiais-complementares" id="toc-materiais-complementares" class="nav-link" data-scroll-target="#materiais-complementares"><span class="header-section-number">4.11</span> Materiais complementares</a></li>
+  <li><a href="#unindo-tabelas-com-left_join" id="toc-unindo-tabelas-com-left_join" class="nav-link" data-scroll-target="#unindo-tabelas-com-left_join"><span class="header-section-number">4.11</span> Unindo tabelas com <code>left_join()</code></a></li>
+  <li><a href="#materiais-complementares" id="toc-materiais-complementares" class="nav-link" data-scroll-target="#materiais-complementares"><span class="header-section-number">4.12</span> Materiais complementares</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial/edit/main/praticas/04_analise-exploratoria-ii.qmd" class="toc-action"><i class="bi bi-github"></i>Editar essa página</a></li><li><a href="https://github.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial/issues/new" class="toc-action"><i class="bi empty"></i>Criar uma issue</a></li><li><a href="https://github.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial/blob/main/praticas/04_analise-exploratoria-ii.qmd" class="toc-action"><i class="bi empty"></i>Ver o código fonte</a></li></ul></div></nav>
     </div>
@@ -867,8 +868,102 @@ $ ictem                         &lt;dbl&gt; 5.97, 4.63, 9.97, 1.55, 9.86, 1.50, 
 <span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"dados/estatisticas-descritivas-ugrhi.xlsx"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="materiais-complementares" class="level2" data-number="4.11">
-<h2 data-number="4.11" class="anchored" data-anchor-id="materiais-complementares"><span class="header-section-number">4.11</span> Materiais complementares</h2>
+<section id="unindo-tabelas-com-left_join" class="level2" data-number="4.11">
+<h2 data-number="4.11" class="anchored" data-anchor-id="unindo-tabelas-com-left_join"><span class="header-section-number">4.11</span> Unindo tabelas com <code>left_join()</code></h2>
+<p>A função <code>left_join()</code> é utilizada para unir duas tabelas com base em uma ou mais colunas em comum (chamada de chave - <code>key</code>).</p>
+<p>Para este exemplo, vamos importar <a href="https://raw.githubusercontent.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial/refs/heads/main/praticas/dados/idhm_sp_2010.csv">uma tabela</a> que contém informações sobre o IDH (Índice de Desenvolvimento Humano) dos municípios de São Paulo, referente ao ano de 2010. Esses dados são baseados no Censo, mas ainda não temos o IDH calculado para o ano de 2022.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>dados_idhm <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://raw.githubusercontent.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial/refs/heads/main/praticas/dados/idhm_sp_2010.csv"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 645 Columns: 15
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr  (3): muni_nm, uf_sigla, regiao_nm
+dbl (12): ano, muni_id, idhm, idhm_e, idhm_l, idhm_r, espvida, rdpc, gini, p...
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+</div>
+<p>Para fazer o join, precisamos garantir que as colunas que vamos utilizar como chave estejam no mesmo formato. Neste caso, vamos utilizar a coluna referente ao código do IBGE como chave para unir as duas tabelas:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(dados_idhm)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "ano"       "muni_id"   "muni_nm"   "uf_sigla"  "regiao_nm" "idhm"     
+ [7] "idhm_e"    "idhm_l"    "idhm_r"    "espvida"   "rdpc"      "gini"     
+[13] "pop"       "lat"       "lon"      </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(dados_cetesb)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "ano"                           "uf"                           
+ [3] "ugrhi"                         "municipio"                    
+ [5] "codigo_ibge"                   "populacao_urbana"             
+ [7] "atendimento_coleta_porc"       "atendimento_tratamento_porc"  
+ [9] "eficiencia"                    "carga_poluidora_potencial"    
+[11] "carga_poluidora_remancescente" "ictem"                        </code></pre>
+</div>
+</div>
+<p>É importante que a variável que usaremos como chave esteja no mesmo formato nas duas tabelas. Usamos a função <code>class()</code> para verificar o tipo de dado de cada coluna:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(dados_cetesb<span class="sc">$</span>codigo_ibge)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "numeric"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(dados_idhm<span class="sc">$</span>muni_id)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "numeric"</code></pre>
+</div>
+</div>
+<p>Obs: caso as colunas não estejam no mesmo formato, podemos utilizar a função <code>mutate()</code> para alterar o tipo de dado de uma das colunas, junto com funções como <code>as.character()</code> ou <code>as.numeric()</code>, dependendo da classe de dado que queremos.</p>
+<p>Agora podemos unir as duas tabelas utilizando a função <code>left_join()</code>. Essa função irá manter todas as linhas da tabela da esquerda (<code>dados_cetesb</code>) e adicionar as colunas da tabela da direita (<code>dados_idhm</code>) onde houver correspondência na chave especificada.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>dados_unidos <span class="ot">&lt;-</span> <span class="fu">left_join</span>(</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># tabela da esquerda</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  dados_cetesb, </span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># tabela da direita</span></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>  dados_idhm, </span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># o argumento `by` especifica as colunas que serão utilizadas como chave para o join</span></span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"codigo_ibge"</span> <span class="ot">=</span> <span class="st">"muni_id"</span>)</span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>A nova tabela <code>dados_unidos</code> agora contém todas as colunas de ambas as tabelas, com os dados do IDH adicionados aos municípios correspondentes. Se um município não tiver um valor correspondente na tabela de IDH, as colunas relacionadas ao IDH terão valores <code>NA</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(dados_unidos)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 645
+Columns: 26
+$ ano.x                         &lt;dbl&gt; 2022, 2022, 2022, 2022, 2022, 2022, 2022…
+$ uf                            &lt;chr&gt; "SP", "SP", "SP", "SP", "SP", "SP", "SP"…
+$ ugrhi                         &lt;dbl&gt; 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2…
+$ municipio                     &lt;chr&gt; "Campos do Jordão", "Santo Antônio do Pi…
+$ codigo_ibge                   &lt;dbl&gt; 3509700, 3548203, 3548609, 3502507, 3503…
+$ populacao_urbana              &lt;dbl&gt; 52384, 4067, 5251, 35684, 1844, 2619, 88…
+$ atendimento_coleta_porc       &lt;dbl&gt; 52.6, 46.7, 98.0, 70.0, 95.6, 100.0, 88.…
+$ atendimento_tratamento_porc   &lt;dbl&gt; 100.0, 100.0, 100.0, 0.0, 95.6, 0.0, 100…
+$ eficiencia                    &lt;dbl&gt; 93.0, 80.0, 91.3, 0.0, 99.0, 0.0, 75.0, …
+$ carga_poluidora_potencial     &lt;dbl&gt; 2829, 220, 284, 1927, 100, 141, 476, 442…
+$ carga_poluidora_remancescente &lt;dbl&gt; 1445, 138, 30, 1927, 9, 141, 161, 1858, …
+$ ictem                         &lt;dbl&gt; 5.97, 4.63, 9.97, 1.55, 9.86, 1.50, 7.61…
+$ ano.y                         &lt;dbl&gt; 2010, 2010, 2010, 2010, 2010, 2010, 2010…
+$ muni_nm                       &lt;chr&gt; "CAMPOS DO JORDÃO", "SANTO ANTÔNIO DO PI…
+$ uf_sigla                      &lt;chr&gt; "SP", "SP", "SP", "SP", "SP", "SP", "SP"…
+$ regiao_nm                     &lt;chr&gt; "Sudeste", "Sudeste", "Sudeste", "Sudest…
+$ idhm                          &lt;dbl&gt; 0.749, 0.706, 0.720, 0.755, 0.680, 0.697…
+$ idhm_e                        &lt;dbl&gt; 0.648, 0.632, 0.638, 0.706, 0.612, 0.672…
+$ idhm_l                        &lt;dbl&gt; 0.852, 0.812, 0.812, 0.828, 0.812, 0.803…
+$ idhm_r                        &lt;dbl&gt; 0.761, 0.685, 0.719, 0.735, 0.634, 0.627…
+$ espvida                       &lt;dbl&gt; 76.10, 73.69, 73.69, 74.67, 73.72, 73.18…
+$ rdpc                          &lt;dbl&gt; 911.40, 569.08, 701.89, 775.17, 414.19, …
+$ gini                          &lt;dbl&gt; 0.59, 0.47, 0.55, 0.46, 0.39, 0.44, 0.51…
+$ pop                           &lt;dbl&gt; 47287, 6450, 10370, 34630, 2481, 3632, 1…
+$ lat                           &lt;dbl&gt; -22.739, -22.827, -22.689, -22.847, -22.…
+$ lon                           &lt;dbl&gt; -45.591, -45.663, -45.731, -45.230, -44.…</code></pre>
+</div>
+</div>
+<p>Este caso é um exemplo de um join bem simples, onde temos uma chave única em cada tabela. No entanto, existem outros tipos de joins, como <code>inner_join()</code>, <code>right_join()</code>, <code>full_join()</code>, que podem ser utilizados dependendo da situação.</p>
+</section>
+<section id="materiais-complementares" class="level2" data-number="4.12">
+<h2 data-number="4.12" class="anchored" data-anchor-id="materiais-complementares"><span class="header-section-number">4.12</span> Materiais complementares</h2>
 <ul>
 <li>Materiais do curso <a href="https://ipeadata-lab.github.io/curso_r_intro_202409/">Introdução à análise de dados no R</a>:
 <ul>
