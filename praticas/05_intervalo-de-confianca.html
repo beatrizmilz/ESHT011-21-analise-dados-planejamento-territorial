@@ -78,7 +78,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-f8cb7fe94b71c4ea6759b609738bfe9c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-48fb113fea7c09ade55c8c495d57f66a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -316,7 +316,7 @@ window.Quarto = {
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># leitura de uma cópia dos dados que está salva no GitHub</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>dados_brutos <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://raw.githubusercontent.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial/refs/heads/main/praticas/dados/respostas_forms_altura.csv"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Rows: 29 Columns: 5
+<pre><code>Rows: 32 Columns: 5
 ── Column specification ────────────────────────────────────────────────────────
 Delimiter: ","
 chr  (2): Sexo biológico, Turma
@@ -331,7 +331,7 @@ dttm (1): Carimbo de data/hora
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(dados_brutos)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Rows: 29
+<pre><code>Rows: 32
 Columns: 5
 $ `Carimbo de data/hora` &lt;dttm&gt; 2025-06-23 10:04:10, 2025-06-23 10:08:13, 2025…
 $ Idade                  &lt;dbl&gt; 36, 43, 20, 56, 42, 35, 36, 26, 21, 28, 29, 31,…
@@ -348,7 +348,7 @@ $ Turma                  &lt;chr&gt; "Pós-graduação - Matutino", "Pós-gradua
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(dados)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Rows: 29
+<pre><code>Rows: 32
 Columns: 5
 $ carimbo_de_data_hora &lt;dttm&gt; 2025-06-23 10:04:10, 2025-06-23 10:08:13, 2025-0…
 $ idade                &lt;dbl&gt; 36, 43, 20, 56, 42, 35, 36, 26, 21, 28, 29, 31, 4…
@@ -406,9 +406,9 @@ $ turma                &lt;chr&gt; "Pós-graduação - Matutino", "Pós-graduaç
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">adorn_pct_formatting</span>() <span class="co"># formatando os percentuais</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> sexo_biologico  n percent
-       Feminino 10   34.5%
-      Masculino 19   65.5%
-          Total 29  100.0%</code></pre>
+       Feminino 13   40.6%
+      Masculino 19   59.4%
+          Total 32  100.0%</code></pre>
 </div>
 </div>
 </section>
@@ -429,7 +429,7 @@ $ turma                &lt;chr&gt; "Pós-graduação - Matutino", "Pós-graduaç
 <pre><code># A tibble: 2 × 4
   sexo_biologico media desvio_padrao tamanho_amostra_n
   &lt;chr&gt;          &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;
-1 Feminino        1.67        0.0420                10
+1 Feminino        1.67        0.0485                13
 2 Masculino       1.77        0.0778                19</code></pre>
 </div>
 </div>
@@ -452,7 +452,7 @@ $ turma                &lt;chr&gt; "Pós-graduação - Matutino", "Pós-graduaç
 <pre><code># A tibble: 2 × 5
   sexo_biologico media desvio_padrao tamanho_amostra_n erro_padrao
   &lt;chr&gt;          &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;dbl&gt;
-1 Feminino        1.67        0.0420                10      0.0133
+1 Feminino        1.67        0.0485                13      0.0134
 2 Masculino       1.77        0.0778                19      0.0178</code></pre>
 </div>
 </div>
@@ -483,7 +483,7 @@ IC = \bar{x} \pm (z \times SE)
 <pre><code># A tibble: 2 × 6
   sexo_biologico media desvio_padrao tamanho_amostra_n erro_padrao valor_t
   &lt;chr&gt;          &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;dbl&gt;   &lt;dbl&gt;
-1 Feminino        1.67        0.0420                10      0.0133    2.26
+1 Feminino        1.67        0.0485                13      0.0134    2.18
 2 Masculino       1.77        0.0778                19      0.0178    2.10</code></pre>
 </div>
 </div>
@@ -532,13 +532,13 @@ IC = \bar{x} \pm (z \times SE)
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">Feminino</td>
-<td style="text-align: right;">1.666000</td>
-<td style="text-align: right;">0.0419524</td>
-<td style="text-align: right;">10</td>
-<td style="text-align: right;">0.0132665</td>
-<td style="text-align: right;">2.262157</td>
-<td style="text-align: right;">1.635989</td>
-<td style="text-align: right;">1.696011</td>
+<td style="text-align: right;">1.668462</td>
+<td style="text-align: right;">0.0484503</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">0.0134377</td>
+<td style="text-align: right;">2.178813</td>
+<td style="text-align: right;">1.639183</td>
+<td style="text-align: right;">1.69774</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Masculino</td>
@@ -548,7 +548,7 @@ IC = \bar{x} \pm (z \times SE)
 <td style="text-align: right;">0.0178405</td>
 <td style="text-align: right;">2.100922</td>
 <td style="text-align: right;">1.734098</td>
-<td style="text-align: right;">1.809060</td>
+<td style="text-align: right;">1.80906</td>
 </tr>
 </tbody>
 </table>
