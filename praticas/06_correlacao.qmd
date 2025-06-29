@@ -22,6 +22,8 @@ Os pacotes necessários para essa prática são:
 
 -   `Hmisc`: para calcular a correlação e gerar a matriz de correlação.
 
+[HMISC USADO PRA QUE]
+
 ```{r}
 library(tidyverse)
 library(corrplot)
@@ -81,6 +83,9 @@ As variáveis que vamos utilizar para responder a essa pergunta são:
 
   -   `rendapita`: Renda per capita.
 
+[DEIXAR CLARO QUE CORRELACAO É USADA QUANDO TEMOS VARIAVEIS NUMERICAS]
+
+
 ## Gráfico de dispersão
 
 O gráfico de dispersão é uma representação gráfica que mostra a relação entre duas variáveis numéricas. Cada ponto no gráfico representa um par de valores das duas variáveis.
@@ -116,7 +121,9 @@ No entanto, essa relação não é perfeita e existem pontos que se desviam dess
 
 Porém, o foco neste momento é visualizar as tendências.
 
-Para quantificar essa relação, precisamos calcular a correlação entre as duas variáveis.
+Para quantificar essa relação, podemos calcular a correlação entre as duas variáveis.
+
+[SE DER TEMPO, MOSTRE O GUESS THE CORRELATION]
 
 ## Correlação
 
@@ -153,26 +160,27 @@ A correlação entre as variáveis renda e o consumo de água per capita é de `
 
 ## Teste de significância
 
+Será que 0.6 é significativo? Se fosse -0.3, seria significativo? E se fosse 0.1? Uma forma de verificar isso é através de um teste de hipótese. Nesse teste, avaliamos se a correlação observada é tão próxima de zero que podemos considerar que o que observamos é fruto do acaso.
+
 [PQ USAR ISSO? EXPLICAR]
 
-
-Para testar a significância da correlação entre duas variáveis, podemos usar o teste de hipótese para o coeficiente de correlação de Pearson. Esse teste nos ajuda a determinar se a correlação observada é estatisticamente significativa ou se pode ter ocorrido por acaso.
+Para testar a significância da correlação entre duas variáveis, podemos usar o teste de hipótese para o coeficiente de correlação de Pearson. Esse teste nos dá um guia para avaliar se a correlação observada é significativa.
 
 É importante definir antes de realizar o teste de significância qual é a hipótese nula e a hipótese alternativa:
 
 -  **Hipótese nula (H0)**: Não há correlação entre as duas variáveis (coeficiente de correlação é igual a zero).
 
-- **Hipótese alternativa (H1)**: Há correlação entre as duas variáveis (coeficiente de correlação é diferente de zero).
+- **Hipótese alternativa (H1)**: Há correlação entre as duas variáveis (coeficiente de correlação é diferente de zero, podendo ser positivo ou negativo).
 
-Para testar a significâcia do coeficiente de correlação de Pearson é necessário executar a função `cor.test()`, especificando os argumentos:
+Para testar a significâcia do coeficiente de correlação de Pearson podemos usar a função `cor.test()`, especificando os argumentos:
 
    - `x` e `y`: as duas variáveis numéricas que queremos correlacionar;
    
-   - `method`: o método de correlação a ser utilizado (por padrão, é o coeficiente de correlação de Pearson, mas também é possível calcular utilizando os métodos `"spearman"` e `"kendall"`);
+   - `method`: o método de correlação a ser utilizado. Por padrão, é o coeficiente de correlação de Pearson, mas também é possível calcular utilizando os métodos `"spearman"` e `"kendall"`. Ao mudar o método, também mudamos o teste de hipótese realizado;
    
-   - `alternative`: o tipo de teste de hipótese a ser realizado. Os valores possíveis são `"two.sided"` (bilateral), `"less"` (unilateral à esquerda) e `"greater"` (unilateral à direita).
+   - `alternative`: o tipo de teste de hipótese a ser realizado. Os valores possíveis são `"two.sided"` (bilateral), `"less"` (unilateral à esquerda: valor negativo) e `"greater"` (unilateral à direita: valor positivo).
    
-   - `conf.level`: o nível de confiança para o intervalo de confiança do coeficiente de correlação (por padrão, é 0.95, ou seja, 95%).
+   - `conf.level`: o nível de confiança para o intervalo de confiança do coeficiente de correlação (por padrão, é 0.95, ou seja, 95% de confiança).
    
   
   
@@ -186,7 +194,12 @@ resultado_cor_test <- cor.test(x = dados$rendapita, # variável
 
 resultado_cor_test
 ```
-Os resultados de testes estatísticos no R podem parecer um pouco confusos no início. O objeto criado é uma lista, e podemos acessar os componentes dessa lista para obter informações específicas utilizando o operador `$`.
+
+```{r}
+broom::tidy(resultado_cor_test)
+```
+
+Os resultados de testes estatísticos no R são confusos no início. O objeto criado é uma lista, e podemos acessar os componentes dessa lista para obter informações específicas utilizando o operador `$`.
 
 ```{r}
 names(resultado_cor_test)
@@ -194,7 +207,7 @@ names(resultado_cor_test)
 
 ### `statistic`
 
-O componente `statistic` é o valor do teste estatístico usado para calcular o valor de p. No caso da correlação de Pearson, esse valor é calculado com base no valor de `t`. Esses valores não costumam ser interpretados isoladamente neste contexto.
+O componente `statistic` é o valor do teste estatístico usado para calcular o valor-p. No caso da correlação de Pearson, esse valor é calculado com base no valor de `t`, por conta das propriedades da estatística de Pearson. Esses valores não costumam ser interpretados isoladamente neste contexto.
 
 ```{r}
 resultado_cor_test$statistic
@@ -202,7 +215,7 @@ resultado_cor_test$statistic
 
 ### `parameter`
 
-O componente `parameter` indica os parâmetros associados ao teste. No caso da correlação de Pearson, são os graus de liberdade, que é calculado como `n - 2`, onde `n` é o número de observações completas (ou seja, o número de pares de valores das duas variáveis).
+O componente `parameter` indica os parâmetros associados ao teste. No caso da correlação de Pearson, são os graus de liberdade, que é calculado como `n - 2`, onde `n` é o número de observações completas (ou seja, o número de pares de valores das duas variáveis). Isso acontece porque estamos calculando duas variâncias, o que diminui os graus de liberdade disponíveis para o teste em 2.
 
 ```{r}
 resultado_cor_test$parameter
@@ -216,10 +229,11 @@ dados |>
   nrow()
 ```
 
-## `p.value` ou valor de p 
+### `p.value` ou valor-p 
 
-O valor de p (ou `p-value`) indica a probabilidade de observar um valor tão extremo quanto o observado, assumindo que a hipótese nula (correlação = 0) seja verdadeira. Neste contexto, é usado para determinar se a correlação observada é estatisticamente significante.
+O valor-p (ou `p-value`) indica a probabilidade de observar um valor tão ou mais extremo quanto o observado, assumindo que a hipótese nula (correlação = 0) seja verdadeira. Em uma linguagem mais simples, o valor-p nos diz a probabilidade de obtermos o resultado observado ao acaso. Neste contexto, é usado como guia para decidir se a correlação observada é estatisticamente significante.
 
+[ESCREVER: ALERTA POIS O R ARREDONDA]
 
 ```{r}
 resultado_cor_test$p.value
@@ -233,14 +247,14 @@ Isso significa que **podemos rejeitar a hipótese nula (H0) de que não há corr
 
 ### `estimate`
 
-É a estimativa do parâmetro de interesse. No caso do teste de correlação de Pearson, é o coeficiente de correlação calculado entre as duas variáveis. Esse valor é o mesmo que calculamos anteriormente com a função `cor()`, e mostra a força e a direção de uma relação linear entre as duas variáveis.
+É a estimativa do parâmetro de interesse. No caso do teste de correlação de Pearson, é o coeficiente de correlação calculado entre as duas variáveis. Esse valor é o mesmo que calculamos anteriormente com a função `cor()`.
 
 ```{r}
 resultado_cor_test$estimate
 ```
 ### `null.value`
 
-O componente `null.value` indica o valor do parâmetro sob a hipótese nula. No caso do teste de correlação de Pearson, esse valor é zero, pois a hipótese nula afirma que não há correlação entre as duas variáveis.
+O componente `null.value` indica o valor do parâmetro sob a hipótese nula. No caso do teste de correlação de Pearson, esse valor é zero, pois a hipótese nula afirma que não há correlação entre as duas variáveis. Em usos mais avançados, poderíamos alterar esse valor, para verificar se a correlação é diferente de um valor específico.
 
 ```{r}
 resultado_cor_test$null.value
@@ -269,7 +283,7 @@ resultado_cor_test$data.name
 ```
 ### `conf.int`
 
-O componente `conf.int` contém o intervalo de confiança para o coeficiente de correlação. Esse intervalo é calculado com base no nível de confiança especificado (por padrão, 95%) e fornece uma faixa de valores dentro da qual podemos esperar que o verdadeiro coeficiente de correlação esteja (lembrando que temos uma amostra de municípios, já que não temos dados para todos eles).
+O componente `conf.int` contém o intervalo de confiança para o coeficiente de correlação. Esse intervalo é calculado com base no nível de confiança especificado (por padrão, 95%) e fornece uma faixa de valores que esperamos que contenham o verdadeiro coeficiente de correlação (lembrando que temos uma amostra de municípios, já que não temos dados para todos eles).
 
 Além disso, esse elemento também indica qual foi o nível de confiança (`conf.level`) utilizado para calcular o intervalo de confiança.
 
