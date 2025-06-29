@@ -27,7 +27,8 @@ book:
     - praticas/02_conceitos-basicos-r.qmd    
     - praticas/03_analise-exploratoria.qmd
     - praticas/04_analise-exploratoria-ii.qmd
-    - praticas/05_intervalo-de-confianca.qmd    
+    - praticas/05_intervalo-de-confianca.qmd
+    - praticas/06_correlacao.qmd
     # - praticas/04_correlacao.qmd
     # - praticas/06_regressao-linear.qmd    
     # - praticas/07_regressao-espacial.qmd           

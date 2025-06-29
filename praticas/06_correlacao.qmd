@@ -1,0 +1,283 @@
+---
+title: "Prática - Correlação"
+subtitle: "Explorando a relação linear entre duas variáveis numéricas"
+---
+
+::: callout-note
+Os conceitos foram apresentados na aula teórica. A seguir, temos uma prática para aplicar esses conceitos. É importante que você tenha assistido à aula antes de realizar esta prática, pois ela se baseia nos conceitos discutidos.
+:::
+
+::: callout-note
+Essa prática foi muito inspirada pela prática preparada pelo [Luis Felipe Bortolatto da Cunha](https://luisfelipebr.github.io/mti2020/roteiros/roteiro4.html) para edições passadas dessa disciplina.
+:::
+
+
+## Carregando os pacotes
+
+Os pacotes necessários para essa prática são:
+
+-   `tidyverse`: para manipulação e visualização de dados;
+
+-   `corrplot`: para visualização de matrizes de correlação;
+
+-   `Hmisc`: para calcular a correlação e gerar a matriz de correlação.
+
+```{r}
+library(tidyverse)
+library(corrplot)
+library(Hmisc)
+```
+
+## Importando os dados
+
+Para executar a análise de correlação vamos utilizar dados demográficos e de consumo de água de 2010, para uma amostra de municípios, extraídos do Censo Demográfico (IBGE) e do Sistema Nacional de Informações sobre Saneamento (SNIS), para investigar se **o consumo de água está correlacionado com a renda**, conforme análise apresentada por [Carmo et al., 2013](https://abrh.s3.sa-east-1.amazonaws.com/Sumarios/155/ea6a64ffc76c211d6b7749ab8444b626_bf87b0b219dd784ffa049f367598e626.pdf).
+
+Download: [Clique aqui caso queira fazer o download dos dados](https://raw.githubusercontent.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial/refs/heads/main/praticas/dados/agua_rede1.csv)
+
+Atenção: os dados estão no formato CSV, que é um formato de texto separado por vírgulas. O `read_csv2` é usado para ler arquivos CSV que usam ponto e vírgula (`;`) como separador de campos, o que é o caso deste arquivo.
+
+```{r}
+dados <- read_csv2("https://raw.githubusercontent.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial/refs/heads/main/praticas/dados/agua_rede1.csv") 
+```
+
+Vamos dar uma olhada para conhecer a estrutura dos dados e as variáveis disponíveis.
+
+```{r}
+glimpse(dados)
+```
+
+A tabela abaixo apresenta uma descrição de cada variável.
+
+| Código | Descrição |
+|----------------------------------|-------------------------------------|
+| id_ibge | Código IBGE (7 dígitos) |
+| domicil | Quantidade de Domicílios |
+| rede | Quantidade de Domicílios com Acesso à Rede Geral de Água |
+| proprede | Proporção de Domicílios com com Acesso à Rede Geral de Água (REDE/DOMICIL) |
+| id_snins  | Código IBGE (6 dígitos) |
+| NOME_MUN | Nome do Município |
+| uf | Unidade da Federação |
+| regiao | Região do País |
+| pib | Produto Interno Bruto 2010 |
+| rendapita | Renda per Capita 2010 |
+| gini | Índice GINI 2010 |
+| idh | Índice de Desenvolvimento Humano 2010 |
+| idh_class | Classificação do Índice de Desenvolvimento Humano 2010: Muito Alto \>= 0,9; Alto \>= 0,8; Médio \>= 0,5; Baixo \< 0,5. |
+| ge012 | População Total Residente no Município |
+| ag001 | População Total Atendida com Abastecimento de Água |
+| ag020 | Volume Micromedido nas Economias Residenciais Ativas de Agua - 1.000 m3/ano |
+| ag022 | Quantidade de Economias Residenciais Ativas Micromedidas |
+| consumo1 | Consumo de Água per capita - População Total - m3/ano (AG020/GE012) |
+| consumo2 | Consumo de Água per capita - População Atendida - m3/ano (AG020/AG001) |
+
+
+## Pergunta norteadora
+
+A pergunta que vamos investigar é: **o consumo de água (per capita) está correlacionado com a renda (per capita)?**
+
+As variáveis que vamos utilizar para responder a essa pergunta são:
+
+  -   `consumo1`: Consumo de água per capita - População Total - m3/ano (AG020/GE012);
+
+  -   `rendapita`: Renda per capita.
+
+## Gráfico de dispersão
+
+O gráfico de dispersão é uma representação gráfica que mostra a relação entre duas variáveis numéricas. Cada ponto no gráfico representa um par de valores das duas variáveis.
+
+Por exemplo, podemos representar
+
+```{r}
+dados |>
+  ggplot(aes(x = rendapita, y = consumo1)) +
+  geom_point() +
+  labs(
+    tite = "Relação entre Renda per Capita e Consumo de Água per Capita",
+    subtitle = "Dados de 2010 para Municípios Brasileiros",
+    caption = "Fonte: SNIS e IBGE",
+    x = "Renda per capita (R$)",
+    y = "Consumo de água per capita (m³/ano)"
+  ) +
+  theme_minimal()
+```
+
+::: {.callout-warning}
+Veja que o `ggplot` apresentou um aviso (*warning*):
+
+> Warning: Removed 1149 rows containing missing values or values outside the scale range
+(`geom_point()`).
+
+Quando estamos criando um gráfico de dispersão, precisamos que ambas as variáveis estejam presentes para cada ponto. Se uma das variáveis tiver valores ausentes (NA) ou fora do intervalo esperado, esses pontos serão removidos do gráfico. Isso é normal e esperado, pois o `ggplot` não pode plotar pontos com valores ausentes. 
+:::
+
+Interpretando o gráfico, podemos observar que há uma **tendência** de que, **à medida que a renda per capita aumenta, o consumo de água per capita também tende a aumentar**. 
+
+No entanto, essa relação não é perfeita e existem pontos que se desviam dessa tendência. Por exemplo: alguns municípios apresentam maiores valores de consumo de água per capita, mesmo com rendas per capita mais baixas, enquanto outros municípios com rendas mais altas apresentam consumos de água per capita mais baixos.
+
+Porém, o foco neste momento é visualizar as tendências.
+
+Para quantificar essa relação, precisamos calcular a correlação entre as duas variáveis.
+
+## Correlação
+
+A correlação é uma medida estatística que indica a força e a direção de uma **relação linear** entre duas **variáveis numéricas**. o **coeficiente de correlação de Pearson** apresenta valores entre `-1` e `1`, onde:
+
+-   `1` indica uma correlação positiva perfeita (quando uma variável aumenta, a outra também aumenta);
+
+-   `-1` indica uma correlação negativa perfeita (quando uma variável aumenta, a outra diminui);
+
+-   `0` indica que não há correlação linear entre as variáveis.
+
+
+Para calcular a correlação entre as variáveis `consumo1` e `rendapita`, podemos usar a função `cor()` do R, que calcula o coeficiente de correlação, e podemos indicar alguns argumentos:
+
+   - `x` e `y`: as duas variáveis numéricas que queremos correlacionar;
+
+   - `method`: o método de correlação a ser utilizado (por padrão, é o coeficiente de correlação de Pearson, porém também é possível calcular utilizando os métodos `"spearman"` e `"kendall"`);
+
+  - `use`: como lidar com valores ausentes (NA). Por exemplo, podemos usar `use = "complete.obs"` para remover os casos com valores ausentes antes de calcular a correlação.
+
+
+```{r}
+correlacao <- cor(x = dados$rendapita, # variável 
+                  y = dados$consumo1,  # variável
+                  method = "pearson", # método de correlação
+                  use = "complete.obs" # usar apenas observações completas
+                  )
+
+correlacao
+```
+
+
+A correlação entre as variáveis renda e o consumo de água per capita é de `r round(correlacao, 2)`, indicando a mesma **correlação positiva** que o gráfico de dispersão permitiu visualizar.
+
+## Teste de significância
+
+[PQ USAR ISSO? EXPLICAR]
+
+
+Para testar a significância da correlação entre duas variáveis, podemos usar o teste de hipótese para o coeficiente de correlação de Pearson. Esse teste nos ajuda a determinar se a correlação observada é estatisticamente significativa ou se pode ter ocorrido por acaso.
+
+É importante definir antes de realizar o teste de significância qual é a hipótese nula e a hipótese alternativa:
+
+-  **Hipótese nula (H0)**: Não há correlação entre as duas variáveis (coeficiente de correlação é igual a zero).
+
+- **Hipótese alternativa (H1)**: Há correlação entre as duas variáveis (coeficiente de correlação é diferente de zero).
+
+Para testar a significâcia do coeficiente de correlação de Pearson é necessário executar a função `cor.test()`, especificando os argumentos:
+
+   - `x` e `y`: as duas variáveis numéricas que queremos correlacionar;
+   
+   - `method`: o método de correlação a ser utilizado (por padrão, é o coeficiente de correlação de Pearson, mas também é possível calcular utilizando os métodos `"spearman"` e `"kendall"`);
+   
+   - `alternative`: o tipo de teste de hipótese a ser realizado. Os valores possíveis são `"two.sided"` (bilateral), `"less"` (unilateral à esquerda) e `"greater"` (unilateral à direita).
+   
+   - `conf.level`: o nível de confiança para o intervalo de confiança do coeficiente de correlação (por padrão, é 0.95, ou seja, 95%).
+   
+  
+  
+```{r}
+resultado_cor_test <- cor.test(x = dados$rendapita, # variável 
+                  y = dados$consumo1,  # variável
+                  method = "pearson", # método de correlação
+                  alternative = "two.sided", # teste bilateral
+                  conf.level = 0.95, # nível de confiança
+                  )
+
+resultado_cor_test
+```
+Os resultados de testes estatísticos no R podem parecer um pouco confusos no início. O objeto criado é uma lista, e podemos acessar os componentes dessa lista para obter informações específicas utilizando o operador `$`.
+
+```{r}
+names(resultado_cor_test)
+```
+
+### `statistic`
+
+O componente `statistic` é o valor do teste estatístico usado para calcular o valor de p. No caso da correlação de Pearson, esse valor é calculado com base no valor de `t`. Esses valores não costumam ser interpretados isoladamente neste contexto.
+
+```{r}
+resultado_cor_test$statistic
+```
+
+### `parameter`
+
+O componente `parameter` indica os parâmetros associados ao teste. No caso da correlação de Pearson, são os graus de liberdade, que é calculado como `n - 2`, onde `n` é o número de observações completas (ou seja, o número de pares de valores das duas variáveis).
+
+```{r}
+resultado_cor_test$parameter
+```
+
+Podemos conferir isso contando o número de observações completas (ou seja, sem valores ausentes) nas duas variáveis que estamos correlacionando:
+
+```{r}
+dados |> 
+  drop_na(rendapita, consumo1) |> 
+  nrow()
+```
+
+## `p.value` ou valor de p 
+
+O valor de p (ou `p-value`) indica a probabilidade de observar um valor tão extremo quanto o observado, assumindo que a hipótese nula (correlação = 0) seja verdadeira. Neste contexto, é usado para determinar se a correlação observada é estatisticamente significante.
+
+
+```{r}
+resultado_cor_test$p.value
+```
+
+
+Neste caso, o resultado encontrado foi muito baixo, `p < 2.2e-16`, indicando que é altamente improvável obter esse resultado se a correlação verdadeira fosse zero (ou seja, se não houvesse correlação entre as variáveis).
+
+Isso significa que **podemos rejeitar a hipótese nula (H0) de que não há correlação entre as duas variáveis**.
+
+
+### `estimate`
+
+É a estimativa do parâmetro de interesse. No caso do teste de correlação de Pearson, é o coeficiente de correlação calculado entre as duas variáveis. Esse valor é o mesmo que calculamos anteriormente com a função `cor()`, e mostra a força e a direção de uma relação linear entre as duas variáveis.
+
+```{r}
+resultado_cor_test$estimate
+```
+### `null.value`
+
+O componente `null.value` indica o valor do parâmetro sob a hipótese nula. No caso do teste de correlação de Pearson, esse valor é zero, pois a hipótese nula afirma que não há correlação entre as duas variáveis.
+
+```{r}
+resultado_cor_test$null.value
+```
+
+### `alternative`
+
+O componente `alternative` indica qual foi a hipótese alternativa testada. No caso do teste de correlação de Pearson, o valor padrão é `"two.sided"`, o que significa que estamos testando se a correlação é diferente de zero (ou seja, se há uma correlação positiva ou negativa).
+
+```{r}
+resultado_cor_test$alternative
+```
+### `method`
+
+O componente `method` indica o método utilizado para calcular a correlação. No caso do teste de correlação de Pearson, o valor é `"Pearson"`.
+
+```{r}
+resultado_cor_test$method
+```
+### `data.name`
+
+O componente `data.name` indica o nome dos dados utilizados no teste. No caso do teste de correlação de Pearson, é uma string que contém os nomes das duas variáveis que foram correlacionadas.
+
+```{r}
+resultado_cor_test$data.name
+```
+### `conf.int`
+
+O componente `conf.int` contém o intervalo de confiança para o coeficiente de correlação. Esse intervalo é calculado com base no nível de confiança especificado (por padrão, 95%) e fornece uma faixa de valores dentro da qual podemos esperar que o verdadeiro coeficiente de correlação esteja (lembrando que temos uma amostra de municípios, já que não temos dados para todos eles).
+
+Além disso, esse elemento também indica qual foi o nível de confiança (`conf.level`) utilizado para calcular o intervalo de confiança.
+
+```{r}
+resultado_cor_test$conf.int
+```
+
+## Matriz de correlação
+
+Até agora, calculamos a correlação entre duas variáveis específicas. No entanto, podemos calcular a correlação entre várias variáveis numéricas de uma vez, criando uma matriz de correlação.
+
