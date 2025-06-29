@@ -960,6 +960,11 @@ $ lat                           &lt;dbl&gt; -22.739, -22.827, -22.689, -22.847, 
 $ lon                           &lt;dbl&gt; -45.591, -45.663, -45.731, -45.230, -44.…</code></pre>
 </div>
 </div>
+<p>Podemos salvar os dados unidos em um arquivo CSV ou Excel, utilizando as funções <code>readr::write_csv()</code> ou <code>writexl::write_excel_csv()</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(dados_unidos,</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>          <span class="st">"dados/dados-join-cetesb-idhm.csv"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>Este caso é um exemplo de um join bem simples, onde temos uma chave única em cada tabela. No entanto, existem outros tipos de joins, como <code>inner_join()</code>, <code>right_join()</code>, <code>full_join()</code>, que podem ser utilizados dependendo da situação.</p>
 </section>
 <section id="materiais-complementares" class="level2" data-number="4.12">
