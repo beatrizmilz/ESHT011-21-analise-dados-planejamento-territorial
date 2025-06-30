@@ -311,8 +311,15 @@ Nota
 <li><p><code>tidyverse</code>: para manipulação e visualização de dados;</p></li>
 <li><p><code>corrplot</code> e <code>GGally</code>: para visualização de matrizes de correlação;</p></li>
 </ul>
+<p>Podemos instalar os pacotes:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"corrplot"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"GGally"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>E então carregá-los:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 ✔ dplyr     1.1.4     ✔ readr     2.1.5
@@ -325,11 +332,11 @@ Nota
 ✖ dplyr::lag()    masks stats::lag()
 ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(corrplot)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(corrplot)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>corrplot 0.95 loaded</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Registered S3 method overwritten by 'GGally':
   method from   
@@ -343,7 +350,7 @@ Nota
 <p>Download: <a href="https://raw.githubusercontent.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial/refs/heads/main/praticas/dados/agua_rede1.csv">Clique aqui caso queira fazer o download dos dados</a></p>
 <p>Atenção: os dados estão no formato CSV, que é um formato de texto separado por vírgulas. O <code>read_csv2</code> é usado para ler arquivos CSV que usam ponto e vírgula (<code>;</code>) como separador de campos, o que é o caso deste arquivo.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> <span class="fu">read_csv2</span>(<span class="st">"https://raw.githubusercontent.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial/refs/heads/main/praticas/dados/agua_rede1.csv"</span>) </span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> <span class="fu">read_csv2</span>(<span class="st">"https://raw.githubusercontent.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial/refs/heads/main/praticas/dados/agua_rede1.csv"</span>) </span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>ℹ Using "','" as decimal and "'.'" as grouping mark. Use `read_delim()` for more control.</code></pre>
 </div>
@@ -360,7 +367,7 @@ dbl (15): id_ibge, domicil, rede, proprede, id_snis, pib, rendapita, gini, i...
 </div>
 <p>Vamos dar uma olhada para conhecer a estrutura dos dados e as variáveis disponíveis.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(dados)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(dados)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 5,566
 Columns: 19
@@ -490,19 +497,19 @@ $ consumo2  &lt;dbl&gt; 64.76314, 33.22435, 64.60686, 60.48176, 60.85132, 44.678
 <section id="gráfico-de-dispersão" class="level2" data-number="6.4">
 <h2 data-number="6.4" class="anchored" data-anchor-id="gráfico-de-dispersão"><span class="header-section-number">6.4</span> Gráfico de dispersão</h2>
 <p>O gráfico de dispersão é uma representação gráfica que mostra a relação entre duas variáveis numéricas. Cada ponto no gráfico representa um par de valores das duas variáveis.</p>
-<p>Por exemplo, podemos representar</p>
+<p>Por exemplo, podemos representar as variáveis <code>rendapita</code> e <code>consumo1</code> em um gráfico de dispersão, deixando uma transparência nos pontos (<code>alpha = 0.2</code>) para facilitar a visualização de pontos sobrepostos.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>dados <span class="sc">|&gt;</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> rendapita, <span class="at">y =</span> consumo1)) <span class="sc">+</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">tite =</span> <span class="st">"Relação entre Renda per Capita e Consumo de Água per Capita"</span>,</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Dados de 2010 para Municípios Brasileiros"</span>,</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Fonte: SNIS e IBGE"</span>,</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Renda per capita (R$)"</span>,</span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Consumo de água per capita (m³/ano)"</span></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>dados <span class="sc">|&gt;</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> rendapita, <span class="at">y =</span> consumo1)) <span class="sc">+</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">tite =</span> <span class="st">"Relação entre Renda per Capita e Consumo de Água per Capita"</span>,</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Dados de 2010 para Municípios Brasileiros"</span>,</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Fonte: SNIS e IBGE"</span>,</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Renda per capita (R$)"</span>,</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Consumo de água per capita (m³/ano)"</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Removed 1149 rows containing missing values or values outside the scale range
 (`geom_point()`).</code></pre>
@@ -510,7 +517,7 @@ $ consumo2  &lt;dbl&gt; 64.76314, 33.22435, 64.60686, 60.48176, 60.85132, 44.678
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="06_correlacao_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="06_correlacao_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -566,13 +573,13 @@ Nota
 <li><p><code>use</code>: como lidar com valores ausentes (NA). Por exemplo, podemos usar <code>use = "complete.obs"</code> para remover os casos com valores ausentes antes de calcular a correlação.</p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>correlacao <span class="ot">&lt;-</span> <span class="fu">cor</span>(<span class="at">x =</span> dados<span class="sc">$</span>rendapita, <span class="co"># variável </span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">y =</span> dados<span class="sc">$</span>consumo1,  <span class="co"># variável</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">method =</span> <span class="st">"pearson"</span>, <span class="co"># método de correlação</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">use =</span> <span class="st">"complete.obs"</span> <span class="co"># usar apenas observações completas</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>                  )</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>correlacao</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>correlacao <span class="ot">&lt;-</span> <span class="fu">cor</span>(<span class="at">x =</span> dados<span class="sc">$</span>rendapita, <span class="co"># variável </span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">y =</span> dados<span class="sc">$</span>consumo1,  <span class="co"># variável</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">method =</span> <span class="st">"pearson"</span>, <span class="co"># método de correlação</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">use =</span> <span class="st">"complete.obs"</span> <span class="co"># usar apenas observações completas</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>                  )</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>correlacao</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.6012537</code></pre>
 </div>
@@ -586,13 +593,13 @@ Nota
 <p>Para construir uma matriz de correlação, primeiro é necessário selecionar as variáveis que desejamos investigar (com a função <code>select()</code>), para depois calcular o coeficiente de correlação entre cada dupla de variáveis (com a função <code>cor()</code>).</p>
 <p>Vamos criar um objeto com as variáveis que queremos investigar:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>dados_selecionados <span class="ot">&lt;-</span> dados <span class="sc">|&gt;</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(rendapita, pib, gini, idh, consumo1, consumo2, proprede)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>dados_selecionados <span class="ot">&lt;-</span> dados <span class="sc">|&gt;</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(rendapita, pib, gini, idh, consumo1, consumo2, proprede)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Agora podemos calcular a matriz de correlação entre essas variáveis, utilizando a função <code>cor()</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>dados_selecionados <span class="sc">|&gt;</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cor</span>(<span class="at">method =</span> <span class="st">"pearson"</span>, <span class="at">use =</span> <span class="st">"complete.obs"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>dados_selecionados <span class="sc">|&gt;</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cor</span>(<span class="at">method =</span> <span class="st">"pearson"</span>, <span class="at">use =</span> <span class="st">"complete.obs"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>           rendapita        pib        gini        idh   consumo1    consumo2
 rendapita  1.0000000 0.22623371 -0.21476760  0.7415117  0.6012537  0.49269163
@@ -614,9 +621,9 @@ proprede   1.0000000</code></pre>
 </div>
 <p>Esse resultado pode ser mais fácil de ser interpretado caso os valores sejam arredondados. Podemos fazer isso com a função <code>round()</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>dados_selecionados <span class="sc">|&gt;</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cor</span>(<span class="at">method =</span> <span class="st">"pearson"</span>, <span class="at">use =</span> <span class="st">"complete.obs"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">round</span>(<span class="dv">2</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>dados_selecionados <span class="sc">|&gt;</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cor</span>(<span class="at">method =</span> <span class="st">"pearson"</span>, <span class="at">use =</span> <span class="st">"complete.obs"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">round</span>(<span class="dv">2</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>          rendapita  pib  gini   idh consumo1 consumo2 proprede
 rendapita      1.00 0.23 -0.21  0.74     0.60     0.49     0.40
@@ -632,25 +639,26 @@ proprede       0.40 0.12 -0.17  0.37     0.61     0.35     1.00</code></pre>
 <h3 data-number="6.6.1" class="anchored" data-anchor-id="visualizando-a-matriz-de-correlação"><span class="header-section-number">6.6.1</span> Visualizando a matriz de correlação</h3>
 <p>Também é possível visualizar a matriz de correlação construindo um gráfico, usando a função <code>corrplot()</code> do pacote <code>corrplot</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>dados_selecionados <span class="sc">|&gt;</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cor</span>(<span class="at">method =</span> <span class="st">"pearson"</span>,</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">use =</span> <span class="st">"complete.obs"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">corrplot</span>(<span class="at">method =</span> <span class="st">"color"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>dados_selecionados <span class="sc">|&gt;</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cor</span>(<span class="at">method =</span> <span class="st">"pearson"</span>,</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">use =</span> <span class="st">"complete.obs"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">corrplot</span>(<span class="at">method =</span> <span class="st">"color"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="06_correlacao_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="06_correlacao_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
+<p>A função <code>corrplot()</code> apresenta o argumento <code>method</code> permite escolher o tipo de visualização. Os valores podem ser: <code>"circle"</code>, <code>"square"</code>, <code>"ellipse"</code>, <code>"number"</code>, <code>"shade"</code>, <code>"color"</code> e <code>"pie"</code>.</p>
 <p>Outra forma de visualizar a matriz de correlação é utilizando a função <code>ggpairs()</code> do pacote <code>GGally</code>, que cria uma matriz de gráficos de dispersão, histogramas e correlações entre as variáveis selecionadas:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>plot_ggpair <span class="ot">&lt;-</span> dados <span class="sc">|&gt;</span> </span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(rendapita, gini, idh, consumo2) <span class="sc">|&gt;</span> </span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  GGally<span class="sc">::</span><span class="fu">ggpairs</span>()</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>plot_ggpair</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>plot_ggpair <span class="ot">&lt;-</span> dados <span class="sc">|&gt;</span> </span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(rendapita, gini, idh, consumo1) <span class="sc">|&gt;</span> </span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  GGally<span class="sc">::</span><span class="fu">ggpairs</span>()</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>plot_ggpair</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><img src="images/06_ggpair.png" class="img-fluid"></p>
 </section>
@@ -672,14 +680,14 @@ proprede       0.40 0.12 -0.17  0.37     0.61     0.35     1.00</code></pre>
 <li><p><code>conf.level</code>: o nível de confiança para o intervalo de confiança do coeficiente de correlação (por padrão, é 0.95, ou seja, 95% de confiança).</p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>resultado_cor_test <span class="ot">&lt;-</span> <span class="fu">cor.test</span>(<span class="at">x =</span> dados<span class="sc">$</span>rendapita, <span class="co"># variável </span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">y =</span> dados<span class="sc">$</span>consumo1,  <span class="co"># variável</span></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">method =</span> <span class="st">"pearson"</span>, <span class="co"># método de correlação</span></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">alternative =</span> <span class="st">"two.sided"</span>, <span class="co"># teste bilateral</span></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">conf.level =</span> <span class="fl">0.95</span>, <span class="co"># nível de confiança</span></span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>                  )</span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>resultado_cor_test</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>resultado_cor_test <span class="ot">&lt;-</span> <span class="fu">cor.test</span>(<span class="at">x =</span> dados<span class="sc">$</span>rendapita, <span class="co"># variável </span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">y =</span> dados<span class="sc">$</span>consumo1,  <span class="co"># variável</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">method =</span> <span class="st">"pearson"</span>, <span class="co"># método de correlação</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">alternative =</span> <span class="st">"two.sided"</span>, <span class="co"># teste bilateral</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">conf.level =</span> <span class="fl">0.95</span>, <span class="co"># nível de confiança</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>                  )</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>resultado_cor_test</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Pearson's product-moment correlation
@@ -695,7 +703,7 @@ sample estimates:
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>broom<span class="sc">::</span><span class="fu">tidy</span>(resultado_cor_test)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>broom<span class="sc">::</span><span class="fu">tidy</span>(resultado_cor_test)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 8
   estimate statistic p.value parameter conf.low conf.high method     alternative
@@ -705,7 +713,7 @@ sample estimates:
 </div>
 <p>Os resultados de testes estatísticos no R são confusos no início. O objeto criado é uma lista, e podemos acessar os componentes dessa lista para obter informações específicas utilizando o operador <code>$</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(resultado_cor_test)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(resultado_cor_test)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "statistic"   "parameter"   "p.value"     "estimate"    "null.value" 
 [6] "alternative" "method"      "data.name"   "conf.int"   </code></pre>
@@ -715,7 +723,7 @@ sample estimates:
 <h3 data-number="6.7.1" class="anchored" data-anchor-id="statistic"><span class="header-section-number">6.7.1</span> <code>statistic</code></h3>
 <p>O componente <code>statistic</code> é o valor do teste estatístico usado para calcular o valor-p.&nbsp;No caso da correlação de Pearson, esse valor é calculado com base no valor de <code>t</code>, por conta das propriedades da estatística de Pearson. Esses valores não costumam ser interpretados isoladamente neste contexto.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>resultado_cor_test<span class="sc">$</span>statistic</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>resultado_cor_test<span class="sc">$</span>statistic</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       t 
 49.99709 </code></pre>
@@ -726,7 +734,7 @@ sample estimates:
 <h3 data-number="6.7.2" class="anchored" data-anchor-id="parameter"><span class="header-section-number">6.7.2</span> <code>parameter</code></h3>
 <p>O componente <code>parameter</code> indica os parâmetros associados ao teste. No caso da correlação de Pearson, são os graus de liberdade, que é calculado como <code>n - 2</code>, onde <code>n</code> é o número de observações completas (ou seja, o número de pares de valores das duas variáveis). Isso acontece porque estamos calculando duas variâncias, o que diminui os graus de liberdade disponíveis para o teste em 2.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>resultado_cor_test<span class="sc">$</span>parameter</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>resultado_cor_test<span class="sc">$</span>parameter</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  df 
 4415 </code></pre>
@@ -734,9 +742,9 @@ sample estimates:
 </div>
 <p>Podemos conferir isso contando o número de observações completas (ou seja, sem valores ausentes) nas duas variáveis que estamos correlacionando:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>dados <span class="sc">|&gt;</span> </span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(rendapita, consumo1) <span class="sc">|&gt;</span> </span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nrow</span>()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>dados <span class="sc">|&gt;</span> </span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(rendapita, consumo1) <span class="sc">|&gt;</span> </span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nrow</span>()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 4417</code></pre>
 </div>
@@ -765,7 +773,7 @@ Aviso
 <h3 data-number="6.7.4" class="anchored" data-anchor-id="estimate"><span class="header-section-number">6.7.4</span> <code>estimate</code></h3>
 <p>É a estimativa do parâmetro de interesse. No caso do teste de correlação de Pearson, é o coeficiente de correlação calculado entre as duas variáveis. Esse valor é o mesmo que calculamos anteriormente com a função <code>cor()</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>resultado_cor_test<span class="sc">$</span>estimate</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>resultado_cor_test<span class="sc">$</span>estimate</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      cor 
 0.6012537 </code></pre>
@@ -776,7 +784,7 @@ Aviso
 <h3 data-number="6.7.5" class="anchored" data-anchor-id="null.value"><span class="header-section-number">6.7.5</span> <code>null.value</code></h3>
 <p>O componente <code>null.value</code> indica o valor do parâmetro sob a hipótese nula. No caso do teste de correlação de Pearson, esse valor é zero, pois a hipótese nula afirma que não há correlação entre as duas variáveis. Em usos mais avançados, poderíamos alterar esse valor, para verificar se a correlação é diferente de um valor específico.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>resultado_cor_test<span class="sc">$</span>null.value</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>resultado_cor_test<span class="sc">$</span>null.value</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>correlation 
           0 </code></pre>
@@ -787,7 +795,7 @@ Aviso
 <h3 data-number="6.7.6" class="anchored" data-anchor-id="alternative"><span class="header-section-number">6.7.6</span> <code>alternative</code></h3>
 <p>O componente <code>alternative</code> indica qual foi a hipótese alternativa testada. No caso do teste de correlação de Pearson, o valor padrão é <code>"two.sided"</code>, o que significa que estamos testando se a correlação é diferente de zero (ou seja, se há uma correlação positiva ou negativa).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>resultado_cor_test<span class="sc">$</span>alternative</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>resultado_cor_test<span class="sc">$</span>alternative</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "two.sided"</code></pre>
 </div>
@@ -797,7 +805,7 @@ Aviso
 <h3 data-number="6.7.7" class="anchored" data-anchor-id="method"><span class="header-section-number">6.7.7</span> <code>method</code></h3>
 <p>O componente <code>method</code> indica o método utilizado para calcular a correlação. No caso do teste de correlação de Pearson, o valor é <code>"Pearson"</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>resultado_cor_test<span class="sc">$</span>method</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>resultado_cor_test<span class="sc">$</span>method</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Pearson's product-moment correlation"</code></pre>
 </div>
@@ -807,7 +815,7 @@ Aviso
 <h3 data-number="6.7.8" class="anchored" data-anchor-id="data.name"><span class="header-section-number">6.7.8</span> <code>data.name</code></h3>
 <p>O componente <code>data.name</code> indica o nome dos dados utilizados no teste. No caso do teste de correlação de Pearson, é uma string que contém os nomes das duas variáveis que foram correlacionadas.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>resultado_cor_test<span class="sc">$</span>data.name</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>resultado_cor_test<span class="sc">$</span>data.name</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "dados$rendapita and dados$consumo1"</code></pre>
 </div>
@@ -818,7 +826,7 @@ Aviso
 <p>O componente <code>conf.int</code> contém o intervalo de confiança para o coeficiente de correlação. Esse intervalo é calculado com base no nível de confiança especificado (por padrão, 95%) e fornece uma faixa de valores que esperamos que contenham o verdadeiro coeficiente de correlação (lembrando que temos uma amostra de municípios, já que não temos dados para todos eles).</p>
 <p>Além disso, esse elemento também indica qual foi o nível de confiança (<code>conf.level</code>) utilizado para calcular o intervalo de confiança.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>resultado_cor_test<span class="sc">$</span>conf.int</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>resultado_cor_test<span class="sc">$</span>conf.int</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.5820832 0.6197561
 attr(,"conf.level")
