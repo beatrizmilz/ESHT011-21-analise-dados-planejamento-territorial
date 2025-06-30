@@ -216,4 +216,7 @@ Para discussão:
 2) Como o tamanho da amostra (n) afetou o intervalo de confiança?
 
 3) Como a variação nas alturas (desvio padrão) influenciou o intervalo de confiança?
+## Materiais complementares
 
+-   Materiais da disciplina [Ciência de Dados Aplicada ao Direito II](https://jtrecenti.github.io/cdad-book/):
+    -   [Testes de hipóteses](https://jtrecenti.github.io/cdad-book/07-testes-hipoteses.html)

@@ -18,16 +18,12 @@ Os pacotes necessários para essa prática são:
 
 -   `tidyverse`: para manipulação e visualização de dados;
 
--   `corrplot`: para visualização de matrizes de correlação;
-
--   `Hmisc`: para calcular a correlação e gerar a matriz de correlação.
-
-[HMISC USADO PRA QUE]
+-   `corrplot` e `GGally`: para visualização de matrizes de correlação;
 
 ```{r}
 library(tidyverse)
 library(corrplot)
-library(Hmisc)
+library(GGally)
 ```
 
 ## Importando os dados
@@ -82,8 +78,8 @@ As variáveis que vamos utilizar para responder a essa pergunta são:
   -   `consumo1`: Consumo de água per capita - População Total - m3/ano (AG020/GE012);
 
   -   `rendapita`: Renda per capita.
-
-[DEIXAR CLARO QUE CORRELACAO É USADA QUANDO TEMOS VARIAVEIS NUMERICAS]
+  
+Importante: a correlação é utilizada para investigar a relação entre duas **variáveis numéricas**.
 
 
 ## Gráfico de dispersão
@@ -123,7 +119,6 @@ Porém, o foco neste momento é visualizar as tendências.
 
 Para quantificar essa relação, podemos calcular a correlação entre as duas variáveis.
 
-[SE DER TEMPO, MOSTRE O GUESS THE CORRELATION]
 
 ## Correlação
 
@@ -134,6 +129,17 @@ A correlação é uma medida estatística que indica a força e a direção de u
 -   `-1` indica uma correlação negativa perfeita (quando uma variável aumenta, a outra diminui);
 
 -   `0` indica que não há correlação linear entre as variáveis.
+
+
+
+::: {.callout-note}
+
+Um site divertido para brincar com correlações é o [Guess the Correlation](https://www.guessthecorrelation.com/). Ele apresenta gráficos de dispersão e você deve adivinhar o coeficiente de correlação!
+
+![](images/06_guess_the_correlation.png)
+
+:::
+
 
 
 Para calcular a correlação entre as variáveis `consumo1` e `rendapita`, podemos usar a função `cor()` do R, que calcula o coeficiente de correlação, e podemos indicar alguns argumentos:
@@ -158,11 +164,78 @@ correlacao
 
 A correlação entre as variáveis renda e o consumo de água per capita é de `r round(correlacao, 2)`, indicando a mesma **correlação positiva** que o gráfico de dispersão permitiu visualizar.
 
-## Teste de significância
+
+## Matriz de correlação
+
+Até agora, calculamos a correlação entre duas variáveis específicas. No entanto, podemos calcular a correlação entre várias variáveis numéricas de uma vez, criando uma matriz de correlação.
+
+Vamos recapitular alguns cuidados:
+  - Correlação deve ser usada apenas com **variáveis numéricas**;
+  - Não devemos usar variáveis de identificação, como códigos IBGE, nomes de municípios, etc;
+
+
+Para construir uma matriz de correlação, primeiro é necessário selecionar as variáveis que desejamos investigar (com a função `select()`), para depois calcular o coeficiente de correlação entre cada dupla de variáveis (com a função `cor()`).
+
+
+Vamos criar um objeto com as variáveis que queremos investigar:
+
+```{r}
+dados_selecionados <- dados |>
+  select(rendapita, pib, gini, idh, consumo1, consumo2, proprede)
+```
+
+
+
+Agora podemos calcular a matriz de correlação entre essas variáveis, utilizando a função `cor()`:
+```{r}
+dados_selecionados |>
+  cor(method = "pearson", use = "complete.obs")
+```
+
+Esse resultado pode ser mais fácil de ser interpretado caso os valores sejam arredondados. Podemos fazer isso com a função `round()`:
+
+```{r}
+dados_selecionados |>
+  cor(method = "pearson", use = "complete.obs") |> 
+  round(2)
+```
+### Visualizando a matriz de correlação
+
+
+
+Também é possível visualizar a matriz de correlação construindo um gráfico, usando a função `corrplot()` do pacote `corrplot`.
+
+```{r}
+dados_selecionados |>
+  cor(method = "pearson",
+    use = "complete.obs") |> 
+  corrplot(method = "color")
+```
+Outra forma de visualizar a matriz de correlação é utilizando a função `ggpairs()` do pacote `GGally`, que cria uma matriz de gráficos de dispersão, histogramas e correlações entre as variáveis selecionadas:
+
+```{r}
+#| eval: false
+plot_ggpair <- dados |> 
+  select(rendapita, gini, idh, consumo2) |> 
+  GGally::ggpairs()
+
+plot_ggpair
+```
+
+```{r}
+#| echo: false
+#| eval: false
+ggsave("images/06_ggpair.png", plot = plot_ggpair, width = 10, height = 8, dpi = 300)
+```
+
+![](images/06_ggpair.png)
+
+
+
+## EXTRA: Teste de significância
 
 Será que 0.6 é significativo? Se fosse -0.3, seria significativo? E se fosse 0.1? Uma forma de verificar isso é através de um teste de hipótese. Nesse teste, avaliamos se a correlação observada é tão próxima de zero que podemos considerar que o que observamos é fruto do acaso.
 
-[PQ USAR ISSO? EXPLICAR]
 
 Para testar a significância da correlação entre duas variáveis, podemos usar o teste de hipótese para o coeficiente de correlação de Pearson. Esse teste nos dá um guia para avaliar se a correlação observada é significativa.
 
@@ -233,12 +306,9 @@ dados |>
 
 O valor-p (ou `p-value`) indica a probabilidade de observar um valor tão ou mais extremo quanto o observado, assumindo que a hipótese nula (correlação = 0) seja verdadeira. Em uma linguagem mais simples, o valor-p nos diz a probabilidade de obtermos o resultado observado ao acaso. Neste contexto, é usado como guia para decidir se a correlação observada é estatisticamente significante.
 
-[ESCREVER: ALERTA POIS O R ARREDONDA]
-
-```{r}
-resultado_cor_test$p.value
-```
-
+::: {.callout-warning}
+ALERTA: O R arredonda os valores por padrão para algumas casas. Por isso, eu prefiro interpretar o `valor-p` a partir do resultado completo do teste apresentado no console (e não usando o valor da lista, ex. `resultado_cor_test$p.value`).
+:::
 
 Neste caso, o resultado encontrado foi muito baixo, `p < 2.2e-16`, indicando que é altamente improvável obter esse resultado se a correlação verdadeira fosse zero (ou seja, se não houvesse correlação entre as variáveis).
 
@@ -291,7 +361,13 @@ Além disso, esse elemento também indica qual foi o nível de confiança (`conf
 resultado_cor_test$conf.int
 ```
 
-## Matriz de correlação
+## Materiais complementares
 
-Até agora, calculamos a correlação entre duas variáveis específicas. No entanto, podemos calcular a correlação entre várias variáveis numéricas de uma vez, criando uma matriz de correlação.
+-   Materiais da disciplina [Ciência de Dados Aplicada ao Direito II](https://jtrecenti.github.io/cdad-book/):
+    - [Correlação e regressão](https://jtrecenti.github.io/cdad-book/08-correlacao-regressao.html)
 
+
+- Vídeo: [Correlação linear bivariada no R](https://www.youtube.com/watch?v=7UGWOHF8k0Q) por Fernanda Peres:
+
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/7UGWOHF8k0Q?si=k2ncM9NB1eu92S7e" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></center>
