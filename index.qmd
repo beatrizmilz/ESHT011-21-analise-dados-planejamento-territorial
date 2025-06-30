@@ -20,7 +20,9 @@ Este material foi feito para guiar as aulas práticas, mas você verá que ele e
 | 2 | 09/06/2025 - 15/06/2025 | [Linguagem R](praticas/02_conceitos-basicos-r.qmd) |
 | 2 | 09/06/2025 - 15/06/2025 | [Análise exploratória de dados - Parte 1](praticas/03_analise-exploratoria.qmd) |
 | 3 | 16/06/2025 - 22/06/2025 | Focar no trabalho da disciplina (semana com feriado) |
-| 4 | 23/06/2025 - 29/06/2025 | [Análise exploratória de dados - Parte 2](praticas/04_analise-exploratoria-ii.qmd) |
+| 4 | 23/06/2025 - 29/06/2025 | [Análise exploratória de dados - Parte 2](praticas/04_analise-exploratoria-ii.qmd) e [Intervalo de Confiança](praticas/05_intervalo-de-confianca.qmd) |
+| 5 | 30/06/2025 - 06/07/2025 | [Correlação](praticas/06_correlacao.qmd) |
+
 
 <!-- ## Equipe do curso {.unnumbered} -->
 
