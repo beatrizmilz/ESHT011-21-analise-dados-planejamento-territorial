@@ -20,6 +20,18 @@ Os pacotes necessários para essa prática são:
 
 -   `corrplot` e `GGally`: para visualização de matrizes de correlação;
 
+
+Podemos instalar os pacotes:
+
+```{r}
+#| eval: false
+install.packages("tidyverse")
+install.packages("corrplot")
+install.packages("GGally")
+```
+
+
+E então carregá-los:
 ```{r}
 library(tidyverse)
 library(corrplot)
@@ -86,12 +98,12 @@ Importante: a correlação é utilizada para investigar a relação entre duas *
 
 O gráfico de dispersão é uma representação gráfica que mostra a relação entre duas variáveis numéricas. Cada ponto no gráfico representa um par de valores das duas variáveis.
 
-Por exemplo, podemos representar
+Por exemplo, podemos representar as variáveis `rendapita` e `consumo1` em um gráfico de dispersão, deixando uma transparência nos pontos (`alpha = 0.2`) para facilitar a visualização de pontos sobrepostos.
 
 ```{r}
 dados |>
   ggplot(aes(x = rendapita, y = consumo1)) +
-  geom_point() +
+  geom_point(alpha = 0.2) +
   labs(
     tite = "Relação entre Renda per Capita e Consumo de Água per Capita",
     subtitle = "Dados de 2010 para Municípios Brasileiros",
@@ -211,12 +223,15 @@ dados_selecionados |>
     use = "complete.obs") |> 
   corrplot(method = "color")
 ```
+
+A função `corrplot()` apresenta o argumento `method` permite escolher o tipo de visualização. Os valores podem ser: `"circle"`, `"square"`, `"ellipse"`, `"number"`, `"shade"`, `"color"` e  `"pie"`.
+
 Outra forma de visualizar a matriz de correlação é utilizando a função `ggpairs()` do pacote `GGally`, que cria uma matriz de gráficos de dispersão, histogramas e correlações entre as variáveis selecionadas:
 
 ```{r}
 #| eval: false
 plot_ggpair <- dados |> 
-  select(rendapita, gini, idh, consumo2) |> 
+  select(rendapita, gini, idh, consumo1) |> 
   GGally::ggpairs()
 
 plot_ggpair
