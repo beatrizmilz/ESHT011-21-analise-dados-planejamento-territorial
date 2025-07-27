@@ -2,6 +2,7 @@
 title: "Regressão Linear"
 code-annotations: "hover"
 cache: true
+prefer-html: true
 ---
 
 ::: callout-note
