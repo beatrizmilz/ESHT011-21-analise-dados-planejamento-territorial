@@ -22,7 +22,10 @@ Este material foi feito para guiar as aulas práticas, mas você verá que ele e
 | 3 | 16/06/2025 - 22/06/2025 | Focar no trabalho da disciplina (semana com feriado) |
 | 4 | 23/06/2025 - 29/06/2025 | [Análise exploratória de dados - Parte 2](praticas/04_analise-exploratoria-ii.qmd) e [Intervalo de Confiança](praticas/05_intervalo-de-confianca.qmd) |
 | 5 | 30/06/2025 - 06/07/2025 | [Correlação](praticas/06_correlacao.qmd) |
-
+| 6 | 07/07/2025 - 13/07/2025 | Focar no trabalho da disciplina |
+| 7 | 14/07/2025 - 20/07/2025 | Autocorrelação espacial (prática no Geoda) |
+| 8 | 21/07/2025 - 27/07/2025 | Regressão Linear (teoria) |
+| 9 | 28/07/2025 - 03/08/2025 | [Regressão Linear](praticas/07_regressao-linear.qmd)|
 
 <!-- ## Equipe do curso {.unnumbered} -->
 
