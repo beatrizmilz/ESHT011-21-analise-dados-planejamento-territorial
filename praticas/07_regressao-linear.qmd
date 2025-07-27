@@ -53,6 +53,8 @@ library(broom)
 library(car)
 library(stargazer)
 library(report)
+library(DT)
+library(knitr)
 ```
 
 O comando abaixo desabilita a notação científica no R, o que facilita a leitura dos resultados:
@@ -68,8 +70,8 @@ Nesta aula, utilizaremos os dados do [Programa das Nações Unidas para o Desenv
 Vamos filtrar os dados mais recentes disponíveis (censo de 2010) e salvar em um objeto chamado `pnud_muni_2010`:
 
 ```{r}
-pnud_muni_2010 <- abjData::pnud_muni |> 
- dplyr::filter(ano == 2010) 
+pnud_muni_2010 <- pnud_muni |> 
+ filter(ano == 2010) 
 ```
 
 **Obs:** O pacote `abjData` contém dados do PNUD para os anos de 1991, 2000 e 2010. Utilizamos apenas os dados de 2010 nesta aula, pois os dados não são independentes entre si. Se quisermos ajustar um modelo com dados de diferentes anos, seria necessário ajustar um modelo longitudinal (em painel), o que foge do escopo desta aula.
@@ -79,11 +81,11 @@ pnud_muni_2010 <- abjData::pnud_muni |>
 A tabela `pnud_muni_2010` contém muitas variáveis, e alguns nomes não são muito descritivos. Podemos consultar o significado de cada variável consultando a tabela `pnud_siglas` do pacote `{abjData}`:
 
 ```{r}
-nomes_col_pnud_muni_2010 <- abjData::pnud_siglas |> 
-  dplyr::filter(sigla %in% names(pnud_muni_2010))
+nomes_col_pnud_muni_2010 <- pnud_siglas |> 
+  filter(sigla %in% names(pnud_muni_2010))
 
 nomes_col_pnud_muni_2010 |> 
-  DT::datatable()
+  datatable()
 ```
 
 ## Pergunta a ser explorada
@@ -94,8 +96,8 @@ Queremos explorar a seguinte pergunta: **Dentre as variáveis a seguir, qual exp
 
 ```{r}
 nomes_col_pnud_muni_2010 |> 
-  dplyr::filter(sigla %in% c("mort5", "t_agua", "rdpc")) |> 
-  knitr::kable()
+  filter(sigla %in% c("mort5", "t_agua", "rdpc")) |> 
+  kable()
 ```
 
 
@@ -157,13 +159,13 @@ Podemos extrair uma *tibble* com informações sobre o modelo ajustado utilizand
 
 ```{r}
 broom::tidy(modelo_linear) |> 
-  knitr::kable()
+  kable()
 ```
 Os resultados da função `broom::glance()` são relativos ao ajuste do modelo, sendo útil para comparar diferentes modelos.
 
 ```{r}
 broom::glance(modelo_linear)|> 
-  knitr::kable()
+  kable()
 ```
 
 
@@ -202,7 +204,7 @@ Para adicionar a linha de regressão ao gráfico anterior, podemos criar uma nov
 
 ```{r}
 pnud_muni_2010_adjusted <- pnud_muni_2010 |>
-  dplyr::mutate(
+  mutate(
     valores_ajustados = predict(modelo_linear), # <1>
     residuos = mort5 - valores_ajustados # <2>
   ) 
@@ -410,12 +412,12 @@ Para isso, primeiro vamos criar uma nova tabela com os valores constantes das va
 
 ```{r}
 pnud_muni_2010_ajustado_agua <- pnud_muni_2010 |> 
-  dplyr::mutate(
+  mutate(
     rdpc = mean(rdpc) # <1>
   )
 
 pnud_muni_2010_ajustado_rdpc <- pnud_muni_2010 |>
-  dplyr::mutate(
+  mutate(
     t_agua = mean(t_agua) # <2>
   )
 ```
@@ -427,7 +429,7 @@ Agora, vamos criar uma nova tabela com os valores ajustados para cada uma das va
 
 ```{r}
 pnud_muni_2010_ajustado_multiplo <- pnud_muni_2010 |>
-  dplyr::mutate(
+  mutate(
     valores_ajustados_agua = predict(# <1>
       modelo_linear_multiplo, 
       newdata = pnud_muni_2010_ajustado_agua
@@ -495,7 +497,7 @@ Para isso, primeiro vamos criar uma nova variável `rdpc_log` com a transformaç
 
 ```{r}
 pnud_muni_2010_com_log <- pnud_muni_2010 |> 
-  dplyr::mutate(rdpc_log = log(rdpc)) 
+  mutate(rdpc_log = log(rdpc)) 
 ```
 
 Agora, vamos ajustar um modelo de regressão linear múltipla com a variável `rdpc_log`:
@@ -517,12 +519,12 @@ Vamos visualizar o ajuste do modelo (similar ao que fizemos anteriormente). Para
 
 ```{r}
 pnud_muni_2010_ajustado_agua_log <- pnud_muni_2010_com_log |> 
-  dplyr::mutate(
+  mutate(
     rdpc_log = mean(rdpc_log), # <1>
   )
 
 pnud_muni_2010_ajustado_rdpc_log  <- pnud_muni_2010_com_log |>
-  dplyr::mutate(
+  mutate(
     t_agua = mean(t_agua) # <2>
   )
 ```
@@ -533,7 +535,7 @@ Podemos criar uma nova tabela com os valores ajustados para cada uma das variáv
 
 ```{r}
 pnud_muni_2010_ajustado_multiplo_log <- pnud_muni_2010_com_log |>
-  dplyr::mutate(
+  mutate(
     valores_ajustados_agua = predict( # <1>
       modelo_linear_multiplo_log,
       newdata = pnud_muni_2010_ajustado_agua_log), # <1>
@@ -587,7 +589,7 @@ report::report(modelo_linear_multiplo_log)
 
 ```{r}
 broom::tidy(modelo_linear_multiplo_log) |> 
-  knitr::kable()
+  kable()
 ```
 
 
@@ -665,5 +667,5 @@ stargazer::stargazer(modelo_linear_multiplo_log, type = "text")
   - [Regressão linear simples](https://openintro-ims.netlify.app/model-slr)
   - [Regressão linear múltipla](https://openintro-ims.netlify.app/model-mlr)
   
-  
+
 - [Introduction to Econometrics with R](https://www.econometrics-with-r.org/) - conteúdo mais avançado, para quem tem experiência em econometria.
