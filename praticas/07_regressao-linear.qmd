@@ -1,0 +1,669 @@
+---
+title: "Regressão Linear"
+code-annotations: "hover"
+cache: true
+---
+
+::: callout-note
+Os conceitos foram apresentados na aula teórica. A seguir, temos uma prática para aplicar esses conceitos. É importante que você tenha assistido à aula antes de realizar esta prática, pois ela se baseia nos conceitos discutidos.
+:::
+
+
+## Introdução
+
+A regressão linear é uma técnica estatística que busca modelar a relação entre uma variável dependente e uma ou mais variáveis independentes. A regressão linear simples é utilizada quando temos apenas uma variável independente, enquanto a regressão linear múltipla é utilizada quando temos mais de uma variável independente.
+
+Nesta aula, exploraremos:
+
+  - Como ajustar um modelo de regressão linear simples e múltipla no R.
+  
+  - Como extrair informações sobre o modelo ajustado.
+  
+  - Como visualizar o ajuste do modelo.
+  
+  - Como verificar os pressupostos da regressão linear.
+  
+  - Como extrair tabelas de regressão para apresentação dos resultados.
+  
+::: callout-warning
+
+O objetivo desta aula **não** é aprofundar nos conceitos teóricos da regressão linear, mas sim apresentar como ajustar e explorar funções que permitem ajustar modelos de regressão linear no R. Caso você tenha dúvidas sobre os conceitos teóricos, consulte os [materiais sugeridos no final desta aula](#sugest%C3%B5es-de-materiais).
+:::
+
+## Instalando pacotes
+
+Para esta aula, utilizaremos alguns pacotes do R, que talvez não tenham sido instalados anteriormente:
+
+```{r}
+#| eval: false
+pacotes <- c("tidyverse", "abjData", "broom", "car", "stargazer", "report")
+install.packages(pacotes)
+```
+
+
+## Carregando pacotes
+
+Vamos carregar os pacotes listados anteriormente:
+
+```{r}
+#| message: false
+library(tidyverse)
+library(abjData)
+library(broom)
+library(car)
+library(stargazer)
+library(report)
+```
+
+O comando abaixo desabilita a notação científica no R, o que facilita a leitura dos resultados:
+
+```{r}
+options(scipen = 999) 
+```
+
+## Importando os dados
+
+Nesta aula, utilizaremos os dados do [Programa das Nações Unidas para o Desenvolvimento (PNUD)](http://www.br.undp.org/content/brazil/pt/home/idh0/rankings/idhm-municipios-2010.html) sobre o Índice de Desenvolvimento Humano Municipal (IDHM) e suas dimensões para os municípios brasileiros em 2010. Esses dados estão disponíveis no pacote `abjData`.
+
+Vamos filtrar os dados mais recentes disponíveis (censo de 2010) e salvar em um objeto chamado `pnud_muni_2010`:
+
+```{r}
+pnud_muni_2010 <- abjData::pnud_muni |> 
+ dplyr::filter(ano == 2010) 
+```
+
+**Obs:** O pacote `abjData` contém dados do PNUD para os anos de 1991, 2000 e 2010. Utilizamos apenas os dados de 2010 nesta aula, pois os dados não são independentes entre si. Se quisermos ajustar um modelo com dados de diferentes anos, seria necessário ajustar um modelo longitudinal (em painel), o que foge do escopo desta aula.
+
+### Dicionário dos dados
+
+A tabela `pnud_muni_2010` contém muitas variáveis, e alguns nomes não são muito descritivos. Podemos consultar o significado de cada variável consultando a tabela `pnud_siglas` do pacote `{abjData}`:
+
+```{r}
+nomes_col_pnud_muni_2010 <- abjData::pnud_siglas |> 
+  dplyr::filter(sigla %in% names(pnud_muni_2010))
+
+nomes_col_pnud_muni_2010 |> 
+  DT::datatable()
+```
+
+## Pergunta a ser explorada
+
+Queremos explorar a seguinte pergunta: **Dentre as variáveis a seguir, qual explica mais a mortalidade infantil?**
+  - `t_agua`: Percentual da população que vive em domicílios com água encanada.
+  - `rdpc`: Renda per capita.
+
+```{r}
+nomes_col_pnud_muni_2010 |> 
+  dplyr::filter(sigla %in% c("mort5", "t_agua", "rdpc")) |> 
+  knitr::kable()
+```
+
+
+## Regressão linear simples
+
+Existem várias maneiras de ajustar um modelo de regressão linear no R: podemos usar funções do R base, ou funções de outros pacotes, como o `{fixest}`.
+
+Vamos ajustar um modelo de regressão linear simples utilizando a função  função `lm()`, do R base.
+
+Uma primeira variável que podemos explorar é o acesso à água encanada.
+
+Vamos ajustar um modelo de regressão linear simples para investigar a relação entre a taxa de mortalidade infantil (até 5 anos de idade) (`mort5`) e o percentual da população que vive em domicílios com água encanada (`t_agua`) nos municípios brasileiros em 2010.
+
+Então, temos que:
+
+- Variável dependente (`y`): `mort5`
+
+- Variável independente (`x`): `t_agua`
+
+### Visualizando a relação entre as variáveis
+
+Primeiramente, podemos visualizar a relação entre as variáveis.
+
+```{r}
+#| label: lm-simples-relacao-variaveis
+pnud_muni_2010 |> # <1>
+  ggplot() + # <2>
+  aes(x = t_agua, y = mort5) + # <3>
+  geom_point(alpha = 0.5) + # <4>
+  theme_light()
+```
+1. Utilizamos os dados do objeto `pnud_muni_2010`.
+2. Iniciamos um gráfico.
+3. Definimos as variáveis `x` e `y`.
+4. Adicionamos a geometria de pontos ao gráfico. O argumento `alpha = 0.5` define a transparência dos pontos em 50%.
+
+
+
+### Ajustando o modelo
+
+Uma maneira é usar a função `lm()`, de *linear model* (modelo linear), para ajustar o modelo de regressão linear simples. Essa função recebe como argumentos a fórmula do modelo (`y ~ x`, lê-se `y` em função de `x`) e os dados (argumento `data`).
+
+
+```{r}
+modelo_linear <- lm(mort5 ~ t_agua, data = pnud_muni_2010)
+```
+
+### Explorando o modelo ajustado
+
+Podemos explorar o resultado do modelo ajustado de várias formas!
+
+A função `summary()` nos fornece um resumo do modelo ajustado:
+
+```{r}
+summary(modelo_linear)
+```
+
+Podemos extrair uma *tibble* com informações sobre o modelo ajustado utilizando as funções `tidy()` e `glance()` do pacote `{broom}`. A função `broom::tidy()` nos fornece informações sobre os coeficientes do modelo ajustado.
+
+```{r}
+broom::tidy(modelo_linear) |> 
+  knitr::kable()
+```
+Os resultados da função `broom::glance()` são relativos ao ajuste do modelo, sendo útil para comparar diferentes modelos.
+
+```{r}
+broom::glance(modelo_linear)|> 
+  knitr::kable()
+```
+
+
+A função `report::report()` nos fornece um relatório completo sobre o modelo ajustado:
+
+```{r}
+report::report(modelo_linear) 
+```
+
+
+
+### Interpretação dos resultados
+
+A equação ajustada é:
+
+
+$$
+mort5 = 44.23 - 0.27 \times tagua
+$$
+- **Interpretação do Coeficiente de `t_agua`**: Para cada aumento de 1% no percentual de água encanada, espera-se uma redução de 0.27 na taxa de mortalidade infantil (por 1000 nascidos vivos).
+
+- **Interpretação do Intercepto**: Se o percentual de água encanada fosse 0, a mortalidade infantil seria de 44.23 por 1000 nascidos vivos. Este valor pode não ser relevante na prática, mas é útil para entender o comportamento do modelo.
+
+- **R²**: O valor de \( R^2 = 0.28 \) significa que cerca de 28% da variação na taxa de mortalidade infantil (`mort5`) é explicada pela variação no percentual de acesso à água encanada (`t_agua`).
+
+- **Significância**: O p-valor muito pequeno (p < 0.001) indica que o acesso à água encanada tem uma relação estatisticamente significativa com a mortalidade infantil.
+
+
+- **Significância do p-valor**: O p-valor muito baixo (< 0.001) indica que há evidência de que existe uma relação estatisticamente significativa entre o percentual de água encanada e a mortalidade infantil. 
+
+
+
+### Visualizando o ajuste do modelo
+
+Para adicionar a linha de regressão ao gráfico anterior, podemos criar uma nova tabela com as predições do modelo linear e os resíduos:
+
+```{r}
+pnud_muni_2010_adjusted <- pnud_muni_2010 |>
+  dplyr::mutate(
+    valores_ajustados = predict(modelo_linear), # <1>
+    residuos = mort5 - valores_ajustados # <2>
+  ) 
+```
+1. Adiciona uma nova coluna chamada `valores_ajustados` ao data.frame contendo as predições do modelo linear, utilizando a função `predict()`.
+2. Adiciona uma nova coluna chamada `residuos` ao data.frame contendo os resíduos do modelo linear: a diferença entre os valores reais (mort5) e os valores previstos pelo modelo.
+
+Agora, podemos adicionar a linha de regressão ao gráfico anterior:
+
+```{r}
+#| label: lm-simples-reta
+pnud_muni_2010_adjusted |> 
+  ggplot() + 
+  aes(x = t_agua, y = mort5) + 
+  geom_point(alpha = 0.5) + 
+  geom_line(aes(y = valores_ajustados), color = "blue", linewidth = 1) + # <1>
+  theme_light()
+```
+1. Adiciona a linha de regressão com base nas predições do  modelo.
+
+::: {.callout-warning collapse=TRUE}
+### `geom_smooth()`
+
+A função `geom_smooth()` do pacote `{ggplot2}` também pode ser utilizada para adicionar uma linha de regressão ao gráfico. 
+
+No entanto, a função `geom_smooth()` não utiliza as predições do modelo linear que ajustamos, e sim realiza um ajuste (utilizando alguns métodos que podem ser consultados na documentação): 
+
+```{r}
+#| label: lm-simples-geom-smooth
+pnud_muni_2010 |> 
+  ggplot() + 
+  aes(x = t_agua, y = mort5) + 
+  geom_point(alpha = 0.5) + 
+  geom_smooth(method = "lm", se = FALSE, color = "blue") + 
+  theme_light()
+```
+
+:::
+
+
+### Pressupostos da Regressão Linear
+
+Agora que sabemos ajustar um modelo de regressão linear simples, é importante verificar se os pressupostos da regressão linear estão sendo respeitados.
+
+1. **Linearidade**: A relação entre a variável dependente e a(s) variável(is) independente(s) deve ser linear.
+2. **Independência dos Erros**: Os erros devem ser independentes uns dos outros. Não queremos que eles tenham uma ordem ou relação com as variáveis independentes.
+3. **Homoscedasticidade**: A variância dos erros deve ser constante ao longo de todos os níveis da variável independente.
+4. **Normalidade dos Erros**: Os erros devem seguir uma distribuição normal.
+
+Podemos verificar esses pressupostos utilizando gráficos de diagnóstico, que discutiremos em breve.
+
+
+###  Diagnóstico de Modelos
+
+Utilizar gráficos de diagnóstico ajuda a verificar se os pressupostos do modelo estão sendo respeitados. Vamos explorar alguns gráficos de diagnóstico, que são úteis para tomar decisões sobre o modelo!
+
+#### Histograma dos resíduos
+
+Para que os pressupostos sejam satisfeitos, espera-se uma uma distribuição simétrica e aproximadamente normal.
+
+A curva de densidade adicionada ao histograma permite verificar visualmente se os resíduos seguem uma distribuição normal. Se a curva de densidade não se parecer com uma curva gaussiana, isso pode ser um indicativo de que os resíduos não são normalmente distribuídos, violando um dos pressupostos da regressão linear.
+
+
+```{r}
+#| label: lm-simples-histograma-residuos
+pnud_muni_2010_adjusted |> # <1>
+  ggplot(aes(x = residuos)) + # <2>
+  geom_histogram( # <3>
+    aes(y = after_stat(density)), # <4>
+    fill = "lightblue" # <5>
+  ) +  # <3>
+  geom_density() + # <6>
+  theme_light() # <7>
+```
+1. Utilizando os dados que contém os resíduos do modelo ajustado.
+2. Iniciando o gráfico, e definindo a variável `x` como os resíduos.
+3. Adicionando a geometria de histograma.
+4. Nos atributos estéticos (`aes()`), definimos que o eixo `y` do histograma será a densidade dos resíduos. Quando criamos um histograma, os valores padrão no eixo y correspondem à contagem de observações em cada intervalo (bin). Ao utilizar `after_stat(density)`, estamos instruindo o `ggplot2` a calcular a densidade ao invés da contagem bruta.
+5. Definindo a cor de preenchimento do histograma.
+6. Adicionando a geometria de densidade.
+7. Aplicando o tema `theme_light()` ao gráfico.
+
+
+
+#### Gráfico de resíduos vs valores ajustados
+
+Para que os pressupostos sejam satisfeitos, os pontos devem estar distribuídos aleatoriamente em torno de zero. Se houver um padrão nos resíduos, pode indicar que a relação entre as variáveis não é linear.
+
+A interpretação do gráfico a seguir é de que talvez o modelo linear não seja o mais adequado para ajustar esses dados, pois os resíduos não estão distribuídos aleatoriamente.
+
+```{r}
+#| label: lm-simples-residual-plot
+car::residualPlot(modelo_linear)
+```
+
+#### Teste de homocedasticidade
+
+Para que os pressupostos sejam satisfeitos, espera-se que a variância dos erros seja constante ao longo de todos os níveis da variável independente. Para verificar isso, podemos utilizar a função `car::ncvTest()`, que testa a homocedasticidade dos resíduos.
+
+Um p-valor muito pequeno (`p < 0.001`) sugere que os resíduos não possuem variância constante (heterocedasticidade), o que pode violar um dos pressupostos da regressão linear.
+
+Neste modelo, o pressuposto de homocedasticidade não é satisfeito.
+
+```{r}
+#| label: lm-simples-homocedasticidade
+car::ncvTest(modelo_linear)
+```
+
+
+#### Q-Q plot para normalidade dos resíduos
+
+Para que os pressupostos sejam satisfeitos, os pontos devem seguir a linha reta, o que indicaria que os resíduos seguem uma distribuição normal. Desvios significativos da linha indicam que os resíduos não são normais.
+
+No caso do exemplo a seguir, os resíduos não seguem uma distribuição normal.
+
+```{r}
+#| label: lm-simples-qqplot
+car::qqPlot(modelo_linear)
+```
+
+
+
+### Extraindo tabelas de regressão
+
+Podemos extrair tabelas de regressão para apresentar os resultados do modelo ajustado.  
+Existem diversos pacotes que podem ser utilizados para extrair tabelas de regressão, como:
+
+- [`{stargazer}`](https://cran.r-project.org/web/packages/stargazer/vignettes/stargazer.pdf)
+- [`{gtsummary}`](https://www.danieldsjoberg.com/gtsummary/articles/tbl_regression.html)
+- [`{fixest}`](https://lrberge.github.io/fixest/articles/exporting_tables.html)
+- [`{modelsummary}`](https://modelsummary.com/)
+
+
+Vamos utilizar a função `stargazer::stargazer()`. Essa função pode gerar tabelas de regressão em diferentes formatos, como texto, HTML, LaTeX e Markdown.
+
+
+```{r}
+stargazer::stargazer(modelo_linear, type = "text")
+```
+
+
+Cuidado: observe que na última linha (`Note: *p<0.1; **p<0.05; ***p<0.01`) o resultado em HTML apresenta asteriscos a menos do que o resultado em texto. Isso ocorre porque o Markdown interpreta o asterisco como um comando de itálico (`*`) ou negrito (`**`) (e utilizamos Markdown para a construção deste site). 
+
+```{r}
+#| results: asis
+stargazer::stargazer(modelo_linear, type = "html")
+```
+
+
+
+
+### Interpretação final
+
+- O modelo que ajustamos pode não ser o mais adequado para explicar a relação entre a taxa de mortalidade infantil e o percentual de acesso à água encanada, pois os pressupostos da regressão linear não foram atendidos. Pode ser necessário ajustar um modelo mais complexo.
+
+- A taxa de mortalidade infantil é influenciada por diversos fatores, e o acesso à água encanada pode ser apenas um deles. É interessante investigar se outras variáveis como renda, educação, saneamento básico, entre outras, são importantes para explicar a mortalidade infantil.
+
+
+
+## Regressão linear múltipla
+
+Até agora, ajustamos um modelo de regressão linear simples. No entanto, é possível ajustar um modelo de regressão linear múltipla, que inclui mais de uma variável independente.
+
+
+Na regressão linear múltipla, incluímos mais de uma variável independente para tentar capturar diferentes fatores que podem influenciar a variável dependente. 
+
+Quando ajustamos um modelo de regressão múltipla, estamos tentando entender como a variável dependente (por exemplo, `mort5`) é afetada por várias variáveis independentes (como `t_agua` e `rdpc`).
+
+Adicionar variáveis pode melhorar a precisão do modelo, reduzindo o erro e aumentando o \(R^2\), que nos diz quanta variação na variável dependente é explicada pelas variáveis independentes.
+
+Vamos ajustar um modelo de regressão linear múltipla para investigar a relação entre a taxa de mortalidade infantil (até 5 anos de idade) (`mort5`) e o percentual da população que vive em domicílios com água encanada (`t_agua`) e a renda per capita (`rdpc`) nos municípios brasileiros em 2010.
+
+Então, temos que:
+
+- Variável dependente (`y`): `mort5`
+
+- Variáveis independentes (`x`): `t_agua` e `rdpc`
+
+
+### Ajustando o modelo de regressão linear múltipla
+
+Para ajustar um modelo de regressão linear múltipla, basta adicionar as variáveis independentes separadas por `+` na fórmula do modelo.
+
+```{r}
+modelo_linear_multiplo <- lm(mort5 ~ t_agua + rdpc, data = pnud_muni_2010)
+```
+
+Daqui em diante, o processo é semelhante ao que fizemos para o modelo de regressão linear simples.
+
+#### Explorando o modelo ajustado
+
+Podemos explorar o resultado do modelo ajustado com a função `summary()`:
+
+```{r}
+summary(modelo_linear_multiplo)
+```
+
+#### Visualizando o ajuste do modelo
+
+A etapa de visualização do ajuste do modelo de regressão linear múltipla é um pouco mais complexa, pois estamos lidando com mais de uma variável independente.
+
+Precisamos criar um gráfico para cada variável independente, **mantendo as outras variáveis independentes constantes**.
+
+Para isso, primeiro vamos criar uma nova tabela com os valores constantes das variáveis independentes (utilizando a média):
+
+```{r}
+pnud_muni_2010_ajustado_agua <- pnud_muni_2010 |> 
+  dplyr::mutate(
+    rdpc = mean(rdpc) # <1>
+  )
+
+pnud_muni_2010_ajustado_rdpc <- pnud_muni_2010 |>
+  dplyr::mutate(
+    t_agua = mean(t_agua) # <2>
+  )
+```
+1. Criando uma nova tabela (`pnud_muni_2010_ajustado_agua`), onde a variável `rdpc` é constante, utilizando a média dos valores.
+2. Criando uma nova tabela (`pnud_muni_2010_ajustado_rdpc`), onde a variável `t_agua` é constante, utilizando a média dos valores.
+
+
+Agora, vamos criar uma nova tabela com os valores ajustados para cada uma das variáveis independentes constantes (utilizando os dados criados na etapa anterior no argumento `newdata`):
+
+```{r}
+pnud_muni_2010_ajustado_multiplo <- pnud_muni_2010 |>
+  dplyr::mutate(
+    valores_ajustados_agua = predict(# <1>
+      modelo_linear_multiplo, 
+      newdata = pnud_muni_2010_ajustado_agua
+      ), # <1>
+    
+    valores_ajustados_rdpc = predict(# <2>
+      modelo_linear_multiplo, 
+      newdata = pnud_muni_2010_ajustado_rdpc
+      ) # <2>
+  ) 
+```
+1. Adicionando uma nova coluna chamada `valores_ajustados_agua` ao data.frame contendo os ajustes do modelo linear múltiplo, utilizando a função `predict()`, e os dados `pnud_muni_2010_ajustado_agua` (onde a variável `rdpc` é constante).
+2. Adicionando uma nova coluna chamada `valores_ajustados_rdpc` ao data.frame contendo os ajustes do modelo linear múltiplo, utilizando a função `predict()`, e os dados `pnud_muni_2010_ajustado_rdpc` (onde a variável `t_agua` é constante).
+
+
+Agora, podemos criar os gráficos para visualizar o ajuste do modelo de regressão linear múltipla.
+
+O gráfico a seguir mostra a relação entre a taxa de mortalidade infantil e o percentual de acesso à água encanada, mantendo as outras variáveis independentes constantes:
+
+```{r}
+#| label: lm-multiplo-agua
+pnud_muni_2010_ajustado_multiplo |> 
+  ggplot() +
+  geom_point(aes(x = t_agua, y = mort5), alpha = 0.5) + # <1>
+  geom_line(aes(x = t_agua, y = valores_ajustados_agua), color = "red") + # <2>
+  theme_light()
+```
+1. Adicionando a geometria de pontos ao gráfico, com os valores de `t_agua` no eixo x e `mort5` no eixo y.
+2. Adicionando a linha de regressão ao gráfico, com os valores ajustados (mantendo as outras variáveis independentes constantes).
+
+
+
+O gráfico a seguir mostra a relação entre a taxa de mortalidade infantil e a renda per capita, mantendo as outras variáveis independentes constantes:
+
+```{r}
+#| label: lm-multiplo-rdpc
+pnud_muni_2010_ajustado_multiplo |> 
+  ggplot() +
+  geom_point(aes(x = rdpc, y = mort5), alpha = 0.5) + # <1>
+  geom_line(aes(x = rdpc, y = valores_ajustados_rdpc), color = "red") + # <2>
+  theme_light() 
+```
+1. Adicionando a geometria de pontos ao gráfico, com os valores de `rdpc` no eixo x e `mort5` no eixo y.
+2. Adicionando a linha de regressão ao gráfico, com os valores ajustados (mantendo a `t_agua` constante).
+
+
+
+
+
+O gráfico acima indica que a relação entre `rdpc` e `mort5` não é linear. Nesse caso, podemos tentar transformar a variável `rdpc` e testar novamente ajustar um modelo linear.
+
+
+Vamos tentar ajustar um modelo de regressão linear múltipla com a variável `rdpc` transformada em logaritmo (`log()`).
+
+
+### Modelando a variável `rdpc` transformada em `log()`
+
+Transformações em variáveis são usadas quando a relação entre as variáveis independentes e a dependente não é linear. No nosso exemplo, a relação entre `rdpc` e `mort5` não é linear. Ao aplicar a transformação logarítmica à variável `rdpc`, tentamos "linearizar" a relação, o que pode melhorar a capacidade do modelo de capturar a verdadeira relação entre as variáveis.
+
+
+Vamos ajustar um modelo de regressão linear múltipla com a variável `rdpc` transformada em logaritmo.
+
+Para isso, primeiro vamos criar uma nova variável `rdpc_log` com a transformação logarítmica da variável `rdpc`, e salvar em um novo objeto chamado `pnud_muni_2010_com_log`:
+
+
+```{r}
+pnud_muni_2010_com_log <- pnud_muni_2010 |> 
+  dplyr::mutate(rdpc_log = log(rdpc)) 
+```
+
+Agora, vamos ajustar um modelo de regressão linear múltipla com a variável `rdpc_log`:
+
+```{r}
+modelo_linear_multiplo_log <- lm(mort5 ~ t_agua + rdpc_log,
+                                 data = pnud_muni_2010_com_log)
+```
+
+Vamos explorar o resultado do modelo ajustado:
+
+```{r}
+summary(modelo_linear_multiplo_log)
+```
+
+#### Visualizando o ajuste do modelo
+
+Vamos visualizar o ajuste do modelo (similar ao que fizemos anteriormente). Para isso, vamos criar uma nova tabela com os valores constantes das variáveis independentes (utilizando a média):
+
+```{r}
+pnud_muni_2010_ajustado_agua_log <- pnud_muni_2010_com_log |> 
+  dplyr::mutate(
+    rdpc_log = mean(rdpc_log), # <1>
+  )
+
+pnud_muni_2010_ajustado_rdpc_log  <- pnud_muni_2010_com_log |>
+  dplyr::mutate(
+    t_agua = mean(t_agua) # <2>
+  )
+```
+1. Criando uma nova tabela (`pnud_muni_2010_ajustado_agua`), onde a variável é `rdpc_log` constante, utilizando a média dos valores.
+2. Criando uma nova tabela (`pnud_muni_2010_ajustado_rdpc`), onde a variável é `t_agua` constante, utilizando a média dos valores.
+
+Podemos criar uma nova tabela com os valores ajustados para cada uma das variáveis independentes constantes (utilizando os dados criados na etapa anterior no argumento `newdata`):
+
+```{r}
+pnud_muni_2010_ajustado_multiplo_log <- pnud_muni_2010_com_log |>
+  dplyr::mutate(
+    valores_ajustados_agua = predict( # <1>
+      modelo_linear_multiplo_log,
+      newdata = pnud_muni_2010_ajustado_agua_log), # <1>
+    
+    valores_ajustados_rdpc = predict( # <2>
+      modelo_linear_multiplo_log,
+      newdata = pnud_muni_2010_ajustado_rdpc_log), # <2> 
+    
+    valores_ajustados = predict(modelo_linear_multiplo_log), # <3>
+    
+    residuos = mort5 - valores_ajustados # <4>
+  ) 
+```
+1. Adicionando uma nova coluna chamada `valores_ajustados_agua` ao data.frame contendo os ajustes do modelo linear múltiplo, utilizando a função `predict()`, e os dados `pnud_muni_2010_ajustado_agua_log` (onde a variável `rdpc_log` é constante).
+2. Adicionando uma nova coluna chamada `valores_ajustados_rdpc` ao data.frame contendo os ajustes do modelo linear múltiplo, utilizando a função `predict()`, e os dados `pnud_muni_2010_ajustado_rdpc_log` (onde a variável `t_agua` é constante).
+3. Adicionando uma nova coluna chamada `valores_ajustados` ao data.frame contendo os ajustes do modelo linear múltiplo.
+4. Adicionando uma nova coluna chamada `residuos` ao data.frame contendo os resíduos do modelo linear: a diferença entre os valores reais (mort5) e os valores previstos pelo modelo.
+
+
+Agora, vamos visualizar o ajuste do modelo de regressão linear múltipla com a variável `rdpc` transformada em logaritmo.
+
+
+```{r}
+#| label: lm-multiplo-log-agua
+pnud_muni_2010_ajustado_multiplo_log |> 
+  ggplot() +
+  geom_point(aes(x = t_agua, y = mort5), alpha = 0.5) +
+  geom_line(aes(x = t_agua, y = valores_ajustados_agua), color = "red") +
+  theme_light() 
+```
+
+
+```{r}
+#| label: lm-multiplo-log-rdpc
+pnud_muni_2010_ajustado_multiplo_log |> 
+  ggplot() +
+  geom_point(aes(x = rdpc_log, y = mort5), alpha = 0.5) +
+  geom_line(aes(x = rdpc_log, y = valores_ajustados_rdpc), color = "red") +
+  theme_light() 
+```
+
+O segundo gráfico indica que o resultado do modelo ajustado com a variável `rdpc` transformada em logaritmo é melhor do que o modelo anterior. Vamos seguir com a análise do modelo ajustado.
+
+#### Explorando o modelo ajustado
+
+Podemos explorar o resultado do modelo ajustado com a função `summary()`, `broom::tidy()` e `report::report()`:
+
+```{r}
+report::report(modelo_linear_multiplo_log) 
+```
+
+```{r}
+broom::tidy(modelo_linear_multiplo_log) |> 
+  knitr::kable()
+```
+
+
+#### Diagnóstico do Modelo de Regressão Múltipla
+
+Os diagnósticos do modelo de regressão múltipla são similares aos da regressão simples, mas é importante prestar mais atenção nos resíduos, pois agora temos mais de uma variável explicativa. 
+
+Os mesmos pressupostos de linearidade, independência dos erros, homocedasticidade e normalidade dos resíduos precisam ser verificados.
+
+
+##### Histograma dos resíduos
+
+```{r}
+#| label: lm-multiplo-log-histograma-residuos
+pnud_muni_2010_ajustado_multiplo_log |>
+  ggplot(aes(x = residuos)) +
+  geom_histogram(
+    aes(y = after_stat(density)),
+    fill = "lightblue"
+  ) +
+  geom_density() +
+  theme_light()
+```
+
+##### Gráfico de resíduos vs valores ajustados
+
+É importante verificar se os resíduos estão distribuídos de forma aleatória. Se houver padrões, o modelo pode estar mal especificado.
+
+```{r}
+#| label: lm-multiplo-log-residual-plot
+car::residualPlot(modelo_linear_multiplo_log)
+```
+
+##### Teste de homocedasticidade
+
+É importante verificar se a variância dos resíduos é constante ao longo dos valores ajustados.
+
+```{r}
+#| label: lm-multiplo-log-homocedasticidade
+car::ncvTest(modelo_linear_multiplo_log)
+```
+
+##### Q-Q plot para normalidade dos resíduos
+
+É importante verificar a normalidade dos resíduos.
+
+```{r}
+#| label: lm-multiplo-log-qqplot
+car::qqPlot(modelo_linear_multiplo_log)
+```
+
+#### Extraindo tabelas de regressão
+
+
+```{r}
+stargazer::stargazer(modelo_linear_multiplo_log, type = "text")
+```
+
+
+
+## Outros pacotes que podem ser interessantes
+
+- [Pacote performance](https://easystats.github.io/performance/articles/check_model.html): funções para avaliar o ajuste de modelos de regressão, visualizar diagnósticos e comparar modelos.
+
+- [Pacote modelsummary](https://modelsummary.com/): para criar tabelas de regressão, que exportam para word.
+
+- [Pacote coefplot](https://cran.r-project.org/web/packages/coefplot/index.html): para visualizar os coeficientes do modelo de regressão linear.
+
+- [Tidymodels](https://www.tidymodels.org/packages/) - metapacote, segue uma filosofia similar ao pacote tidyverse, para quem tem interesse em *machine learning* no R.
+
+
+## Sugestões de materiais
+
+- [Livro *Introduction to Modern Statistics*](https://openintro-ims.netlify.app) de Mine Çetinkaya-Rundel e Johanna Hardin. 
+  - [Regressão linear simples](https://openintro-ims.netlify.app/model-slr)
+  - [Regressão linear múltipla](https://openintro-ims.netlify.app/model-mlr)
+  
+  
+- [Introduction to Econometrics with R](https://www.econometrics-with-r.org/) - conteúdo mais avançado, para quem tem experiência em econometria.

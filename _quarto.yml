@@ -29,9 +29,8 @@ book:
     - praticas/04_analise-exploratoria-ii.qmd
     - praticas/05_intervalo-de-confianca.qmd
     - praticas/06_correlacao.qmd
-    # - praticas/04_correlacao.qmd
-    # - praticas/06_regressao-linear.qmd    
-    # - praticas/07_regressao-espacial.qmd           
+    - praticas/07_regressao-linear.qmd    
+    # - praticas/08_regressao-espacial.qmd           
   appendices:
     - apendices/00_erros_frequentes.qmd    
     - apendices/00_sugestao-videos.qmd        
