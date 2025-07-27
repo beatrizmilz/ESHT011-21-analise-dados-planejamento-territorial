@@ -54,7 +54,6 @@ library(broom)
 library(car)
 library(stargazer)
 library(report)
-library(DT)
 library(knitr)
 ```
 
@@ -86,7 +85,7 @@ nomes_col_pnud_muni_2010 <- pnud_siglas |>
   filter(sigla %in% names(pnud_muni_2010))
 
 nomes_col_pnud_muni_2010 |> 
-  datatable()
+  glimpse()
 ```
 
 ## Pergunta a ser explorada
@@ -349,12 +348,21 @@ stargazer::stargazer(modelo_linear, type = "text")
 
 Cuidado: observe que na última linha (`Note: *p<0.1; **p<0.05; ***p<0.01`) o resultado em HTML apresenta asteriscos a menos do que o resultado em texto. Isso ocorre porque o Markdown interpreta o asterisco como um comando de itálico (`*`) ou negrito (`**`) (e utilizamos Markdown para a construção deste site). 
 
+::: {.content-visible when-format="html"}
+
 ```{r}
 #| results: asis
 stargazer::stargazer(modelo_linear, type = "html")
 ```
 
+:::
 
+
+
+```{r}
+#| results: asis
+stargazer::stargazer(modelo_linear, type = "latex")
+```
 
 
 ### Interpretação final
