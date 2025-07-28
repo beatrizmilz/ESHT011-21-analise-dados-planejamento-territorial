@@ -10,6 +10,20 @@ Os conceitos foram apresentados na aula teórica. A seguir, temos uma prática p
 :::
 
 
+::: callout-warning
+## Download do arquivo `.qmd`
+Sugestão: abra o projeto no RStudio (que está usando ao longo do curso), e faça o download deste arquivo (em formato `.qmd`) com o código abaixo.
+
+```{r}
+#| eval: false
+download.file(
+  url = "https://raw.githubusercontent.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial/refs/heads/main/praticas/07_regressao-linear.qmd",
+  destfile = "07_regressao-linear.qmd",
+)
+```
+:::
+
+
 ## Introdução
 
 A regressão linear é uma técnica estatística que busca modelar a relação entre uma variável dependente e uma ou mais variáveis independentes. A regressão linear simples é utilizada quando temos apenas uma variável independente, enquanto a regressão linear múltipla é utilizada quando temos mais de uma variável independente.
