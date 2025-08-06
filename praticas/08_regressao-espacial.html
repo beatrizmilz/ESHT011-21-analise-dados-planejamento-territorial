@@ -247,6 +247,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#exportando-os-resíduos-do-modelo" id="toc-exportando-os-resíduos-do-modelo" class="nav-link" data-scroll-target="#exportando-os-resíduos-do-modelo"><span class="header-section-number">8.5.4</span> Exportando os resíduos do modelo</a></li>
   </ul></li>
   <li><a href="#modelo-de-regressão-espacial-local-gwr" id="toc-modelo-de-regressão-espacial-local-gwr" class="nav-link" data-scroll-target="#modelo-de-regressão-espacial-local-gwr"><span class="header-section-number">8.6</span> Modelo de regressão espacial local (GWR)</a></li>
+  <li><a href="#sugestões-de-materiais" id="toc-sugestões-de-materiais" class="nav-link" data-scroll-target="#sugestões-de-materiais"><span class="header-section-number">8.7</span> Sugestões de materiais</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial/edit/main/praticas/08_regressao-espacial.qmd" class="toc-action"><i class="bi bi-github"></i>Editar essa página</a></li><li><a href="https://github.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial/issues/new" class="toc-action"><i class="bi empty"></i>Criar uma issue</a></li><li><a href="https://github.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial/blob/main/praticas/08_regressao-espacial.qmd" class="toc-action"><i class="bi empty"></i>Ver o código fonte</a></li></ul></div></nav>
     </div>
@@ -292,6 +293,25 @@ Nota
 <p>Essa prática foi adaptada do roteiro criado por <a href="luisfelipebr.github.io/mti2020/roteiros/roteiro7.html">Luis Felipe Bortolatto da Cunha</a> para edições passadas dessa disciplina.</p>
 </div>
 </div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Download do arquivo <code>.qmd</code>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Sugestão: abra o projeto no RStudio (que está usando ao longo do curso), e faça o download deste arquivo (em formato <code>.qmd</code>) com o código abaixo.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">url =</span> <span class="st">"https://raw.githubusercontent.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial/refs/heads/main/praticas/08_regressa-espacial.qmd"</span>,</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">destfile =</span> <span class="st">"08_regressa-espacial.qmd"</span>,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
 <section id="introdução" class="level2" data-number="8.1">
 <h2 data-number="8.1" class="anchored" data-anchor-id="introdução"><span class="header-section-number">8.1</span> Introdução</h2>
 <p>Este roteiro tem como objetivo auxiliar na execução de <strong>modelos de regressão espacial</strong> (Spatial Lag, Spatial Error e GWR) com o software R.</p>
@@ -311,11 +331,11 @@ Nota
 </ul>
 <p>Podemos instalar os pacotes:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"sf"</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"spdep"</span>)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"spatialreg"</span>)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"spgwr"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"sf"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"spdep"</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"spatialreg"</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"spgwr"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -329,24 +349,34 @@ Aviso
 <div class="callout-body-container callout-body">
 <p>Atenção: dependendo da versão de R que você está usando, você pode precisar instalar o pacote <code>Rcpp</code> antes dos pacotes de análise espacial. Se você encontrar um erro na instalação dos pacotes acima, instale o pacote citado e tente novamente. Se o problema persistir, por favor entre em contato com a equipe responsável pela disciplina.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"Rcpp"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"Rcpp"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
 <p>E então carregá-los:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(spdep)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(spatialreg)</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(spgwr)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(spdep)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(spatialreg)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(spgwr)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="importando-os-dados" class="level2" data-number="8.3">
 <h2 data-number="8.3" class="anchored" data-anchor-id="importando-os-dados"><span class="header-section-number">8.3</span> Importando os dados</h2>
+<p>Para facilitar o download, você pode usar o código abaixo, que cria uma pasta chamada “dados” e baixa o arquivo geopackage para essa pasta. O arquivo será salvo com o nome <code>agua_rede_sf.gpkg</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Criando a pasta para armazenar os dados</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>fs<span class="sc">::</span><span class="fu">dir_create</span>(<span class="st">"dados"</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Download do arquivo geopackage</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(<span class="st">"https://github.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial/raw/refs/heads/main/praticas/dados/agua_rede_sf.gpkg"</span>, </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">destfile =</span> <span class="st">"dados/agua_rede_sf.gpkg"</span>, </span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>              <span class="at">mode =</span> <span class="st">"wb"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>A base de dados está em formato geopackage (.gpkg) e pode ser importada com a função <code>read_sf()</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>agua_rede_sf <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">"dados/agua_rede_sf.gpkg"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>agua_rede_sf <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">"dados/agua_rede_sf.gpkg"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="explorando-os-dados" class="level2" data-number="8.4">
@@ -354,7 +384,7 @@ Aviso
 <p>Os arquivos geoespaciais que trabalharemos são chamados de simple features (sf) no R. A sua estrutura é semelhante à de uma tabela, mas trazendo informações do Sistema de Referência de Coordenadas (CRS) e uma variável adicional: a geometria (geom ou geometry), com as coordenadas que permitem mapear os pontos, linhas ou polígonos.</p>
 <p>Executando o nome do objeto é possível obter algumas dessas informações.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>agua_rede_sf</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>agua_rede_sf</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Simple feature collection with 5567 features and 25 fields
 Geometry type: MULTIPOLYGON
@@ -383,7 +413,7 @@ Geodetic CRS:  SIRGAS 2000
 </div>
 <p>A função <code>names()</code> exibe os nomes das variáveis.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(agua_rede_sf)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(agua_rede_sf)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "ID_IBGE"    "DOMICIL"    "REDE"       "PROPREDE"   "ID_SNIS"   
  [6] "NOME_MUN"   "UF"         "REGIAO"     "PIB"        "RENDAPITA" 
@@ -494,32 +524,32 @@ Geodetic CRS:  SIRGAS 2000
 <p>As funções apresentadas nas aulas anteriores funcionam em dados geoespaciais de forma semelhante à tabelas. Vamos usá-las para resolver a primeira e segunda consideração.</p>
 <p>Para filtrar apenas as observações completas, ou seja, sem valores faltantes (NA), podemos aplicar a função <code>drop_na()</code>, levando em consideração as variáveis que serão utilizadas (ID, Variável Y e Variável X), para remover as linhas que contém <code>NA</code> nas variáveis indicadas.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>agua_rede_sf_sem_na <span class="ot">&lt;-</span> agua_rede_sf <span class="sc">|&gt;</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(ID_IBGE, CONSUMO1, RENDAPITA)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>agua_rede_sf_sem_na <span class="ot">&lt;-</span> agua_rede_sf <span class="sc">|&gt;</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(ID_IBGE, CONSUMO1, RENDAPITA)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Dos 5567 municípios presentes na base de dados, apenas 4417 tinham informações completas do ID_IBGE, CONSUMO1 e RENDAPITA. O modelo será aplicado apenas nessas observações.</p>
 <p><strong>Amostragem:</strong> o código abaixo cria uma amostra apenas com os dados do estado de São Paulo.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>agua_rede_sf_sp <span class="ot">&lt;-</span> agua_rede_sf_sem_na <span class="sc">|&gt;</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(UF <span class="sc">==</span> <span class="st">"SP"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>agua_rede_sf_sp <span class="ot">&lt;-</span> agua_rede_sf_sem_na <span class="sc">|&gt;</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(UF <span class="sc">==</span> <span class="st">"SP"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Para executar o modelo de regressão espacial local (GWR), é necessário ter variáveis que descrevem a longitude e latitude do centróide dos polígonos.</p>
 <p>A função <code>st_centroid()</code> calcula o centróide de um polígono, porém ela só funciona se as geometrias forem consideradas “válidas”. Podemos fazer essa checagem com a função <code>st_is_valid()</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Checando se a geometria é valida</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>geometrias_validas <span class="ot">&lt;-</span> <span class="fu">st_is_valid</span>(agua_rede_sf_sp)</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Somando quantas geometrias são inválidas</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(geometrias_validas <span class="sc">==</span> <span class="cn">FALSE</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Checando se a geometria é valida</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>geometrias_validas <span class="ot">&lt;-</span> <span class="fu">st_is_valid</span>(agua_rede_sf_sp)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Somando quantas geometrias são inválidas</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(geometrias_validas <span class="sc">==</span> <span class="cn">FALSE</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0</code></pre>
 </div>
 </div>
 <p>Agora podemos calcular o centróide:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>agua_rede_sf_sp_centroide <span class="ot">&lt;-</span> agua_rede_sf_sp <span class="sc">|&gt;</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">LON =</span> <span class="fu">st_coordinates</span>(<span class="fu">st_centroid</span>(agua_rede_sf_sp))[,<span class="dv">1</span>],</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">LAT =</span> <span class="fu">st_coordinates</span>(<span class="fu">st_centroid</span>(agua_rede_sf_sp))[,<span class="dv">2</span>])</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>agua_rede_sf_sp_centroide <span class="ot">&lt;-</span> agua_rede_sf_sp <span class="sc">|&gt;</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">LON =</span> <span class="fu">st_coordinates</span>(<span class="fu">st_centroid</span>(agua_rede_sf_sp))[,<span class="dv">1</span>],</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">LAT =</span> <span class="fu">st_coordinates</span>(<span class="fu">st_centroid</span>(agua_rede_sf_sp))[,<span class="dv">2</span>])</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: There were 2 warnings in `stopifnot()`.
 The first warning was:
@@ -531,8 +561,8 @@ Caused by warning:
 </div>
 <p>Agora temos as colunas <code>LAT</code> e <code>LON</code>, mantendo a coluna <code>geom</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>agua_rede_sf_sp_centroide <span class="sc">|&gt;</span> </span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(LAT, LON, geom)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>agua_rede_sf_sp_centroide <span class="sc">|&gt;</span> </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(LAT, LON, geom)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Simple feature collection with 510 features and 2 fields
 Geometry type: MULTIPOLYGON
@@ -565,14 +595,14 @@ Geodetic CRS:  SIRGAS 2000
 <h3 data-number="8.5.1" class="anchored" data-anchor-id="preparando-os-dados"><span class="header-section-number">8.5.1</span> Preparando os dados</h3>
 <p>O ponto de partida para o Spatial Lag e Spatial Error é o modelo de regressão linear (Roteiro 5), criado com a função <code>lm()</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>modelo1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="at">formula =</span> CONSUMO1 <span class="sc">~</span> RENDAPITA, </span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> agua_rede_sf_sp_centroide, </span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">na.action =</span> na.exclude)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>modelo1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="at">formula =</span> CONSUMO1 <span class="sc">~</span> RENDAPITA, </span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> agua_rede_sf_sp_centroide, </span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">na.action =</span> na.exclude)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Também é necessário criar um arquivo com a lista de vizinhança, com a função <code>poly2nb()</code>. Foi usado o critério de vizinhança do tipo <code>queen</code>. Para usar outros critérios, lembre-se de consultar a documentação da função.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>vizinhanca <span class="ot">&lt;-</span> <span class="fu">poly2nb</span>(<span class="at">pl =</span> agua_rede_sf_sp_centroide, </span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">row.names =</span> agua_rede_sf_sp_centroide<span class="sc">$</span>ID_IBGE)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>vizinhanca <span class="ot">&lt;-</span> <span class="fu">poly2nb</span>(<span class="at">pl =</span> agua_rede_sf_sp_centroide, </span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">row.names =</span> agua_rede_sf_sp_centroide<span class="sc">$</span>ID_IBGE)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in poly2nb(pl = agua_rede_sf_sp_centroide, row.names = agua_rede_sf_sp_centroide$ID_IBGE): some observations have no neighbours;
 if this seems unexpected, try increasing the snap argument.</code></pre>
@@ -584,7 +614,7 @@ if this sub-graph count seems unexpected, try increasing the snap argument.</cod
 </div>
 <p>Visualizando o sumário desse arquivo, é possível ter uma ideia da distribuição da vizinhança.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(vizinhanca)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(vizinhanca)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Neighbour list object:
 Number of regions: 510 
@@ -606,9 +636,9 @@ Link number distribution:
 </div>
 <p>Agora é possível criar uma matriz de pesos espaciais, com as funções <code>nb2mat()</code> e <code>mat2listw()</code>. Em vários momentos é necessário definir o argumento adicional <code>zero.policy = TRUE</code>, que permite obter os resultados mesmo que uma ou mais observações não tenham nenhum vizinho. Não se esqueça de adicionar este parâmetro sempre que indicado neste roteiro.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>wm <span class="ot">&lt;-</span> <span class="fu">nb2mat</span>(<span class="at">neighbours =</span> vizinhanca, <span class="at">style=</span><span class="st">'B'</span>, <span class="at">zero.policy =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>rwm <span class="ot">&lt;-</span> <span class="fu">mat2listw</span>(<span class="at">x =</span> wm, <span class="at">style=</span><span class="st">'W'</span>, <span class="at">zero.policy =</span> <span class="cn">TRUE</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>wm <span class="ot">&lt;-</span> <span class="fu">nb2mat</span>(<span class="at">neighbours =</span> vizinhanca, <span class="at">style=</span><span class="st">'B'</span>, <span class="at">zero.policy =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>rwm <span class="ot">&lt;-</span> <span class="fu">mat2listw</span>(<span class="at">x =</span> wm, <span class="at">style=</span><span class="st">'W'</span>, <span class="at">zero.policy =</span> <span class="cn">TRUE</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in mat2listw(x = wm, style = "W", zero.policy = TRUE): neighbour object
 has 5 sub-graphs</code></pre>
@@ -616,10 +646,10 @@ has 5 sub-graphs</code></pre>
 </div>
 <p>Agora já é possível realizar o teste de autocorrelação espacial dos resíduos, com a função <code>lm.morantest()</code>, que levará como argumentos: o modelo (modelo1), a matriz de pesos espaciais (rwm) e a tipo de hipótese alternativa (“two-sided”, que representa o teste bicaudal).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm.morantest</span>(<span class="at">model =</span> modelo1, </span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">listw =</span> rwm, </span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">alternative =</span> <span class="st">"two.sided"</span>,</span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">zero.policy =</span> <span class="cn">TRUE</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm.morantest</span>(<span class="at">model =</span> modelo1, </span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">listw =</span> rwm, </span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">alternative =</span> <span class="st">"two.sided"</span>,</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">zero.policy =</span> <span class="cn">TRUE</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Global Moran I for regression residuals
@@ -645,10 +675,10 @@ Observed Moran I      Expectation         Variance
 <li>RLMlag: teste LM robusto para uma variável dependente espacialmente defasada</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm.LMtests</span>(<span class="at">model =</span> modelo1,</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">listw =</span> rwm,</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">test =</span> <span class="fu">c</span>(<span class="st">"LMerr"</span>,<span class="st">"LMlag"</span>,<span class="st">"RLMerr"</span>,<span class="st">"RLMlag"</span>),</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">zero.policy =</span> <span class="cn">TRUE</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm.LMtests</span>(<span class="at">model =</span> modelo1,</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">listw =</span> rwm,</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">test =</span> <span class="fu">c</span>(<span class="st">"LMerr"</span>,<span class="st">"LMlag"</span>,<span class="st">"RLMerr"</span>,<span class="st">"RLMlag"</span>),</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">zero.policy =</span> <span class="cn">TRUE</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Please update scripts to use lm.RStests in place of lm.LMtests</code></pre>
 </div>
@@ -708,14 +738,14 @@ adjRSlag = 0.50775, df = 1, p-value = 0.4761</code></pre>
 <h3 data-number="8.5.2" class="anchored" data-anchor-id="spatial-autoregressive-model-spatial-lagsar"><span class="header-section-number">8.5.2</span> Spatial Autoregressive Model (Spatial Lag/SAR)</h3>
 <p>Para aplicar o modelo Spatial Lag usaremos a função <code>lagsarlm()</code>, especificando a fórmula, os dados e a matriz de pesos espaciais.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>sar_modelo <span class="ot">&lt;-</span> <span class="fu">lagsarlm</span>(<span class="at">formula =</span> CONSUMO1 <span class="sc">~</span> RENDAPITA,</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">data =</span> agua_rede_sf_sp_centroide,</span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">listw =</span> rwm,</span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>                       <span class="at">zero.policy =</span> <span class="cn">TRUE</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>sar_modelo <span class="ot">&lt;-</span> <span class="fu">lagsarlm</span>(<span class="at">formula =</span> CONSUMO1 <span class="sc">~</span> RENDAPITA,</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">data =</span> agua_rede_sf_sp_centroide,</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">listw =</span> rwm,</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>                       <span class="at">zero.policy =</span> <span class="cn">TRUE</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Para ver os resultados do novo modelo, você pode acessar o sumário.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(sar_modelo)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(sar_modelo)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -754,14 +784,14 @@ test value: 1.9034, p-value: 0.1677</code></pre>
 <h3 data-number="8.5.3" class="anchored" data-anchor-id="conditional-autoregressive-model-spatial-errorcar"><span class="header-section-number">8.5.3</span> Conditional Autoregressive Model (Spatial Error/CAR)</h3>
 <p>Para aplicar o modelo Spatial Error usaremos a função <code>errorsarlm()</code>, especificando a fórmula, os dados e a matriz de pesos espaciais.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>car_modelo <span class="ot">&lt;-</span> <span class="fu">errorsarlm</span>(<span class="at">formula =</span> CONSUMO1 <span class="sc">~</span> RENDAPITA,</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>                        <span class="at">data =</span> agua_rede_sf_sp_centroide,</span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>                        <span class="at">listw =</span> rwm,</span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>                        <span class="at">zero.policy =</span> <span class="cn">TRUE</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>car_modelo <span class="ot">&lt;-</span> <span class="fu">errorsarlm</span>(<span class="at">formula =</span> CONSUMO1 <span class="sc">~</span> RENDAPITA,</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>                        <span class="at">data =</span> agua_rede_sf_sp_centroide,</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>                        <span class="at">listw =</span> rwm,</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>                        <span class="at">zero.policy =</span> <span class="cn">TRUE</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>É possível visualizar os resultados do modelo usando o sumário.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(car_modelo)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(car_modelo)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -798,16 +828,16 @@ AIC: 4120.6, (AIC for lm: 4188.2)</code></pre>
 <h3 data-number="8.5.4" class="anchored" data-anchor-id="exportando-os-resíduos-do-modelo"><span class="header-section-number">8.5.4</span> Exportando os resíduos do modelo</h3>
 <p>Para verificar a autocorrelação espacial no GeoDa, é necessário exportar os resíduos do modelo. O código abaixo indica como executar essa etapa para os dois modelos, criando as variáveis (colunas) sar_residuos e car_residuos.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>agua_rede_sar_car <span class="ot">&lt;-</span> agua_rede_sf_sp_centroide <span class="sc">|&gt;</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sar_residuos =</span> <span class="fu">residuals</span>(sar_modelo),</span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">car_residuos =</span> <span class="fu">residuals</span>(car_modelo))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>agua_rede_sar_car <span class="ot">&lt;-</span> agua_rede_sf_sp_centroide <span class="sc">|&gt;</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sar_residuos =</span> <span class="fu">residuals</span>(sar_modelo),</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">car_residuos =</span> <span class="fu">residuals</span>(car_modelo))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Após criar essa nova base de dados, você pode exportá-la como geopackage ou shapefile com a função <code>write_sf()</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_sf</span>(agua_rede_sar_car, <span class="st">"dados/agua_rede_sar_car.gpkg"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_sf</span>(agua_rede_sar_car, <span class="st">"dados/agua_rede_sar_car.gpkg"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_sf</span>(agua_rede_sar_car, <span class="st">"dados/agua_rede_sar_car.shp"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_sf</span>(agua_rede_sar_car, <span class="st">"dados/agua_rede_sar_car.shp"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
@@ -818,11 +848,11 @@ AIC: 4120.6, (AIC for lm: 4188.2)</code></pre>
 <p>O processo de modelagem envolverá quatro etapas: (1) estimativa do kernel, (2) cômputo do modelo, (3) análise do sumário do modelo e (4) exportação dos resultados para análise espacial no QGIS.</p>
 <p>É possível obter a melhor estimativa do kernel com a função <code>gwr.sel()</code>. Como argumentos, indicamos a fórmula, os dados, as coordenadas dos centróides e indicamos que a largura da banda será adaptativa (<code>adapt = TRUE</code>). O resultado será salvo no objeto <code>gwr_kernel</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>gwr_kernel <span class="ot">&lt;-</span> <span class="fu">gwr.sel</span>(<span class="at">formula =</span> CONSUMO1 <span class="sc">~</span> RENDAPITA, </span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>                        <span class="at">data =</span> agua_rede_sf_sp_centroide,</span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>                        <span class="at">coords =</span> <span class="fu">cbind</span>(agua_rede_sf_sp_centroide<span class="sc">$</span>LON,</span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>                                       agua_rede_sf_sp_centroide<span class="sc">$</span>LAT),</span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>                        <span class="at">adapt =</span> <span class="cn">TRUE</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>gwr_kernel <span class="ot">&lt;-</span> <span class="fu">gwr.sel</span>(<span class="at">formula =</span> CONSUMO1 <span class="sc">~</span> RENDAPITA, </span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>                        <span class="at">data =</span> agua_rede_sf_sp_centroide,</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>                        <span class="at">coords =</span> <span class="fu">cbind</span>(agua_rede_sf_sp_centroide<span class="sc">$</span>LON,</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>                                       agua_rede_sf_sp_centroide<span class="sc">$</span>LAT),</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>                        <span class="at">adapt =</span> <span class="cn">TRUE</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Adaptive q: 0.381966 CV score: 102015.2 
 Adaptive q: 0.618034 CV score: 105439.5 
@@ -849,17 +879,17 @@ Adaptive q: 0.04509091 CV score: 92718.33 </code></pre>
 </div>
 <p>Após obter a melhor estimativa para o kernel, é possível fazer a modelagem com a função <code>gwr()</code>. Além da fórmula, dados e coordenadas, é necessário indicar o kernel (<code>adapt = gwr_kernel</code>) e dois argumentos adicionais para salvar os resultados completos.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>gwr_modelo <span class="ot">&lt;-</span> <span class="fu">gwr</span>(<span class="at">formula =</span> CONSUMO1 <span class="sc">~</span> RENDAPITA,</span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">data =</span> agua_rede_sf_sp_centroide,</span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">coords =</span> <span class="fu">cbind</span>(agua_rede_sf_sp_centroide<span class="sc">$</span>LON,</span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>                               agua_rede_sf_sp_centroide<span class="sc">$</span>LAT),</span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">adapt =</span> gwr_kernel, </span>
-<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">hatmatrix =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">se.fit =</span> <span class="cn">TRUE</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>gwr_modelo <span class="ot">&lt;-</span> <span class="fu">gwr</span>(<span class="at">formula =</span> CONSUMO1 <span class="sc">~</span> RENDAPITA,</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">data =</span> agua_rede_sf_sp_centroide,</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">coords =</span> <span class="fu">cbind</span>(agua_rede_sf_sp_centroide<span class="sc">$</span>LON,</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>                               agua_rede_sf_sp_centroide<span class="sc">$</span>LAT),</span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">adapt =</span> gwr_kernel, </span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">hatmatrix =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">se.fit =</span> <span class="cn">TRUE</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>É possível visualizar o sumário com alguns resultados executando como comando o nome do objeto onde o modelo foi salvo, <code>gwr_modelo</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>gwr_modelo</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>gwr_modelo</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Call:
 gwr(formula = CONSUMO1 ~ RENDAPITA, data = agua_rede_sf_sp_centroide, 
@@ -889,7 +919,7 @@ Quasi-global R2: 0.3793284 </code></pre>
 <p>Também é importante verificar os parâmetros locais estimados e o coeficiente local de determinação (R²). Para visualizar esses parâmetros, vamos exportar uma nova base de dados (em formato geopackage ou shapefile) para abrir e visualizar no QGIS.</p>
 <p>O código abaixo indica como executar essa última etapa.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>agua_rede_gwr <span class="ot">&lt;-</span> <span class="fu">cbind</span>(agua_rede_sf_sp_centroide, <span class="fu">as.matrix</span>(<span class="fu">as.data.frame</span>(gwr_modelo<span class="sc">$</span>SDF)))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>agua_rede_gwr <span class="ot">&lt;-</span> <span class="fu">cbind</span>(agua_rede_sf_sp_centroide, <span class="fu">as.matrix</span>(<span class="fu">as.data.frame</span>(gwr_modelo<span class="sc">$</span>SDF)))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>As novas variáveis são:</p>
 <ul>
@@ -905,12 +935,18 @@ Quasi-global R2: 0.3793284 </code></pre>
 <p>A variável “pred” apresenta os parâmetros locais estimados para a variável Renda per capita, enquanto a variável “localR2” apresenta o coeficiente local de determinação (R²). Também é interessante aplicar um teste de autocorrelação espacial nos resíduos, para verificar se a dependência espacial foi resolvida pelo modelo.</p>
 <p>Para exportar como geopackage:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_sf</span>(agua_rede_gwr, <span class="st">"dados/agua_rede_gwr.gpkg"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_sf</span>(agua_rede_gwr, <span class="st">"dados/agua_rede_gwr.gpkg"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Para exportar como shapefile:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_sf</span>(agua_rede_gwr, <span class="st">"dados/agua_rede_gwr.shp"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_sf</span>(agua_rede_gwr, <span class="st">"dados/agua_rede_gwr.shp"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
+<section id="sugestões-de-materiais" class="level2" data-number="8.7">
+<h2 data-number="8.7" class="anchored" data-anchor-id="sugestões-de-materiais"><span class="header-section-number">8.7</span> Sugestões de materiais</h2>
+<ul>
+<li><a href="https://ipeadata-lab.github.io/curso_r_intermediario_202501/dados-espaciais.html">Dados espaciais no R</a> - material do curso “R intermediário e pesquisa reprodutível”</li>
+</ul>
 
 
 </section>
