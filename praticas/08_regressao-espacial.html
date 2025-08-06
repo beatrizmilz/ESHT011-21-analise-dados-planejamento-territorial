@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.7.33">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -75,7 +75,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-5fd9db47a040b21ac2cac9a0b3b722ba.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -919,16 +919,19 @@ Quasi-global R2: 0.3793284 </code></pre>
 <p>Também é importante verificar os parâmetros locais estimados e o coeficiente local de determinação (R²). Para visualizar esses parâmetros, vamos exportar uma nova base de dados (em formato geopackage ou shapefile) para abrir e visualizar no QGIS.</p>
 <p>O código abaixo indica como executar essa última etapa.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>agua_rede_gwr <span class="ot">&lt;-</span> <span class="fu">cbind</span>(agua_rede_sf_sp_centroide, <span class="fu">as.matrix</span>(<span class="fu">as.data.frame</span>(gwr_modelo<span class="sc">$</span>SDF)))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>agua_rede_gwr <span class="ot">&lt;-</span> <span class="fu">cbind</span>(agua_rede_sf_sp_centroide,</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>                       <span class="fu">as.matrix</span>(<span class="fu">as.data.frame</span>(gwr_modelo<span class="sc">$</span>SDF))) <span class="sc">|&gt;</span></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">t_beta1 =</span> RENDAPITA<span class="fl">.1</span> <span class="sc">/</span> RENDAPITA_se)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>As novas variáveis são:</p>
 <ul>
-<li>X.Intercept = valores locais de beta zero (intercepto)</li>
-<li>RENDAPITA.1 = valores locais do coeficiente de renda per capita (X1)</li>
-<li>X.Intercept._se = erro padrão de beta zero (intercepto)</li>
-<li>RENDAPITA_se = erro padrão do coeficiente estimado para renda per capita (X1)</li>
-<li>pred = valores previstos de Y</li>
-<li>localR2 = valores locais de R2</li>
+<li><code>X.Intercept</code> = valores locais de beta zero (intercepto)</li>
+<li><code>RENDAPITA.1</code> = valores locais do coeficiente de renda per capita (X1)</li>
+<li><code>X.Intercept_se</code> = erro padrão de beta zero (intercepto)</li>
+<li><code>RENDAPITA_se</code> = erro padrão do coeficiente estimado para renda per capita (X1)</li>
+<li><code>t_beta1</code> = estatística t local para o coeficiente de renda per capita</li>
+<li><code>pred</code> = valores previstos de Y</li>
+<li><code>localR2</code> = valores locais de R2</li>
 </ul>
 <p>Para interpretar os resultados do GWR, é importante mapear algumas estatísticas, tais como o R2 local, os coeficientes beta e estatísticas t.</p>
 <p>Para obter a estatística t para cada coeficiente beta, deve-se dividir os valores dos coeficientes (por exemplo, RENDAPITA.1) por seus respectivos erros padrão (RENDAPITA_se). Se o módulo da estatística t for maior do que o valor do t crítico, pode-se rejeitar a hipótese nula de que beta é igual a zero (ou seja, beta é significativo).</p>
