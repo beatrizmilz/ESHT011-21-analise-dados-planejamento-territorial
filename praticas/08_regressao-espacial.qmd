@@ -79,8 +79,6 @@ library(spgwr)
 
 ## Importando os dados
 
-
-
 Para facilitar o download, você pode usar o código abaixo, que cria uma pasta chamada "dados" e baixa o arquivo geopackage para essa pasta. O arquivo será salvo com o nome `agua_rede_sf.gpkg`:
 
 ```{r}
@@ -368,17 +366,19 @@ Também é importante verificar os parâmetros locais estimados e o coeficiente 
 O código abaixo indica como executar essa última etapa.
 
 ```{r}
-agua_rede_gwr <- cbind(agua_rede_sf_sp_centroide, as.matrix(as.data.frame(gwr_modelo$SDF)))
+agua_rede_gwr <- cbind(agua_rede_sf, as.matrix(as.data.frame(gwr_modelo$SDF))) |>
+  mutate(t_beta1 = RENDAPITA.1 / RENDAPITA_se)
 ```
 
 As novas variáveis são:
 
--   X.Intercept = valores locais de beta zero (intercepto)
--   RENDAPITA.1 = valores locais do coeficiente de renda per capita (X1)
--   X.Intercept.\_se = erro padrão de beta zero (intercepto)
--   RENDAPITA_se = erro padrão do coeficiente estimado para renda per capita (X1)
--   pred = valores previstos de Y
--   localR2 = valores locais de R2
+-   `X.Intercept` = valores locais de beta zero (intercepto)
+-   `RENDAPITA.1` = valores locais do coeficiente de renda per capita (X1)
+-   `X.Intercept_se` = erro padrão de beta zero (intercepto)
+-   `RENDAPITA_se` = erro padrão do coeficiente estimado para renda per capita (X1)
+-   `t_beta1` = estatística t local para o coeficiente de renda per capita
+-   `pred` = valores previstos de Y
+-   `localR2` = valores locais de R2
 
 Para interpretar os resultados do GWR, é importante mapear algumas estatísticas, tais como o R2 local, os coeficientes beta e estatísticas t.
 
