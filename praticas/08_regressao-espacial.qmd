@@ -6,11 +6,26 @@ title: "Prática - Regressão Espacial"
 Essa prática foi adaptada do roteiro criado por [Luis Felipe Bortolatto da Cunha](luisfelipebr.github.io/mti2020/roteiros/roteiro7.html) para edições passadas dessa disciplina.
 :::
 
+::: callout-warning
+## Download do arquivo `.qmd`
+
+Sugestão: abra o projeto no RStudio (que está usando ao longo do curso), e faça o download deste arquivo (em formato `.qmd`) com o código abaixo.
+
+```{r}
+#| eval: false
+download.file(
+  url = "https://raw.githubusercontent.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial/refs/heads/main/praticas/08_regressa-espacial.qmd",
+  destfile = "08_regressa-espacial.qmd",
+)
+```
+:::
+
 ## Introdução
 
 Este roteiro tem como objetivo auxiliar na execução de **modelos de regressão espacial** (Spatial Lag, Spatial Error e GWR) com o software R.
 
 Para executar os modelos de regressão espacial vamos utilizar dados demográficos e de consumo de água de 2010, para uma amostra de 4.417 municípios, extraídos do Censo Demográfico (IBGE) e do Sistema Nacional de Informações sobre Saneamento (SNIS), conforme análise apresentada por [Carmo et al., 2013](https://abrh.s3.sa-east-1.amazonaws.com/Sumarios/155/ea6a64ffc76c211d6b7749ab8444b626_bf87b0b219dd784ffa049f367598e626.pdf).
+
 
 A base de dados está disponível para download no endereço abaixo:
 
@@ -63,6 +78,20 @@ library(spgwr)
 ```
 
 ## Importando os dados
+
+
+
+Para facilitar o download, você pode usar o código abaixo, que cria uma pasta chamada "dados" e baixa o arquivo geopackage para essa pasta. O arquivo será salvo com o nome `agua_rede_sf.gpkg`:
+
+```{r}
+# Criando a pasta para armazenar os dados
+fs::dir_create("dados")
+
+# Download do arquivo geopackage
+download.file("https://github.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial/raw/refs/heads/main/praticas/dados/agua_rede_sf.gpkg", 
+              destfile = "dados/agua_rede_sf.gpkg", 
+              mode = "wb")
+```
 
 A base de dados está em formato geopackage (.gpkg) e pode ser importada com a função `read_sf()`.
 
@@ -368,3 +397,9 @@ Para exportar como shapefile:
 ```{r, eval = FALSE}
 write_sf(agua_rede_gwr, "dados/agua_rede_gwr.shp")
 ```
+
+## Sugestões de materiais
+
+- [Dados espaciais no R](https://ipeadata-lab.github.io/curso_r_intermediario_202501/dados-espaciais.html) - material do curso "R intermediário e pesquisa reprodutível"
+
+
