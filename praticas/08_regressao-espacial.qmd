@@ -14,8 +14,8 @@ Sugestão: abra o projeto no RStudio (que está usando ao longo do curso), e fa�
 ```{r}
 #| eval: false
 download.file(
-  url = "https://raw.githubusercontent.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial/refs/heads/main/praticas/08_regressa-espacial.qmd",
-  destfile = "08_regressa-espacial.qmd",
+  url = "https://raw.githubusercontent.com/beatrizmilz/ESHT011-21-analise-dados-planejamento-territorial/refs/heads/main/praticas/08_regressao-espacial.qmd",
+  destfile = "08_regressao-espacial.qmd",
 )
 ```
 :::
@@ -25,11 +25,6 @@ download.file(
 Este roteiro tem como objetivo auxiliar na execução de **modelos de regressão espacial** (Spatial Lag, Spatial Error e GWR) com o software R.
 
 Para executar os modelos de regressão espacial vamos utilizar dados demográficos e de consumo de água de 2010, para uma amostra de 4.417 municípios, extraídos do Censo Demográfico (IBGE) e do Sistema Nacional de Informações sobre Saneamento (SNIS), conforme análise apresentada por [Carmo et al., 2013](https://abrh.s3.sa-east-1.amazonaws.com/Sumarios/155/ea6a64ffc76c211d6b7749ab8444b626_bf87b0b219dd784ffa049f367598e626.pdf).
-
-
-A base de dados está disponível para download no endereço abaixo:
-
-<https://1drv.ms/u/s!AjettDH-3Gbni9kP8cPtA04EBQQ7xQ?e=4dyWz5>
 
 ## Carregando os pacotes
 
@@ -115,27 +110,27 @@ names(agua_rede_sf)
 
 Os nomes das variáveis estão codificados, apresentando correspondência às variáveis descritas abaixo:
 
-| Código | Descrição |
-|----------------|--------------------------------------------------------|
-| ID_IBGE | Código IBGE (7 dígitos) |
-| DOMICIL | Quantidade de Domicílios |
-| REDE | Quantidade de Domicílios com Acesso à Rede Geral de Água |
-| PROPREDE | Proporção de Domicílios com com Acesso à Rede Geral de Água (REDE/DOMICIL) |
-| ID_SNIS | Código IBGE (6 dígitos) |
-| NOME_MUN | Nome do Município |
-| UF | Unidade da Federação |
-| REGIAO | Região do País |
-| PIB | Produto Interno Bruto 2010 |
-| RENDAPITA | Renda per Capita 2010 |
-| GINI | Índice GINI 2010 |
-| IDH | Índice de Desenvolvimento Humano 2010 |
+| Código    | Descrição                                                                                                              |
+|------------------|------------------------------------------------------|
+| ID_IBGE   | Código IBGE (7 dígitos)                                                                                                |
+| DOMICIL   | Quantidade de Domicílios                                                                                               |
+| REDE      | Quantidade de Domicílios com Acesso à Rede Geral de Água                                                               |
+| PROPREDE  | Proporção de Domicílios com com Acesso à Rede Geral de Água (REDE/DOMICIL)                                             |
+| ID_SNIS   | Código IBGE (6 dígitos)                                                                                                |
+| NOME_MUN  | Nome do Município                                                                                                      |
+| UF        | Unidade da Federação                                                                                                   |
+| REGIAO    | Região do País                                                                                                         |
+| PIB       | Produto Interno Bruto 2010                                                                                             |
+| RENDAPITA | Renda per Capita 2010                                                                                                  |
+| GINI      | Índice GINI 2010                                                                                                       |
+| IDH       | Índice de Desenvolvimento Humano 2010                                                                                  |
 | IDH_CLASS | Classificação do Índice de Desenvolvimento Humano 2010: Muito Alto \>= 0,9; Alto \>= 0,8; Médio \>= 0,5; Baixo \< 0,5. |
-| GE012 | População Total Residente no Município |
-| AG001 | População Total Atendida com Abastecimento de Água |
-| AG020 | Volume Micromedido nas Economias Residenciais Ativas de Agua - 1.000 m3/ano |
-| AG022 | Quantidade de Economias Residenciais Ativas Micromedidas |
-| CONSUMO1 | Consumo de Água per capita - População Total - m3/ano (AG020/GE012) |
-| CONSUMO2 | Consumo de Água per capita - População Atendida - m3/ano (AG020/AG001) |
+| GE012     | População Total Residente no Município                                                                                 |
+| AG001     | População Total Atendida com Abastecimento de Água                                                                     |
+| AG020     | Volume Micromedido nas Economias Residenciais Ativas de Agua - 1.000 m3/ano                                            |
+| AG022     | Quantidade de Economias Residenciais Ativas Micromedidas                                                               |
+| CONSUMO1  | Consumo de Água per capita - População Total - m3/ano (AG020/GE012)                                                    |
+| CONSUMO2  | Consumo de Água per capita - População Atendida - m3/ano (AG020/AG001)                                                 |
 
 Além delas, estão presentes outras variáveis que trazem os resultados do modelo de regressão linear (.fitted, .resid, .std.resid, .hat, .sigma, .cooksd), conforme apresentado no [Roteiro 5](https://luisfelipebr.github.io/mti2020/roteiros/roteiro5.html).
 
@@ -401,6 +396,4 @@ write_sf(agua_rede_gwr, "dados/agua_rede_gwr.shp")
 
 ## Sugestões de materiais
 
-- [Dados espaciais no R](https://ipeadata-lab.github.io/curso_r_intermediario_202501/dados-espaciais.html) - material do curso "R intermediário e pesquisa reprodutível"
-
-
+-   [Dados espaciais no R](https://ipeadata-lab.github.io/curso_r_intermediario_202501/dados-espaciais.html) - material do curso "R intermediário e pesquisa reprodutível"
